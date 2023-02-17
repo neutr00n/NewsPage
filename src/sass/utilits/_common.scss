@@ -1,0 +1,29 @@
+body {
+  font-family: $primary-font;
+
+  background-color: var(--primary-bg-color);
+  color: var(--primary-text-color);
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 16px;
+
+  @media screen and (min-width: $mobile) {
+    width: $mobile;
+  }
+
+  @media screen and (min-width: $tablet) {
+    width: $tablet;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: $desktop;
+  }
+}
+
+.dark-theme {
+  color: getColor('primary-bg-color');
+  background-color: getColor('dark-bg-color');
+  fill: getColor('primary-bg-color');
+}

@@ -1,0 +1,40 @@
+$primary-font: 'Manrope', sans-serif;
+$secondary-font: 'Poppins', sans-serif;
+$weather-font: 'Roboto', sans-serif;
+
+$transition-duration: 600ms;
+$timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
+$mobile: 320px;
+$tablet: 768px;
+$desktop: 1200px;
+
+$mobile-max: 767.98px;
+$tablet-max: 1279.98px;
+
+:root {
+  --primary-text-color: #111321;
+
+  --primary-bg-color: #f4f4f4;
+  --dark-bg-color: #686868;
+  --footer-bg-color: #7a7a7a;
+
+  --accent-color: #4440f6;
+  --switcher-color: #4b48db;
+  --theme-color: #5f6775;
+
+  --header-underline-color: rgba(0, 0, 0, 0.2);
+  --gray-color: #a8a8a8;
+
+  // статические цвета. Не менять!
+  --white-color: #ffffff;
+  --light-color: #f4f4f4;
+}
+
+[dark] {
+  --primary-text-color: #f4f4f4;
+
+  --primary-bg-color: #2e2e2e;
+
+  --header-underline-color: rgba(244, 244, 244, 0.2);
+}
