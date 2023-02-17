@@ -12,3 +12,4 @@ import './js/dark_theme';
 import './js/news-filter';
 import './js/calendar';
 import './js/weather';
+import './js/pagination';
