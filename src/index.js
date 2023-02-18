@@ -13,3 +13,5 @@ import './js/news-filter';
 import './js/calendar';
 import './js/weather';
 import './js/pagination';
+
+import './js/news-filter/news-victoria';

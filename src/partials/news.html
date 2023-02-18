@@ -2,9 +2,14 @@
 <body>
     <header>
         <div class="header-top">
-            <form type="submit">
-                <input type="text" name="input" placeholder="Search">
-            </form>
+        <form class="search-form" autocomplete="off">
+            <span class="search-form__file">
+                <input class="search-form__input" type="text" name="searchQuery" placeholder="Search images..." />
+                <svg class="search-form__icon" width="20" height="20">
+                    <use href="./images/symbol-defs.svg#icon-search"></use>
+                </svg>
+            </span>
+        </form>
         </div>
     </header>
     <main>
