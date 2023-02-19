@@ -9,7 +9,7 @@ async function getWeatherStandart(){
         return await response.json();
     }
         catch(err){
-            Notiflix.Notify.failure(err.text);
+            Notiflix.Notify.failure(err);
         }
     }
     
@@ -19,7 +19,7 @@ async function getWeatherGeo(position){
         return await response.json();
         }
         catch(err){
-            Notiflix.Notify.failure(err.text);
+            Notiflix.Notify.failure(err);
         }
     }
 
@@ -34,7 +34,7 @@ async function createMarkup(promise){
     <p class="weather-card__mood">${weather[0].main}</p> 
     <p class="weather-card__city-name weather-card__text--block">
     <svg class = "weather-card__icon">
-    <use href="/symbol-defs.a8b2e413.svg#icon-location"></use></svg>${name}</p>
+    <use href="./images/symbol-defs.svg#icon-location"></use></svg>${name}</p>
     </div>
     </div> 
     <img src=https://openweathermap.org/img/wn/${weather[0].icon}@4x.png alt="weather icon" class="weather-card__img"/>
@@ -42,8 +42,6 @@ async function createMarkup(promise){
     <p class="weather-card__date">${format(new Date(date), 'dd LLL y')}</p>
     <a  href="https://sinoptik.ua" class="weather-card__link weather-card__text--block">weather for week</a></div>`;
     const element = document.querySelector(".weather");
-    // element.innerHTM="";
-    // element.innerHTML=markUp;
     element.insertAdjacentHTML('beforeend',markUp);
     }
     catch(err){
