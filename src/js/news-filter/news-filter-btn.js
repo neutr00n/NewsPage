@@ -31,7 +31,7 @@ function handleCategoriesContainerClick(event) {
   const currentActiveBtn = event.currentTarget.querySelector('.active');
   currentActiveBtn?.classList.remove('active');
 
-  nextActiveBtn = event.target;
+  const nextActiveBtn = event.target;
 
   nextActiveBtn.classList.add('active');
 
