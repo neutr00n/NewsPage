@@ -1,0 +1,129 @@
+@import '../utilits/mixins';
+.weather-card {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 32px 36px;
+  border-radius: 4px;
+   font-family: 'Roboto';
+   width: 100%;
+   height: 100%;
+  @include breakpoint(tablet) {
+    padding: 40px 0px 40px 0px;
+  }
+  @include breakpoint(desktop) {
+    
+    padding: 20px 53px;
+    padding-top: 40px;
+  }
+
+  &__top{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+    @include breakpoint(tablet) {
+      margin-bottom: 65px;
+    }
+  }
+  &__temp {
+      font-weight: 400;
+      font-size: 55px;
+      border-right: 1px solid white;
+      padding-right: 8px;
+    @include breakpoint(tablet) {
+      font-size: 64px;
+    }
+  }
+  &__location {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+ 
+  }
+  &__mood {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: calc(28 / 24);
+    @include breakpoint(tablet) {
+      font-size: 36px;
+      line-height: calc(42 / 36);
+    }
+  }
+  &__city-name{
+    display: flex;
+    align-items: center;
+    padding-right: 8px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(254, 254, 255, 0.3);
+    font-size: 14px;
+    line-height: calc(16 / 14);
+    @include breakpoint(tablet) {
+      height: 42px;
+      padding-right: 17px;
+    }
+  }
+  &__text--block{
+    border-radius: 10px;
+    background: rgba(254, 254, 255, 0.3);
+    font-weight: 400;
+    @include breakpoint(tablet) {
+        font-size: 20px;
+        line-height: calc(23 / 20);
+    }
+  }
+  &__img {
+    margin-bottom: 20px;
+    width: 167px;
+    margin-left: auto;
+    margin-right: auto;
+    @include breakpoint(tablet) {
+      margin-bottom: 65px;
+      width: 205px;
+    }
+  }
+  &__date {
+    text-align: center;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 33px;
+    // margin-bottom: 20px;
+    @include breakpoint(tablet){
+      font-size: 36px;
+      line-height: calc(42 / 36);
+      
+    }
+    &:nth-child(2n){
+      margin-bottom: 20px;
+      @include breakpoint(tablet){
+        margin-bottom: 28px;
+      }
+    }
+  }
+  &__link {
+    display: block;
+    text-align: center;
+    padding: 8px 14px;
+    width: 151px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: calc(19 / 16);
+    @include breakpoint(tablet) {
+    font-size: 20px;
+      padding: 10px 12px;
+      width: 177px;
+    }
+  }
+  &__icon{
+    fill:white;
+    height: 18px;
+      width: 18px;
+      margin-right:4px ;
+      margin-left:4px;
+    @include breakpoint(tablet) {
+      height: 27px;
+    width: 27px;
+    margin-right:8px;
+    margin-left:8px;
+      }
+  }}
