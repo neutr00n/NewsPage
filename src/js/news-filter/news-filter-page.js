@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { addWeather } from '../weather/index';
 
 const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
@@ -18,6 +19,7 @@ function popularNews() {
     )
     .then(response => {
       markUpNewsPopular(response.data.results);
+      addWeather();
     })
     .then(() => readMore())
     .catch(error => console.log('error'));
@@ -56,7 +58,7 @@ function markUpNewsPopular(arr) {
       .join('');
     return array;
   }
-  listNews.innerHTML = `<div class="weather">Weather</div>`;
+  listNews.innerHTML = `<div class="weather"></div>`;
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
 
