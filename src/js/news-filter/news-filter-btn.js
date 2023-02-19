@@ -38,7 +38,9 @@ function handleCategoriesContainerClick(event) {
   removeCategoriesFilterClass();
 
   checkCategory = event.target.textContent;
-  normalizeCheckCategory = encodeURIComponent(checkCategory.toLowerCase());
+  const normalizeCheckCategory = encodeURIComponent(
+    checkCategory.toLowerCase()
+  );
 
   console.log(normalizeCheckCategory);
 }
