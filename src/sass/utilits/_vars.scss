@@ -30,6 +30,7 @@ $tablet-max: 1279.98px;
   // статические цвета. Не менять!
   --white-color: #ffffff;
   --light-color: #f8f8f8;
+  --categories-filter-bnt--bgcolor: #f4f4f4;
 }
 
 [dark] {
@@ -38,4 +39,5 @@ $tablet-max: 1279.98px;
   --primary-bg-color: #2e2e2e;
 
   --header-underline-color: rgba(244, 244, 244, 0.2);
+  --categories-filter-bnt-bg-color: #ffffff;
 }

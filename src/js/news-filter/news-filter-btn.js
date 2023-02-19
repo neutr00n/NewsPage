@@ -46,7 +46,7 @@ function handleCategoriesContainerClick(event) {
 function handleCategoriesFilterBtnClick(event) {
   getFetchCategoriesDataToClick();
 
-  if (event.target.dataset.categories === 'open') {
+  if (event.currentTarget.dataset.categories === 'open') {
     removeCategoriesFilterClass();
     return;
   }

@@ -1,3 +1,15 @@
+.news {
+  padding: 24px 0 60px 0;
+
+  @include breakpoint(tablet) {
+    padding: 28px 0 100px 0;
+  }
+
+  @include breakpoint(desktop) {
+    padding: 28px 0 150px 0;
+  }
+}
+
 .filter-elements {
   display: flex;
   justify-content: space-between;
@@ -62,7 +74,7 @@
     line-height: 1.33;
 
     color: var(--switcher-color);
-    background-color: transparent;
+    background-color: var(--categories-filter-bnt-bg-color);
     border: 1px solid var(--accent-color);
     border-radius: 20px;
     cursor: pointer;
@@ -149,10 +161,6 @@
       filter: drop-shadow(0px 10px 60px rgba(0, 0, 0, 0.1));
     }
   }
-
-  // &__element:not(:last-child) {
-  //   margin-bottom: 12px;
-  // }
 
   &__link {
     display: block;
