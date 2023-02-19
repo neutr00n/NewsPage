@@ -1,0 +1,104 @@
+.header-form {
+  position: relative;
+
+  @media screen and (max-width: $mobile-max) {
+    margin-left: 14px;
+  }
+
+  @media screen and (min-width: $tablet) {
+    margin-left: 32px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    margin-left: 147px;
+  }
+}
+
+.header-form__input {
+  @media screen and (max-width: $mobile-max) {
+    padding: 0px;
+    width: 0px;
+
+    outline: none;
+    border: none;
+
+    transition: $transition-duration;
+  }
+
+  @media screen and (min-width: $tablet) {
+    padding: 6px 12px 6px 48px;
+    width: 213px;
+
+    border: 1px solid var(--primary-text-color);
+    border-radius: 20px;
+
+    background-color: transparent;
+  }
+
+  @media screen and (min-width: $desktop) {
+    width: 288px;
+  }
+
+  &::placeholder {
+    font-size: 12px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+    opacity: 0.4;
+    color: var(--primary-text-color);
+
+    @media screen and (min-width: $tablet) {
+      font-size: 14px;
+      line-height: 1.71;
+    }
+  }
+
+  color: var(--primary-text-color);
+}
+
+.header-form__btn {
+  position: absolute;
+
+  border: none;
+  cursor: pointer;
+
+  background-color: inherit;
+
+  @media screen and (max-width: $mobile-max) {
+    top: 0px;
+    left: 140px;
+
+    transition: $transition-duration;
+  }
+
+  @media screen and (min-width: $tablet) {
+    top: 6px;
+    left: 12px;
+
+    outline: none;
+  }
+
+  &-icon {
+    fill: var(--primary-text-color);
+  }
+}
+
+.header-form:hover > .header-form__input {
+  @media screen and (max-width: $mobile-max) {
+    padding: 6px 12px 6px 48px;
+    width: 173px;
+
+    border: 1px solid var(--primary-text-color);
+    border-radius: 20px;
+
+    background-color: transparent;
+  }
+
+  transition: $transition-duration;
+}
+
+.header-form:hover > .header-form__btn {
+  @media screen and (max-width: $mobile-max) {
+    top: 6px;
+    left: 6px;
+  }
+}
