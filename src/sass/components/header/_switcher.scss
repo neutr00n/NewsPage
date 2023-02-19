@@ -1,0 +1,127 @@
+.switcher-wrapper {
+  @media screen and (max-width: 767px) {
+    display: none;
+    visibility: hidden;
+    pointer-events: none;
+
+    &.mobile {
+      position: fixed;
+      visibility: visible;
+      display: flex;
+      pointer-events: all;
+      visibility: inherit;
+
+      bottom: 24px;
+      left: 16px;
+
+      z-index: 12;
+    }
+  }
+
+  margin-left: auto;
+  display: flex;
+}
+
+.switcher {
+  position: relative;
+
+  padding: 2px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  border: none;
+}
+
+.switcher__legend {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.switcher__radio {
+  appearance: none;
+  margin: 0;
+  width: 18px;
+  height: 16px;
+
+  background-position: center;
+  background-repeat: no-repeat;
+
+  background-size: 24px;
+}
+
+.switcher__status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+
+  border-radius: 18px;
+  border: 1px solid var(--switcher-color);
+  background-color: var(--white-color);
+
+  background-image: url(../images/l-radio.svg);
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: left 2px center;
+
+  transition: 250ms;
+}
+
+.switcher__radio--lignt:checked ~ .switcher__status {
+  background-position: left 2px center;
+}
+
+.switcher__radio--dark:checked ~ .switcher__status {
+  background-position: right 2px center;
+  background-image: url(../images/d-radio.svg);
+  border: 1px solid var(--white-color);
+  background-color: var(--switcher-color);
+}
+
+.switcher-icon {
+  stroke: var(--theme-color);
+
+  &--light {
+    margin-right: 8px;
+  }
+
+  &--dark {
+    margin-left: 8px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    display: none;
+  }
+}
+
+.switcher-icon.is-light,
+.switcher-icon.is-dark {
+  stroke: var(--switcher-color);
+}
+
+.switcher-indicator {
+  @media screen and (max-width: $tablet-max) {
+    display: none;
+  }
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--theme-color);
+
+  stroke: var(--theme-color);
+  &--light {
+    margin-right: 12px;
+  }
+
+  &--dark {
+    margin-left: 12px;
+  }
+}
+
+.switcher-indicator.is-light,
+.switcher-indicator.is-dark {
+  color: var(--switcher-color);
+}
