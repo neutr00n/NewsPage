@@ -2,6 +2,10 @@
 @import './search-form';
 @import './switcher';
 
+.header-page {
+  border-bottom: 1px solid var(--header-underline-color);
+}
+
 .header-container {
   display: flex;
   align-items: center;
@@ -17,8 +21,6 @@
     padding: 28px 16px;
     align-items: baseline;
   }
-
-  border-bottom: 1px solid var(--header-underline-color);
 }
 
 .logo {

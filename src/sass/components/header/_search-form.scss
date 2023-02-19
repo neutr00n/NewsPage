@@ -15,14 +15,18 @@
 }
 
 .header-form__input {
+  display: inline-block;
+
   @media screen and (max-width: $mobile-max) {
-    padding: 0px;
-    width: 0px;
+    width: 31px;
+    height: 31px;
+    padding: 5px 0px 5px 48px;
+
+    transform: translateX(121px);
 
     outline: none;
     border: none;
-
-    transition: $transition-duration;
+    background-color: transparent;
   }
 
   @media screen and (min-width: $tablet) {
@@ -64,10 +68,13 @@
   background-color: inherit;
 
   @media screen and (max-width: $mobile-max) {
-    top: 0px;
+    padding: 2px;
     left: 140px;
+    top: 5px;
 
-    transition: $transition-duration;
+    z-index: 2;
+
+    transition: 250ms;
   }
 
   @media screen and (min-width: $tablet) {
@@ -84,8 +91,10 @@
 
 .header-form:hover > .header-form__input {
   @media screen and (max-width: $mobile-max) {
-    padding: 6px 12px 6px 48px;
+    padding: 6px 0px 8px 48px;
     width: 173px;
+
+    transform: translate(0%);
 
     border: 1px solid var(--primary-text-color);
     border-radius: 20px;
@@ -93,12 +102,12 @@
     background-color: transparent;
   }
 
-  transition: $transition-duration;
+  transition: 250ms;
 }
 
 .header-form:hover > .header-form__btn {
   @media screen and (max-width: $mobile-max) {
-    top: 6px;
-    left: 6px;
+    top: 4px;
+    left: 12px;
   }
 }
