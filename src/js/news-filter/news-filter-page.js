@@ -31,7 +31,7 @@ function popularNews() {
       markUpNewsPopular(response.data.results);
           addWeather();
     })
-    .then(() => readMore())
+    // .then(() => readMore())
     .catch(error => console.log('error'))
    // ------------------------------------------------------------------------------------------------------------------
     .finally(makeOpacityReadedNews);
@@ -183,33 +183,32 @@ return `<div class="set" data-id=${id}>
       //   idLenght = newsId
       // ) */}
 
-function readMore() {
+// function readMore() {
 
-  listNews.addEventListener('click', readMoreVision);
+//   listNews.addEventListener('click', readMoreVision);
 
-  function readMoreVision(event) {
-    const elementRead = event.target.classList.contains("read");
-    if (!elementRead) {
-      return
-    } else {
-      console.log(event.target);
-      const overlay =  event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling;
-      const alredy= event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.childNodes[3];
+//   function readMoreVision(event) {
+//     const elementRead = event.target.classList.contains("read");
+//     if (!elementRead) {
+//       return
+//     } else {
+//       console.log(event.target);
+//       const overlay =  event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling;
+//       const alredy= event.target.parentNode.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.previousSibling.childNodes[3];
      
-      overlay.classList.remove('noActive-over');
-      overlay.classList.add('active-over');
+//       overlay.classList.remove('noActive-over');
+//       overlay.classList.add('active-over');
 
-      alredy.classList.remove('noActive-rmBtn');
-      alredy.classList.add('active-rmBtn');
-    }
+//       alredy.classList.remove('noActive-rmBtn');
+//       alredy.classList.add('active-rmBtn');
+//     }
 
-  }
-}
+//   }
+// }
 
 // --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
 function getNewsToLocalStorage(e) {
-    e.preventDefault();
-    const readMoreLinks = document.querySelectorAll('.read')
+       const readMoreLinks = document.querySelectorAll('.read')
   const DateNow = new Date().toLocaleDateString([], { year: 'numeric', month: 'numeric', day: 'numeric' }).replaceAll('.', '/');
       readMoreLinks.forEach(link=>{
         if (e.target === link) {
@@ -225,7 +224,7 @@ function getNewsToLocalStorage(e) {
                 // readDate: "16/02/2023",
                 readDate: DateNow,
             };
-            for (item of arrayOfReadNews) {
+            for (const item of arrayOfReadNews) {
                 if (item.id === objectRead.id) {return;};
           };
           e.target.parentNode.parentNode.firstElementChild.classList.remove('noActive-over');
