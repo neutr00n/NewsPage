@@ -6,11 +6,6 @@
     --color-secondary-text: rgba(168, 168, 168, 1);
 }
 
-//-------------------------------------------------------------------------------------------
-// після створення розділу погода, видалити------------------------------------------------------
-
-
-//----------------------------------------------------------------------------------------------------
 
 .list-news {
     margin-right: auto;
@@ -26,11 +21,15 @@
     width: 288px;
 }
 
-.set:nth-child(4) .overlay {
+.noActive-over {
+    display: none;
+}
+
+.active-over {
     width: 100%;
     height: 100%;
     background-color: rgba(244, 244, 244, 0.4);
-    ;
+    
     position: absolute;
     top: 0;
     left: 0;
@@ -69,8 +68,8 @@
 
 }
 
-.already-read-button {
-    opacity: 0;
+
+.active-rmBtn {
     position: absolute;
     top: 14px;
     right: 36px;
@@ -81,12 +80,11 @@
     line-height: 19px;
 
     color: #00DD73;
-    background-color: inherit;
-    border: none;
 }
 
-.already-read-button {
-    opacity: 0;
+.noActive-rmBtn {
+display: none;
+
 }
 
 .button-add {
@@ -229,14 +227,14 @@
     }
 
     .weather {
-        width: 353px;
+        width: 395px;
         height: 675px;
         margin-bottom: 0;
         order: 2;
     }
 
     .set {
-        width: 353px;
+        width: 395px;
         margin-bottom: 0;
         order: 3;
     }
@@ -250,7 +248,7 @@
     }
 
     .thumb {
-        width: 353px;
+        width: 395px;
         height: 395px;
     }
 
