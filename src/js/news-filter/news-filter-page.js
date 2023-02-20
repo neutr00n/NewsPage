@@ -131,7 +131,7 @@ function searchNewsfromApi(event) {
         addWeather();
       }
     })
-    .finally(makeOpacityReadedNews, auditArrayNews);
+    .finally(makeOpacityReadedNews);
 }
 
 function markUpSearchNews(arr) {
@@ -322,8 +322,6 @@ function getNewsArray(e) {
 }
 
 function deletNews(e) {
-  isChecket = e.target.checked;
-
   const findIndex = +idArrayPars.findIndex(
     el => el.idLenght === +e.target.attributes[2].value
   );

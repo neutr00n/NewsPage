@@ -59,8 +59,6 @@ function deletNewsFavorite(e) {
   if (!e.target.classList.contains('button')) {
     return;
   } else if (e.target.classList.contains('add')) {
-    isChecket = e.target.checked;
-
     const findIndex = +idArrayPars.findIndex(
       el => el.idLenght === +e.target.attributes[2].value
     );
