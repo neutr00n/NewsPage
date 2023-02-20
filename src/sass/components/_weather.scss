@@ -1,4 +1,10 @@
 @import '../utilits/mixins';
+.weather{
+  margin-bottom:28px;
+  @include breakpoint(tablet) {
+    margin-bottom: 0px;
+  }
+}
 .weather-card {
   background-color: var(--accent-color);
   color: white;
@@ -41,6 +47,7 @@
  
   }
   &__mood {
+    margin-bottom: 5px ;
     font-weight: 400;
     font-size: 24px;
     line-height: calc(28 / 24);
@@ -73,7 +80,7 @@
     }
   }
   &__img {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     width: 167px;
     margin-left: auto;
     margin-right: auto;
@@ -118,12 +125,10 @@
     fill:white;
     height: 18px;
       width: 18px;
-      margin-right:4px ;
       margin-left:4px;
     @include breakpoint(tablet) {
       height: 27px;
     width: 27px;
-    margin-right:8px;
     margin-left:8px;
       }
   }}
