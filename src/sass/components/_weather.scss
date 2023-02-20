@@ -62,7 +62,6 @@
     padding-right: 8px;
     height: 34px;
     border-radius: 10px;
-    background: rgba(254, 254, 255, 0.3);
     font-size: 14px;
     line-height: calc(16 / 14);
     @include breakpoint(tablet) {
@@ -115,10 +114,14 @@
     margin: 0 auto;
     font-size: 16px;
     line-height: calc(19 / 16);
+    transition: background-color $transition-duration $timing-function;
     @include breakpoint(tablet) {
     font-size: 20px;
       padding: 10px 12px;
       width: 177px;
+    }
+    &:hover{
+      background-color: rgba(175, 170, 170, 0.3); ;
     }
   }
   &__icon{
