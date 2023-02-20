@@ -1,49 +1,26 @@
-import axios from 'axios';
+
 import { addWeather } from '../weather/index';
 import { markUpPage } from '../markup/index';
 import { input, form, listNews, notFound } from '../refs/index';
+import { makeOpacityReadedNews } from '../read/news-read';
+import { fetchPopular } from '../api/index.js';
+import {fetchSearch} from '../api/index.js';
 
-const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
-const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
-
-const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
-let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
-let idArrayPars = JSON.parse(idArray) || [];
-
-let newsId = 0;
-
-// ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-import { setStorage, getStorage } from '../local-storage';
-listNews.addEventListener('click', getNewsToLocalStorage);
-listNews.addEventListener('change', getNewsArray);
-// -----------------------------------------------------------------------------------------------------------------------------------------------------------
-let arrayOfReadNews = [];
-getStorage('readNews')
-  ? (arrayOfReadNews = [...getStorage('readNews')])
-  : (arrayOfReadNews = []);
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 form.addEventListener('submit', searchNewsfromApi);
-window.addEventListener('DOMContentLoaded', idDone);
 
-popularNews();
 
-idDone();
+popularNewsfromApi() 
 
-function popularNews() {
-  axios
-    .get(
-      `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY_P}`
-    )
+function popularNewsfromApi() {
+    fetchPopular()
     .then(response => {
       markUpNewsPopular(response.data.results);
       addWeather();
     })
-    // .then(() => readMore())
+ // .then(() => readMore())
     .catch(error => console.log('error'))
-    // ------------------------------------------------------------------------------------------------------------------
     .finally(makeOpacityReadedNews);
-  // -----------------------------------------------------------------------------------------------------------------------;;
 }
 
 function markUpNewsPopular(arr) {
@@ -114,12 +91,10 @@ function searchNewsfromApi(event) {
   notFound.classList.add('not-found-hidden');
 
   const name = input.value;
-  console.log(name);
   const date = '2023-02-16';
-  axios
-    .get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${name}&api-key=${API_KEY_S}&begin_date=${date}&end_date=${date}`
-    )
+
+
+  fetchSearch(date, name)
     .then(response => {
       const arr = response.data.response.docs;
       if (arr.length === 0) {
@@ -230,87 +205,17 @@ function markUpSearchNews(arr) {
 //   }
 // }
 
-// --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
-function getNewsToLocalStorage(e) {
-  const readMoreLinks = document.querySelectorAll('.read');
-  const DateNow = new Date()
-    .toLocaleDateString([], {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-    })
-    .replaceAll('.', '/');
-  readMoreLinks.forEach(link => {
-    if (e.target === link) {
-      //  console.log()
-      const objectRead = {
-        category:
-          e.target.parentNode.parentNode.firstElementChild.nextSibling
-            .nextSibling.childNodes[5].innerText,
-        photo:
-          e.target.parentNode.parentNode.firstElementChild.nextSibling
-            .nextSibling.firstElementChild.src,
-        date: e.target.parentNode.firstElementChild.innerText,
-        url: e.target.href,
-        title:
-          e.target.parentNode.previousSibling.previousSibling.previousSibling
-            .previousSibling.innerText,
-        abstract: e.target.parentNode.previousSibling.previousSibling.innerText,
-        id: e.target.parentNode.parentNode.dataset.id,
-        // readDate: "16/02/2023",
-        readDate: DateNow,
-      };
-      for (const item of arrayOfReadNews) {
-        if (item.id === objectRead.id) {
-          return;
-        }
-      }
-      e.target.parentNode.parentNode.firstElementChild.classList.remove(
-        'noActive-over'
-      );
-      e.target.parentNode.parentNode.firstElementChild.classList.add(
-        'active-over'
-      );
-      e.target.parentNode.parentNode.firstElementChild.nextSibling.nextSibling.childNodes[3].classList.remove(
-        'noActive-rmBtn'
-      );
-      e.target.parentNode.parentNode.firstElementChild.nextSibling.nextSibling.childNodes[3].classList.add(
-        'active-rmBtn'
-      );
-      arrayOfReadNews.push(objectRead);
-      setStorage('readNews', arrayOfReadNews);
-    } else {
-      return;
-    }
-  });
-}
-// --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
+const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
+const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
+const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
+let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
+let idArrayPars = JSON.parse(idArray) || [];
+let newsId = 0;
+listNews.addEventListener('change', getNewsArray);
+window.addEventListener('DOMContentLoaded', idDone);
+idDone();
+auditArrayNews();
 
-// ---------------------поставить в .finally каждого фетча, Функция для додавания класса прозрачности просмотренным новостям после рендера разметки
-function makeOpacityReadedNews() {
-  auditArrayNews();
-  const newsContainer = document.querySelectorAll('.set');
-  const readNews = getStorage('readNews');
-  if (!readNews) {
-    return;
-  }
-  newsContainer.forEach(item => {
-    for (let i = 0; i < readNews.length; i++) {
-      const element = readNews[i];
-      if (item.dataset.id === element.id) {
-        const alredy = item.childNodes[3].childNodes[3];
-        const overlay = item.firstElementChild;
-        overlay.classList.add('active-over');
-        overlay.classList.remove('noActive-over');
-        alredy.classList.remove('noActive-rmBtn');
-        alredy.classList.add('active-rmBtn');
-      }
-    }
-  });
-}
-// ---------------------поставить в .finally каждого фетча, Функция для додавания класса прозрачности просмотренным новостям после рендера разметки
-
-// ============================================================================= обработка кнопки ADD =================================================================
 function getNewsArray(e) {
   if (!e.target.classList.contains('button')) {
     return;
@@ -320,14 +225,11 @@ function getNewsArray(e) {
     addToFavorite(e);
   }
 }
-
 function deletNews(e) {
   const findIndex = +idArrayPars.findIndex(
     el => el.idLenght === +e.target.attributes[2].value
   );
-
   idArrayPars.splice(findIndex, 1);
-
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
   e.target.parentNode.childNodes[1].innerHTML = 'AddToFavorite';
   e.target.classList.remove('add');
@@ -350,33 +252,27 @@ function addToFavorite(e) {
       e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[5]
         .innerText,
   };
-
   idArrayPars.push(arrayFavorites);
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
   e.target.classList.add('add');
   e.target.parentNode.childNodes[1].innerHTML = 'RemoveFromFavorite';
-
   newsId += 1;
 }
-// ================================================================= Проверка есть ли в добавленых =================================
 
-function auditArrayNews() {
+export function auditArrayNews() {
   idArrayPars.map(el => {
     listNews.querySelectorAll('.set').forEach(element => {
       let id = element.dataset.id;
-
       if (id === el.id) {
         element
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
-
         element.querySelector('lable').innerHTML = 'RemoveFromFavorite';
       }
     });
   });
 }
-
 function idDone() {
   if (idArrayPars.length === 0) {
     return;
