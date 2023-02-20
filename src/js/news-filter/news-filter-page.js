@@ -12,6 +12,8 @@ form.addEventListener('submit', searchNewsfromApi);
 
 popularNews();
 
+let newsId = 0
+
 function popularNews() {
   axios
     .get(
@@ -43,18 +45,20 @@ function markUpNewsPopular(arr) {
 
   function markUp() {
     const array = arr
-      .map(({ url, media, title, abstract, published_date }, index) => {
+      .map(({ url, media, title, abstract, published_date, section, asset_id
+      }, idLenght=newsId) => {
+        let id = asset_id;
         let dateUser = new Date(published_date);
         let date = dateUser.toLocaleDateString().replaceAll('.', '/');
         let photo =
           media.length !== 0
             ? media[0]['media-metadata'][2].url
             : 'https://timenews.in.ua/wp-content/uploads/2017/07/News.jpg';
-        let category = "Popular news"
+        let category = section||"other"
         if (abstract.length < 120) {
-          return markUpPage(photo, title, abstract, date, url, category,index);
+          return markUpPage(photo, title, abstract, date, url, category,id, idLenght);
         } else abstract = abstract.slice(0, 120) + '...';
-        return markUpPage(photo, title, abstract, date, url, category, index);
+        return markUpPage(photo, title, abstract, date, url, category, id, idLenght);
       })
       .join('');
     return array;
@@ -88,7 +92,7 @@ function searchNewsfromApi(event) {
 }
 
 function markUpSearchNews(arr) {
-  // console.log(arr);
+  console.log(arr);
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
     markUp();
@@ -103,12 +107,15 @@ function markUpSearchNews(arr) {
   }
 
   function markUp() {
-    console.log(arr);
+    // console.log(arr);
     const array = arr
-      .map(({ web_url, multimedia, headline, abstract, pub_date, type_of_material }, index) => {
+      .map(({ web_url, multimedia, headline, abstract, pub_date, type_of_material
+, _id }, idLenght=newsId) => {
+        let id = _id
         let dateUser = new Date(pub_date);
         let date = dateUser.toLocaleDateString().replaceAll('.', '/');
-        let category = type_of_material||"other";
+        let category = type_of_material
+||"other";
         let photo =
           multimedia.length !== 0
             ? `https://static01.nyt.com/${multimedia[0].url}`
@@ -125,10 +132,10 @@ function markUpSearchNews(arr) {
             date,
             web_url,
             category,
-            index
+            idLenght
           );
         } else abstract = abstract.slice(0, 120) + '...';
-        return markUpPage(photo, headline.main, abstract, date, web_url,category, index);
+        return markUpPage(photo, headline.main, abstract, date, web_url,category,id, idLenght);
       })
       .join('');
     return array;
@@ -137,8 +144,8 @@ function markUpSearchNews(arr) {
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
 
-function markUpPage(photo, title, abstract, date, url, category) {
-return `<div class="set" data-id=${"id"}>
+function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
+return `<div class="set" data-id=${id}>
       <div class="overlay noActive-over"></div>
       <div class="thumb">
 
@@ -148,7 +155,7 @@ return `<div class="set" data-id=${"id"}>
         <button class="name-category">${category}</button >
         <div class="button_add">
                  <lable сlass="lable">AddToFavorite</lable>
-                 <input type="checkbox"  class="button js-button"  data-idLenght=${"idLenght"}>
+                 <input type="checkbox"  class="button js-button"  data-idLenght=${idLenght}>
         </div>
       </div>
       <h2 class="title">${title}</h2>
@@ -166,12 +173,7 @@ return `<div class="set" data-id=${"id"}>
       // ) */}
 
 function readMore() {
-  const readMoreBtn = document.querySelector('.read');
-  const alreadyBtn = document.querySelector('.already-read-button');
-  const newsCard = document.querySelector(".set")
-  const overlay = document.querySelector('.overlay')
 
-  // readMoreBtn.addEventListener('click', readMoreVision);
   listNews.addEventListener('click', readMoreVision);
 
   function readMoreVision(event) {
