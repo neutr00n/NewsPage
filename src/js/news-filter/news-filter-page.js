@@ -4,8 +4,8 @@ import { addWeather } from '../weather/index';
 const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
 
-const input = document.querySelector('.search-form__input');
-const form = document.querySelector('.search-form');
+const input = document.querySelector('.header-form__input');
+const form = document.querySelector('.header-form');
 const listNews = document.querySelector('.list-news');
 
 form.addEventListener('submit', searchNewsfromApi);
@@ -80,7 +80,10 @@ function searchNewsfromApi(event) {
             <p class="text-error">We haven’t found news from this category</p>
           <img src="../images/desktop@2x.png" alt="Image for error">
             </div>`;
-      } else markUpSearchNews(arr);
+      } else {
+        markUpSearchNews(arr);
+        addWeather();
+      }
     });
 }
 
