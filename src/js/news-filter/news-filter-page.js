@@ -1,13 +1,10 @@
 import axios from 'axios';
 import { addWeather } from '../weather/index';
+import { markUpPage } from '../markup/index';
+import { input, form, listNews, notFound } from '../refs/index';
 
 const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
-
-const input = document.querySelector('.header-form__input');
-const form = document.querySelector('.header-form');
-const listNews = document.querySelector('.list-news');
-const notFound = document.querySelector('.not-found');
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 import { setStorage, getStorage } from '../local-storage';
@@ -202,31 +199,6 @@ function markUpSearchNews(arr) {
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
 
-
-export function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
-return `<div class="set" data-id=${id}>
-      <div class="overlay noActive-over"></div>
-      <div class="thumb">
-
-        <img class="img-news" src="${photo}" alt="" width="288"
-        onerror= src="https://timenews.in.ua/wp-content/uploads/2017/07/News.jpg">
-        <p class="already-read-button noActive-rmBtn">Already read</p >
-        <button class="name-category">${category}</button >
-        <div class="button_add">
-                 <lable сlass="lable">AddToFavorite</lable>
-                 <input type="checkbox"  class="button js-button"  data-idLenght=${idLenght}>
-        </div>
-      </div>
-      <h2 class="title">${title}</h2>
-      <p class="text">${abstract}</p>
-      <div class="wrapper">
-      <p class="date">${date}</p>
-      <a href="${url}" class="read" target="_blank" rel="noreferrer noopener">Read more</a>
-      </div>
-  </div>  `;
-}
-
-
 // function readMore() {
 
 //   listNews.addEventListener('click', readMoreVision);
@@ -249,8 +221,6 @@ return `<div class="set" data-id=${id}>
 
 //   }
 // }
-
-
 
 // --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
 function getNewsToLocalStorage(e) {
