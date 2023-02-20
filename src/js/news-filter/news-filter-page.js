@@ -125,7 +125,8 @@ function searchNewsfromApi(event) {
         markUpSearchNews(arr);
         addWeather();
       }
-    });
+    })
+    .finally(makeOpacityReadedNews);
 }
 
 function markUpSearchNews(arr) {
@@ -201,8 +202,9 @@ function markUpSearchNews(arr) {
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
 
-function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
-  return `<div class="set" data-id=${id}>
+
+export function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
+return `<div class="set" data-id=${id}>
       <div class="overlay noActive-over"></div>
       <div class="thumb">
 
@@ -224,9 +226,6 @@ function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
   </div>  `;
 }
 
-//   { url, media, title, abstract, published_date, photo, id },
-//   idLenght = newsId
-// ) */}
 
 // function readMore() {
 
@@ -250,6 +249,8 @@ function markUpPage(photo, title, abstract, date, url, category, id, idLenght) {
 
 //   }
 // }
+
+
 
 // --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
 function getNewsToLocalStorage(e) {
