@@ -228,7 +228,9 @@ function getNewsToLocalStorage(e) {
                 if (item.id === objectRead.id) {return;};
           };
           e.target.parentNode.parentNode.firstElementChild.classList.remove('noActive-over');
-          e.target.parentNode.parentNode.firstElementChild.classList.add('active-over')
+          e.target.parentNode.parentNode.firstElementChild.classList.add('active-over');
+          e.target.parentNode.parentNode.firstElementChild.nextSibling.nextSibling.childNodes[3].classList.remove('noActive-rmBtn');
+          e.target.parentNode.parentNode.firstElementChild.nextSibling.nextSibling.childNodes[3].classList.add('active-rmBtn');
            arrayOfReadNews.push(objectRead);
     setStorage('readNews', arrayOfReadNews);
     } else { return }
@@ -245,11 +247,9 @@ if(!readNews){return}
     newsContainer.forEach(item => {
         for (let i = 0; i < readNews.length; i++) {
           const element = readNews[i];
-          console.log(item.dataset.id, element.id)
           if (item.dataset.id === element.id) {
              const alredy= item.childNodes[3].childNodes[3];
-            //  console.log(alredy)
-            const overlay = item.firstElementChild
+             const overlay = item.firstElementChild
             overlay.classList.add('active-over');
             overlay.classList.remove('noActive-over')
             alredy.classList.remove('noActive-rmBtn');
