@@ -6,9 +6,16 @@ import { input, form, listNews, notFound } from '../refs/index';
 const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
 
+const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
+let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
+let idArrayPars = JSON.parse(idArray) || [];
+
+let newsId = 0;
+
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 import { setStorage, getStorage } from '../local-storage';
 listNews.addEventListener('click', getNewsToLocalStorage);
+listNews.addEventListener('change', getNewsArray);
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 let arrayOfReadNews = [];
 getStorage('readNews')
@@ -17,10 +24,11 @@ getStorage('readNews')
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 form.addEventListener('submit', searchNewsfromApi);
+window.addEventListener('DOMContentLoaded', idDone);
 
 popularNews();
 
-let newsId = 0;
+idDone();
 
 function popularNews() {
   axios
@@ -123,7 +131,7 @@ function searchNewsfromApi(event) {
         addWeather();
       }
     })
-    .finally(makeOpacityReadedNews);
+    .finally(makeOpacityReadedNews, auditArrayNews);
 }
 
 function markUpSearchNews(arr) {
@@ -280,6 +288,7 @@ function getNewsToLocalStorage(e) {
 
 // ---------------------поставить в .finally каждого фетча, Функция для додавания класса прозрачности просмотренным новостям после рендера разметки
 function makeOpacityReadedNews() {
+  auditArrayNews();
   const newsContainer = document.querySelectorAll('.set');
   const readNews = getStorage('readNews');
   if (!readNews) {
@@ -300,3 +309,80 @@ function makeOpacityReadedNews() {
   });
 }
 // ---------------------поставить в .finally каждого фетча, Функция для додавания класса прозрачности просмотренным новостям после рендера разметки
+
+// ============================================================================= обработка кнопки ADD =================================================================
+function getNewsArray(e) {
+  if (!e.target.classList.contains('button')) {
+    return;
+  } else if (e.target.classList.contains('add')) {
+    deletNews(e);
+  } else {
+    addToFavorite(e);
+  }
+}
+
+function deletNews(e) {
+  isChecket = e.target.checked;
+
+  const findIndex = +idArrayPars.findIndex(
+    el => el.idLenght === +e.target.attributes[2].value
+  );
+
+  idArrayPars.splice(findIndex, 1);
+
+  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
+  e.target.parentNode.childNodes[1].innerHTML = 'AddToFavorite';
+  e.target.classList.remove('add');
+}
+
+function addToFavorite(e) {
+  let arrayFavorites = {
+    photo:
+      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[1]
+        .attributes[1].value,
+    date: e.target.parentNode.parentNode.parentNode.childNodes[9].childNodes[1]
+      .innerText,
+    url: e.target.parentNode.parentNode.parentNode.childNodes[9].childNodes[3]
+      .attributes[0].value,
+    title: e.target.parentNode.parentNode.parentNode.childNodes[5].innerText,
+    abstract: e.target.parentNode.parentNode.parentNode.childNodes[7].innerText,
+    idLenght: newsId,
+    id: e.target.parentNode.parentNode.parentNode.attributes[1].value,
+    category:
+      e.target.parentNode.parentNode.parentNode.childNodes[3].childNodes[5]
+        .innerText,
+  };
+
+  idArrayPars.push(arrayFavorites);
+  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
+  e.target.classList.add('add');
+  e.target.parentNode.childNodes[1].innerHTML = 'RemoveFromFavorite';
+
+  newsId += 1;
+}
+// ================================================================= Проверка есть ли в добавленых =================================
+
+function auditArrayNews() {
+  idArrayPars.map(el => {
+    listNews.querySelectorAll('.set').forEach(element => {
+      let id = element.dataset.id;
+
+      if (id === el.id) {
+        element
+          .querySelector('.js-button_favorites')
+          .setAttribute('checked', 'true');
+        element.querySelector('.js-button_favorites').classList.add('add');
+
+        element.querySelector('lable').innerHTML = 'RemoveFromFavorite';
+      }
+    });
+  });
+}
+
+function idDone() {
+  if (idArrayPars.length === 0) {
+    return;
+  } else {
+    newsId = idArrayPars[idArrayPars.length - 1].idLenght + 1 || 0;
+  }
+}
