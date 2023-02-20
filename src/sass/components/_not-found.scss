@@ -1,0 +1,50 @@
+.not-found {
+  text-align: center;
+  align-content: center;
+  justify-content: center;
+  margin-bottom: 60px;
+
+  @include breakpoint(tablet-only) {
+    margin-top: 50px;
+    margin-bottom: 100px;
+  }
+
+  @include breakpoint(desktop) {
+    margin-top: 15px;
+    margin-bottom: 60px;
+  }
+  &-hidden {
+    display: none;
+  }
+}
+
+.not-found__title {
+  font-weight: 700;
+  color: var(--primary-text-color);
+  font-size: 20px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+
+  @include breakpoint(tablet) {
+    font-size: 40px;
+    line-height: 1.38;
+  }
+}
+
+.not-found__picture {
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 248px;
+
+  @include breakpoint(tablet) {
+    width: 560px;
+  }
+
+  @include breakpoint(desktop) {
+    width: 601px;
+  }
+}
