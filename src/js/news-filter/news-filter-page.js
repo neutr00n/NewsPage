@@ -257,7 +257,7 @@ function getNewsToLocalStorage(e) {
             .previousSibling.innerText,
         abstract: e.target.parentNode.previousSibling.previousSibling.innerText,
         id: e.target.parentNode.parentNode.dataset.id,
-        // readDate: "16/02/2023",
+        // readDate: "18/02/2023",
         readDate: DateNow,
       };
       for (const item of arrayOfReadNews) {
