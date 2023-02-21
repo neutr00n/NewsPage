@@ -3,7 +3,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { searchForm, readNewsDateContainer, notFound } from '../refs/index';
 import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
-// import { buttonClass } from '../favorites/index'; // экспортировать
+import { auditArrayNews } from '../favorites/index'; //
 
 const pageByBody = document.body.dataset.set;
 
@@ -40,7 +40,7 @@ function searchFromCurrentPage(searchingNews) {
 
     showNothingNotFound(desiredNews);
     appendArticleMarkup(desiredNews, listNews);
-    // buttonClass();  // экспортировать
+    auditArrayNews();
   }
 
   if (pageByBody === 'read') {

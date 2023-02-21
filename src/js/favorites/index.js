@@ -57,7 +57,7 @@ function deletNewsFavorite(e) {
   }
 }
 
-function auditArrayNews() {
+export function auditArrayNews() {
   idArrayPars.map(el => {
     listNews.querySelectorAll('.set').forEach(element => {
       let id = element.dataset.id;
@@ -75,7 +75,7 @@ function auditArrayNews() {
   });
 }
 
-function buttonClass() {
+export function buttonClass() {
   let but = document.querySelectorAll('.js-button_favorites');
   let label = document.querySelectorAll('lable');
 
