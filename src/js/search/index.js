@@ -38,8 +38,6 @@ async function searchNewsfromApi(value, date) {
       markUpSearchNews(response);
       addWeather();
     }
-
-    console.log(response);
   } catch (err) {
     console.error(err);
   } finally {

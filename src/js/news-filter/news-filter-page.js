@@ -107,7 +107,6 @@ function markUpNewsPopular(arr) {
 }
 
 export function markUpSearchNews(arr) {
-  console.log(arr);
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
     markUp();
@@ -345,7 +344,6 @@ function auditArrayNews() {
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
         element.querySelector('.icon').classList.add('add');
-        console.log(element.querySelector('svg'));
 
         element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }

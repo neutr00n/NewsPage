@@ -1,50 +1,30 @@
-import axios from 'axios';
 import { addWeather } from '../weather/index';
+import { filterByCategory } from '../api/index';
+import { listNews, notFound } from '../refs/index';
+import { markUpPage } from '../markup/index';
 
-const API_KEY = 'VRI2ALbuR85aCcrGuVmVKHAZ8wR5XhKg';
+let newsId = 0;
 
-const categorisContainer = document.querySelector('.js-categories-filter');
-const listNews = document.querySelector('.list-news');
-const notFound = document.querySelector('.not-found');
+export async function getFilterByCategory(category) {
+  try {
+    const response = await filterByCategory(category);
+    markUpByCategory(response);
 
-categorisContainer.addEventListener('click', handleCategoriesContainerClick);
-
-function handleCategoriesContainerClick(event) {
-  if (
-    !event.target.classList.contains('js-category-btn') &&
-    !event.target.classList.contains('js-categories-filter__link')
-  ) {
-    return;
+    addWeather();
+  } catch (err) {
+    console.error(err);
   }
-
-  notFound.classList.add('not-found-hidden');
-    
-  const currentCategory = event.target.textContent;
-  const normalizeCurrentCategory = currentCategory.toLowerCase();
-
-  filterByCategory(normalizeCurrentCategory);
-}
-
-function filterByCategory(category) {
-  axios
-    .get(
-      `https://api.nytimes.com/svc/news/v3/content/inyt/${category}.json?api-key=${API_KEY}`
-    )
-    .then(response => {
-      markUpByCategory(response.data.results);
-      addWeather()
-    })
-    .catch(error => console.log(error))
 }
 
 function markUpByCategory(category) {
+  notFound.classList.add('not-found-hidden');
   if (!category) {
     listNews.innerHTML = '';
     notFound.classList.remove('not-found-hidden');
-    return
+    return;
   }
 
-  const markup = markUpPage(category);
+  const markup = markupCategoriesNews(category);
 
   const weather = '<div class="weather"></div>';
 
@@ -52,26 +32,62 @@ function markUpByCategory(category) {
   listNews.innerHTML = endMarkup;
 }
 
-function markUpPage(category) {
-  return category.map(({ multimedia, section, title, abstract, published_date, url, uri}, idLenght) => {
-    return `<div class="set" data-id=${uri}>
-      <div class="overlay noActive-over"></div>
-      <div class="thumb">
-        <img class="img-news" src="${multimedia[2].url}" alt="" width="288"
-        onerror= src="https://timenews.in.ua/wp-content/uploads/2017/07/News.jpg">
-        <p class="already-read-button noActive-rmBtn">Already read</p >
-        <button class="name-category">${section}</button >
-        <div class="button_add">
-                 <lable сlass="lable">AddToFavorite</lable>
-                 <input type="checkbox"  class="button js-button" data-idLenght=${idLenght}>
-        </div>
-      </div>
-      <h2 class="title">${title}</h2>
-      <p class="text">${abstract}</p>
-      <div class="wrapper">
-      <p class="date">${published_date}</p>
-      <a href="${url}" class="read" target="_blank" rel="noreferrer noopener">Read more</a>
-      </div>
-  </div>  `;
-  }).join('');
+function markupCategoriesNews(arr) {
+  let array = [];
+
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    array = arr.slice(0, 4);
+    return markUp(array);
+  } else if (
+    window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
+  ) {
+    array = arr.slice(0, 7);
+    return markUp(array);
+  } else {
+    array = arr.slice(0, 8);
+    return markUp(array);
+  }
+}
+
+function markUp(arr) {
+  const array = arr
+    .map(
+      (
+        { multimedia, section, title, abstract, published_date, url, uri },
+        idLenght = newsId
+      ) => {
+        let id = uri;
+        let dateUser = new Date(published_date);
+        let date = dateUser.toLocaleDateString().replaceAll('.', '/');
+        let category = section || 'other';
+        let photo =
+          multimedia?.length !== 0
+            ? `${multimedia[2].url}`
+            : 'https://timenews.in.ua/wp-content/uploads/2017/07/News.jpg';
+
+        if (abstract?.length < 120) {
+          return markUpPage(
+            photo,
+            title,
+            abstract,
+            date,
+            url,
+            category,
+            id,
+            idLenght
+          );
+        } else abstract = abstract.slice(0, 120) + '...';
+        return markUpPage(
+          photo,
+          title,
+          abstract,
+          date,
+          url,
+          category,
+          idLenght
+        );
+      }
+    )
+    .join('');
+  return array;
 }

@@ -8,6 +8,7 @@ import {
 
 import { fetchCategories } from '../api/index';
 import { createCategoriesMarkup } from '../markup/index';
+import { getFilterByCategory } from '../news-filter/news-filter-categories';
 
 let currentCountBtn = 0;
 
@@ -42,7 +43,7 @@ function handleCategoriesContainerClick(event) {
     checkCategory.toLowerCase()
   );
 
-  console.log(normalizeCheckCategory);
+  getFilterByCategory(normalizeCheckCategory);
 }
 
 function handleCategoriesFilterBtnClick(event) {
