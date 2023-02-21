@@ -1,7 +1,19 @@
 .read-date-news{
     display: flex;
     flex-direction: column-reverse;
+// }
+// .read-date-news:first-child{
+    margin-bottom:140px ;
+    @include breakpoint(tablet) {
+            margin-bottom:180px ;
+        }
+    
+        @include breakpoint(desktop) {
+            margin-bottom:210px ;
+        }
 }
+
+
 .date-card{
     display: block;
 }
