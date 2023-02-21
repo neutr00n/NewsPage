@@ -12,7 +12,7 @@ export const categoriesFilterContainer = document.querySelector(
 export const jsCategoryBtn = document.querySelectorAll('.js-category-btn');
 
 export const input = document.querySelector('.header-form__input');
-export const form = document.querySelector('.header-form');
+export const searchForm = document.querySelector('.header-form');
 export const listNews = document.querySelector('.list-news');
 export const notFound = document.querySelector('.not-found');
 export const readNewsDateContainer = document.querySelector('.read-date-news');

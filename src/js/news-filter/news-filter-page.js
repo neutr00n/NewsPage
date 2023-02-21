@@ -3,7 +3,6 @@ import { addWeather } from '../weather/index';
 import { markUpPage } from '../markup/index';
 import { input, form, listNews, notFound } from '../refs/index';
 
-const API_KEY_S = '2Q5D7fvynyshAi0a8Zmy3AdyyqPFqoa6';
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
 
 const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
@@ -23,7 +22,6 @@ getStorage('readNews')
   : (arrayOfReadNews = []);
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-form.addEventListener('submit', searchNewsfromApi);
 window.addEventListener('DOMContentLoaded', idDone);
 
 popularNews();
@@ -108,33 +106,7 @@ function markUpNewsPopular(arr) {
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
 
-function searchNewsfromApi(event) {
-  event.preventDefault();
-
-  notFound.classList.add('not-found-hidden');
-
-  const name = input.value;
-  console.log(name);
-  const date = '2023-02-16';
-  axios
-    .get(
-      `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${name}&api-key=${API_KEY_S}&begin_date=${date}&end_date=${date}`
-    )
-    .then(response => {
-      const arr = response.data.response.docs;
-      if (arr.length === 0) {
-        listNews.innerHTML = '';
-
-        notFound.classList.remove('not-found-hidden');
-      } else {
-        markUpSearchNews(arr);
-        addWeather();
-      }
-    })
-    .finally(makeOpacityReadedNews);
-}
-
-function markUpSearchNews(arr) {
+export function markUpSearchNews(arr) {
   console.log(arr);
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
@@ -287,7 +259,7 @@ function getNewsToLocalStorage(e) {
 // --------------------------------------------------при нажатии на ссылку в карточке новостей собирает данные с разметки текущей карточки в обьект и записывает в localStorage
 
 // ---------------------поставить в .finally каждого фетча, Функция для додавания класса прозрачности просмотренным новостям после рендера разметки
-function makeOpacityReadedNews() {
+export function makeOpacityReadedNews() {
   auditArrayNews();
   const newsContainer = document.querySelectorAll('.set');
   const readNews = getStorage('readNews');
