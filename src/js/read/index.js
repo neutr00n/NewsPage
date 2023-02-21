@@ -42,9 +42,13 @@ function createContainerFromDate(obj) {
     const dates = Object.keys(obj)
     dates.forEach((date) => {
         const dateContainer = `<div class='date-card'>
-  <button class='date-btn'><span class='date-btn__text'>${date}</span><svg class="date-btn___arrow" width="14" height="14">
-          <use href="/symbol-defs.a8b2e413.svg#icon-down"></use>
-        </svg>
+  <button class='date-btn'><span class='date-btn__text'>${date}</span><span class='read_icon'>
+  <svg class="date-btn___arrow" width="14" height="9" aria-hidden="true" style="position: absolute;>
+<symbol id="icon-Vector-2-1" viewBox="0 0 50 32">
+<path d="M5.867 0l-5.867 6.080 24.889 25.92 24.889-25.92-5.831-6.080-19.058 19.769-19.058-19.769z"></path>
+</symbol>
+</svg >
+  </span>
   </button>
    <div class='list-news dates'></div>
   </div>`;
@@ -64,7 +68,8 @@ const dateButton = document.querySelectorAll('.date-btn');
             };
         };
         button.addEventListener('click', () => {
-            button.lastElementChild.classList.toggle('arrow_rotate');
+            console.log(button.lastElementChild.firstElementChild)
+            button.lastElementChild.firstElementChild.classList.toggle('arrow_rotate');
             button.nextSibling.nextSibling.classList.toggle('show');
         });
     });
