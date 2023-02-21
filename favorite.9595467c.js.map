@@ -1,1 +1,0 @@
-{"mappings":"gfAAAA,EAAA,S","sources":["src/favorite.js"],"sourcesContent":["import './js/mobile-menu';\nimport './js/dark_theme';\n\nimport './js/favorites';\nimport './js/search/storage-search';\n"],"names":["parcelRequire"],"version":3,"file":"favorite.9595467c.js.map"}
