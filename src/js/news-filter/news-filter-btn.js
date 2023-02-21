@@ -35,7 +35,7 @@ function handleCategoriesContainerClick(event) {
 
   nextActiveBtn.classList.add('active');
 
-  removeCategoriesFilterClass();
+  closeCategoriesList();
 
   checkCategory = event.target.textContent;
   const normalizeCheckCategory = encodeURIComponent(
@@ -49,11 +49,11 @@ function handleCategoriesFilterBtnClick(event) {
   getFetchCategoriesDataToClick();
 
   if (event.currentTarget.dataset.categories === 'open') {
-    removeCategoriesFilterClass();
+    closeCategoriesList();
     return;
   }
 
-  addCategoriesFilterClass();
+  openCategoriesList();
 }
 
 async function getFetchCategoriesDataToClick() {
@@ -97,51 +97,46 @@ function addCategoriesBtnName(categories, currentCountBtn) {
   });
 }
 
-function addCategoriesFilterClass() {
+function openCategoriesList() {
   categoriesFilterBtn.classList.add('active');
   categoriesFilterIcon.classList.add('rotate');
   categoriesFilterContainer.classList.add('show-categories');
   categoriesFilterBtn.setAttribute('data-categories', 'open');
 
   document.addEventListener('keydown', handleKeyboardClick);
-  //   document.addEventListener('click', handleBodyClick);
+
   categoriesFilterContainer.addEventListener(
     'click',
     handleCategoriesFilterContainerClick
   );
 }
 
-function removeCategoriesFilterClass() {
+function closeCategoriesList() {
   categoriesFilterBtn.classList.remove('active');
   categoriesFilterIcon.classList.remove('rotate');
   categoriesFilterContainer.classList.remove('show-categories');
   categoriesFilterBtn.removeAttribute('data-categories');
 
   document.removeEventListener('keydown', handleKeyboardClick);
-  //   document.removeEventListener('click', handleBodyClick);
   categoriesFilterContainer.removeEventListener(
     'click',
     handleCategoriesFilterContainerClick
   );
 }
 
-// function handleBodyClick(event) {
-//   if (event.target.classList.contains('js-no-close')) {
-//     console.log('js-no-close');
-//     return;
-//   }
-//   removeCategoriesFilterClass();
-// }
-
 function handleKeyboardClick(event) {
   console.log(event.code);
   if (event.code !== 'Escape') {
     return;
   }
-  removeCategoriesFilterClass();
+  closeCategoriesList();
 }
 
 function handleCategoriesFilterContainerClick(event) {
+  if (event.nodeName !== 'A') {
+    return;
+  }
+
   const category = event.target.textContent;
 
   document.querySelector(
