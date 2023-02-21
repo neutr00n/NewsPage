@@ -15,3 +15,4 @@ import './js/news-filter/news-filter-categories';
 import './js/calendar';
 import './js/weather';
 import './js/pagination';
+import './js/team';
