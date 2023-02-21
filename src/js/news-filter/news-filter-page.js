@@ -331,6 +331,7 @@ function deletNews(e) {
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
   e.target.parentNode.childNodes[1].innerHTML = 'AddToFavorite';
   e.target.classList.remove('add');
+  e.target.parentNode.childNodes[3].classList.remove('add');
 }
 
 function addToFavorite(e) {
@@ -353,6 +354,7 @@ function addToFavorite(e) {
 
   idArrayPars.push(arrayFavorites);
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
+  e.target.parentNode.childNodes[3].classList.add('add');
   e.target.classList.add('add');
   e.target.parentNode.childNodes[1].innerHTML = 'RemoveFromFavorite';
 
@@ -370,6 +372,7 @@ function auditArrayNews() {
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
+        element.querySelector('svg').classList.add('add');
 
         element.querySelector('lable').innerHTML = 'RemoveFromFavorite';
       }
