@@ -5,8 +5,6 @@ import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
 import { auditArrayNews } from '../favorites/index'; //
 
-const pageByBody = document.body.dataset.set;
-
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
@@ -24,40 +22,20 @@ function handleSubmitSearchForm(event) {
 }
 
 function searchFromCurrentPage(searchingNews) {
-  let storageKey = '';
+  let storageKey = 'ID-SAVE-FAVORITE';
 
-  if (pageByBody === 'favorite') {
-    storageKey = 'ID-SAVE-FAVORITE';
+  const listNews = document.querySelector('.list-news');
+  listNews.innerHTML = '';
 
-    const listNews = document.querySelector('.list-news');
-    listNews.innerHTML = '';
+  const newsArr = getStorage(storageKey);
 
-    const newsArr = getStorage(storageKey);
+  const desiredNews = newsArr.filter(news =>
+    news.title.toLowerCase().includes(searchingNews)
+  );
 
-    const desiredNews = newsArr.filter(news =>
-      news.title.toLowerCase().includes(searchingNews)
-    );
-
-    showNothingNotFound(desiredNews);
-    appendArticleMarkup(desiredNews, listNews);
-    auditArrayNews();
-  }
-
-  if (pageByBody === 'read') {
-    readNewsDateContainer.innerHTML = '';
-    storageKey = 'readNews';
-
-    const listNews = document.querySelector('.read-list-news');
-
-    const newsArr = getStorage(storageKey);
-
-    const desiredNews = newsArr.filter(news =>
-      news.title.toLowerCase().includes(searchingNews)
-    );
-
-    showNothingNotFound(desiredNews);
-    appendArticleMarkup(desiredNews, listNews);
-  }
+  showNothingNotFound(desiredNews);
+  appendArticleMarkup(desiredNews, listNews);
+  auditArrayNews();
 }
 
 function appendArticleMarkup(desiredNews, container) {
