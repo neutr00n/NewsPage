@@ -35,19 +35,22 @@
     line-height: 1.7;
     color: var(--primary-text-color);
 }
-
-.date-btn___arrow{
+.read_icon{
+    width:14px;
+    height: 9px;
     margin-left: 10px;
+    align-items: center;
+    align-items: center;
+}
+.date-btn___arrow{
     fill: currentColor;
     transition: rotate $transition-duration $timing-function,
-        fill $transition-duration $timing-function;
+        
    
 }
-
 .arrow_rotate{
     rotate: -180deg;
-    transition: rotate $transition-duration $timing-function, fill $transition-duration $timing-function;
-}
+  }
 
 .dates{
 display: none;
