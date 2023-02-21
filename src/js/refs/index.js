@@ -15,3 +15,4 @@ export const input = document.querySelector('.header-form__input');
 export const form = document.querySelector('.header-form');
 export const listNews = document.querySelector('.list-news');
 export const notFound = document.querySelector('.not-found');
+export const readNewsDateContainer = document.querySelector('.read-date-news');
