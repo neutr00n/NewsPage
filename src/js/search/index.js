@@ -22,6 +22,8 @@ function handleSubmitSearchForm(event) {
   const date = '2023-02-16';
 
   searchNewsfromApi(searchingNews, date);
+
+  event.currentTarget.reset();
 }
 
 async function searchNewsfromApi(value, date) {
