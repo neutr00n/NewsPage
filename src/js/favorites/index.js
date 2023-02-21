@@ -69,7 +69,7 @@ export function auditArrayNews() {
         element.querySelector('.js-button_favorites').classList.add('add');
         element.querySelector('svg').classList.add('add');
 
-        element.querySelector('lable').innerHTML = 'RemoveFromFavorite';
+        element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }
     });
   });
@@ -85,6 +85,6 @@ export function buttonClass() {
   });
 
   label.forEach(el => {
-    el.innerHTML = 'RemoveFromFavorite';
+    el.innerHTML = 'Remove From Favorite';
   });
 }

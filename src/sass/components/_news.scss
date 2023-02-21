@@ -97,12 +97,13 @@
   padding: 6px 12px;
 }
 .js-button_favorites {
+  cursor: pointer;
   position: absolute;
   right: 0;
 
   opacity: 0;
   padding-left: 40px;
-  width: 200px;
+  width: 175px;
   height: 28px;
   opacity: 0;
 }
@@ -122,6 +123,10 @@ lable {
 
 .add {
   fill: #4440f7;
+}
+
+.favorite {
+  padding-top: 60px;
 }
 
 .js-button {
@@ -182,6 +187,9 @@ lable {
 @media screen and (min-width: 768px) and (max-width: 1279px) {
   .buttons {
     margin-bottom: 48px;
+  }
+  .favorite {
+    padding-top: 40px;
   }
 
   .list-news {
