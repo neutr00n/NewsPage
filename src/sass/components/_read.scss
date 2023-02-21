@@ -4,13 +4,6 @@
 }
 .date-card{
     display: block;
-        margin-top: 40px;
-        @include breakpoint(tablet) {
-                margin-top: 50px;
-            }
-             @include breakpoint(desktop) {
-                margin-top: 60px;
-}
 }
 .date-btn{
     display: inline-flex;
@@ -63,5 +56,16 @@ display: none;
     display: block;
     @include breakpoint(tablet) {
         display: flex;
+        }
+}
+.read-list-news{
+    padding-top: 40px;
+    margin-bottom: 0;
+        @include breakpoint(tablet) {
+            padding-top: 50px;
+        }
+    
+        @include breakpoint(desktop) {
+            padding-top: 60px;
         }
 }
