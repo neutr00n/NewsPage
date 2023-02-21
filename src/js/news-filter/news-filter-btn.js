@@ -100,7 +100,7 @@ function addCategoriesBtnName(categories, currentCountBtn) {
 function addCategoriesFilterClass() {
   categoriesFilterBtn.classList.add('active');
   categoriesFilterIcon.classList.add('rotate');
-  categoriesFilterContainer.classList.add('show');
+  categoriesFilterContainer.classList.add('show-categories');
   categoriesFilterBtn.setAttribute('data-categories', 'open');
 
   document.addEventListener('keydown', handleKeyboardClick);
@@ -114,7 +114,7 @@ function addCategoriesFilterClass() {
 function removeCategoriesFilterClass() {
   categoriesFilterBtn.classList.remove('active');
   categoriesFilterIcon.classList.remove('rotate');
-  categoriesFilterContainer.classList.remove('show');
+  categoriesFilterContainer.classList.remove('show-categories');
   categoriesFilterBtn.removeAttribute('data-categories');
 
   document.removeEventListener('keydown', handleKeyboardClick);
