@@ -8,7 +8,7 @@ let idArrayPars = JSON.parse(idArray) || [];
 
 listNews.addEventListener('change', deletNewsFavorite);
 creatFavoritesList(idArrayPars);
-buttonClass();
+auditArrayNews();
 
 function creatFavoritesList(arr) {
   let array = arr
@@ -41,20 +41,6 @@ function creatFavoritesList(arr) {
   listNews.insertAdjacentHTML('beforeend', array);
 }
 
-function buttonClass() {
-  let but = document.querySelectorAll('.js-button_favorites');
-  let label = document.querySelectorAll('lable');
-
-  but.forEach(el => {
-    el.setAttribute('checked', 'true');
-    el.classList.add('add');
-  });
-
-  label.forEach(el => {
-    el.innerHTML = 'RemoveFromFavorite';
-  });
-}
-
 function deletNewsFavorite(e) {
   if (!e.target.classList.contains('button')) {
     return;
@@ -69,4 +55,36 @@ function deletNewsFavorite(e) {
 
     e.target.parentNode.parentNode.parentNode.remove();
   }
+}
+
+function auditArrayNews() {
+  idArrayPars.map(el => {
+    listNews.querySelectorAll('.set').forEach(element => {
+      let id = element.dataset.id;
+
+      if (id === el.id) {
+        element
+          .querySelector('.js-button_favorites')
+          .setAttribute('checked', 'true');
+        element.querySelector('.js-button_favorites').classList.add('add');
+        element.querySelector('svg').classList.add('add');
+
+        element.querySelector('lable').innerHTML = 'RemoveFromFavorite';
+      }
+    });
+  });
+}
+
+function buttonClass() {
+  let but = document.querySelectorAll('.js-button_favorites');
+  let label = document.querySelectorAll('lable');
+
+  but.forEach(el => {
+    el.setAttribute('checked', 'true');
+    el.classList.add('add');
+  });
+
+  label.forEach(el => {
+    el.innerHTML = 'RemoveFromFavorite';
+  });
 }
