@@ -19,7 +19,7 @@ function handleCategoriesContainerClick(event) {
 
   notFound.classList.add('not-found-hidden');
     
-  currentCategory = event.target.textContent;
+  const currentCategory = event.target.textContent;
   const normalizeCurrentCategory = currentCategory.toLowerCase();
 
   filterByCategory(normalizeCurrentCategory);
