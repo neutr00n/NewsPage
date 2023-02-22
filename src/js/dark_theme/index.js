@@ -11,8 +11,8 @@ const bodyTheme = document.querySelector('body');
 const pageByBody = document.body.dataset.set;
 
 // для календаря
-const calendar = document.querySelector('.calendar-input'),
-inputBtnDown = document.querySelector('.calendar__button-down');
+// const calendar = document.querySelector('.calendar-input'),
+//   inputBtnDown = document.querySelector('.calendar__button-down');
 //________________________________________________________________
 
 const LOCAL_STORAGE_KEY = 'color-scheme';
@@ -49,8 +49,8 @@ function takeLightScheme() {
   switcherArea.classList.remove('is-dark');
 
   // для календаря
-  calendar.classList.remove('dark-theme-border');
-  inputBtnDown.classList.remove('dark-theme-btn');
+  // calendar.classList.remove('dark-theme-border');
+  // inputBtnDown.classList.remove('dark-theme-btn');
 
   setStorage(LOCAL_STORAGE_KEY, 'light');
 }
@@ -71,8 +71,8 @@ function takeDarkScheme() {
   switcherArea.classList.add('is-dark');
 
   // для календаря
-  calendar.classList.add('dark-theme-border');
-  inputBtnDown.classList.add('dark-theme-btn');
+  // calendar.classList.add('dark-theme-border');
+  // inputBtnDown.classList.add('dark-theme-btn');
 
   setStorage(LOCAL_STORAGE_KEY, 'dark');
 }
