@@ -1,6 +1,17 @@
 import { addWeather } from '../weather/index';
 import { filterByCategory } from '../api/index';
-import { listNews, notFound } from '../refs/index';
+import {
+  paginationCategories,
+  appendPaginationBtnCategoriesMarkup,
+} from '../pagination/index';
+import {
+  listNews,
+  notFound,
+  pagList,
+  nextPage,
+  previousPage,
+  pagListBtn,
+} from '../refs/index';
 import { markUpPage } from '../markup/index';
 
 let newsId = 0;
@@ -8,8 +19,55 @@ let newsId = 0;
 export async function getFilterByCategory(category) {
   try {
     const response = await filterByCategory(category);
-    markUpByCategory(response);
+    console.log(response);
+    if (!response) {
+      listNews.innerHTML = '';
+      pagList.classList.add('pagination-hidden');
+      notFound.classList.remove('not-found-hidden');
+      return;
+    }
+    pagList.classList.remove('pagination-hidden');
+    paginationCategories.getTotalPages(response);
+    appendPaginationBtnCategoriesMarkup();
 
+    pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+    pagList.addEventListener('click', handlePaginationBtnClick);
+
+    function handlePaginationBtnClick(event) {
+      const target = event.target;
+
+      if (target === nextPage) {
+        paginationCategories.getNextPagination(response);
+        paginationCategories.slicingResponse(response);
+
+        markUpByCategory(paginationCategories.slicedResponse);
+        addWeather();
+        console.log(paginationCategories.slicedResponse);
+      }
+
+      if (target === previousPage) {
+        paginationCategories.getPreviousPagination();
+        paginationCategories.slicingResponse(response);
+
+        markUpByCategory(paginationCategories.slicedResponse);
+        addWeather();
+        console.log(paginationCategories.slicedResponse);
+      }
+    }
+
+    function handlePaginationBtnClickPages(event) {
+      const target = event.target.dataset.pages;
+
+      paginationCategories.setCurrentPage(target);
+      paginationCategories.getCurrentPage(response);
+
+      markUpByCategory(paginationCategories.slicedResponse);
+      addWeather();
+      // console.log(paginationCategories.slicedResponse);
+      // console.log(paginationCategories.currentPage);
+    }
+
+    markUpByCategory(response);
     addWeather();
   } catch (err) {
     console.error(err);
@@ -18,8 +76,10 @@ export async function getFilterByCategory(category) {
 
 function markUpByCategory(category) {
   notFound.classList.add('not-found-hidden');
+  notFound.classList.add('not-found-hidden');
   if (!category) {
     listNews.innerHTML = '';
+    notFound.classList.remove('not-found-hidden');
     notFound.classList.remove('not-found-hidden');
     return;
   }

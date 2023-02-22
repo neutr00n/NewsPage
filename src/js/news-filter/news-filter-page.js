@@ -1,7 +1,15 @@
 import axios from 'axios';
 import { addWeather } from '../weather/index';
 import { markUpPage } from '../markup/index';
-import { input, form, listNews, notFound } from '../refs/index';
+import {
+  listNews,
+  notFound,
+  pagList,
+  nextPage,
+  previousPage,
+  pagListBtn,
+} from '../refs/index';
+import { pagination, appendPaginationBtnMarkup } from '../pagination/index';
 
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
 
@@ -34,21 +42,61 @@ function popularNews() {
       `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY_P}`
     )
     .then(response => {
+      // console.log(response.data.results);
+      // console.log(pagListBtn);
+      pagination.getTotalPages(response.data.results);
+      appendPaginationBtnMarkup();
+
+      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+      pagList.addEventListener('click', handlePaginationBtnClick);
+
+      function handlePaginationBtnClick(event) {
+        const target = event.target;
+
+        if (target === nextPage) {
+          pagination.getNextPagination(response.data.results);
+          pagination.slicingResponse(response.data.results);
+
+          markUpNewsPopular(pagination.slicedResponse);
+          addWeather();
+          // console.log(pagination.slicedResponse);
+        }
+
+        if (target === previousPage) {
+          pagination.getPreviousPagination();
+          pagination.slicingResponse(response.data.results);
+          markUpNewsPopular(pagination.slicedResponse);
+          addWeather();
+          // console.log(pagination.slicedResponse);
+        }
+      }
+
+      function handlePaginationBtnClickPages(event) {
+        const target = event.target.dataset.pages;
+
+        pagination.setCurrentPage(target);
+        pagination.getCurrentPage(response.data.results);
+
+        markUpNewsPopular(pagination.slicedResponse);
+        addWeather();
+        // console.log(pagination.slicedResponse);
+        // console.log(pagination.currentPage);
+      }
+
       markUpNewsPopular(response.data.results);
       addWeather();
     })
     // .then(() => readMore())
-    .catch(error => console.log('error'))
+    .catch(error => console.log(error))
     // ------------------------------------------------------------------------------------------------------------------
     .finally(makeOpacityReadedNews);
   // -----------------------------------------------------------------------------------------------------------------------;;
 }
 
 function markUpNewsPopular(arr) {
-  // console.log(arr);
-
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
+
     markUp();
   } else if (
     window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
