@@ -1,12 +1,38 @@
 .pagination__wrapper {
-  width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 60px;
+  margin-top: 40px;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  text-align: left;
+  background-color: var(--primary-bg-color);
+  @include breakpoint(tablet) {
+    height: 31px;
+    margin-bottom: 100px;
+    margin-top: 48px;
+  }
+  @include breakpoint(desktop) {
+    margin-bottom: 150px;
+    margin-top: 60px;
+  }
+}
+.current-page {
+  background-color: var(--accent-color);
 }
 
 .pagination {
   display: inline-flex;
-
+  justify-content: center;
   gap: 8px;
+
+  width: 288px;
+  @include breakpoint(tablet) {
+    width: 415px;
+  }
 }
 
 .pagination.pagination-hidden {
@@ -16,6 +42,8 @@
 .pagination_list-btn {
   display: flex;
   gap: 8px;
+  @include breakpoint(mobile) {
+  }
 }
 
 .pagination__btn {
@@ -38,8 +66,18 @@
   cursor: pointer;
 }
 
+.pagination__btn:hover {
+  background-color: var(--accent-color);
+  color: var(--white-color);
+}
+
 .pagination__btn-stat {
-  width: 33px;
+  @include breakpoint(mobile) {
+    width: 25px;
+  }
+  @include breakpoint(tablet) {
+    width: 33px;
+  }
 }
 
 .pagination_list-icon-left {
@@ -52,4 +90,10 @@
   fill: (--primary-text-color);
   rotate: -90deg;
   margin-left: 5px;
+}
+
+.pagination_list {
+  @include breakpoint(mobile) {
+    gap: 5px;
+  }
 }
