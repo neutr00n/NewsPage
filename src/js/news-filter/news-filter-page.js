@@ -375,6 +375,7 @@ function addToFavorite(e) {
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
   e.target.parentNode.childNodes[3].classList.add('add');
   e.target.classList.add('add');
+  idDone;
   e.target.parentNode.childNodes[1].innerHTML = 'Remove From Favorite';
 
   newsId += 1;
