@@ -25,6 +25,16 @@ import {
 } from '../news-filter/news-filter-page';
 import { addWeather } from '../weather/index';
 
+// ------------------- Для поиска новостей по выбранной дате-----------------------
+
+let dateApi = '';
+export function setDateApi(value) {
+  dateApi = value;
+}
+// export { endDateApi };
+
+// ______________________________________________________________________________
+
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
@@ -38,9 +48,8 @@ function handleSubmitSearchForm(event) {
   notFound.classList.add('not-found-hidden');
   pagList.classList.remove('pagination-hidden');
   removeClassFromCategoryBtn();
-  const date = '2023-02-16';
 
-  searchNewsfromApi(searchingNews, date);
+  searchNewsfromApi(searchingNews, dateApi);
 
   event.currentTarget.reset();
 }
