@@ -80,7 +80,7 @@ function popularNews() {
         markUpNewsPopular(pagination.slicedResponse);
         addWeather();
         // console.log(pagination.slicedResponse);
-        // console.log(pagination.currentPage);
+        console.log(pagination.currentPage);
       }
 
       markUpNewsPopular(response.data.results);
@@ -381,7 +381,7 @@ function addToFavorite(e) {
 }
 // ================================================================= Проверка есть ли в добавленых =================================
 
-export function auditArrayNews() {
+function auditArrayNews() {
   idArrayPars.map(el => {
     listNews.querySelectorAll('.set').forEach(element => {
       let id = element.dataset.id;
@@ -391,7 +391,7 @@ export function auditArrayNews() {
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
-        element.querySelector('.iconFavorite').classList.add('add');
+        element.querySelector('.icon').classList.add('add');
 
         element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }

@@ -8,8 +8,7 @@ let frontSide = teamCard.querySelector('.team-card__side--front');
 let backSide = teamCard.querySelector('.team-card__side--back');
 
   openModalBtn.addEventListener("click", toggleModal);
-closeModalBtn.addEventListener("click", toggleModal);
-  
+    closeModalBtn.addEventListener("click", toggleModal);
   teamCard.addEventListener('click', flipCard);
 
   function toggleModal() {
