@@ -1,83 +1,83 @@
-.read-date-news{
-    display: flex;
-    flex-direction: column-reverse;
-// }
-// .read-date-news:first-child{
-    margin-bottom:140px ;
-    @include breakpoint(tablet) {
-            margin-bottom:180px ;
-        }
-    
-        @include breakpoint(desktop) {
-            margin-bottom:210px ;
-        }
-}
-
-
-.date-card{
-    display: block;
-}
-.date-btn{
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 12px;
-    padding-left: 0;
-    padding-right: 0;
-    text-align: start;
-    border: none;
-    border-bottom: 1px solid #929292;
-    cursor: pointer;
-    color: var(--primary-text-color);
-    background-color: var(--primary-bg-color);
-}
-.date-btn__text{
-    font-family: $secondary-font;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--primary-text-color);
-}
-.read_icon{
-    width:14px;
-    height: 9px;
-    margin-left: 10px;
-    align-items: center;
-    align-items: center;
-}
-.date-btn___arrow{
-    fill: currentColor;
-    transition: rotate $transition-duration $timing-function,
-        
-   
-}
-.arrow_rotate{
-    rotate: -180deg;
+.read-date-news {
+  display: flex;
+  flex-direction: column-reverse;
+  // }
+  // .read-date-news:first-child{
+  // margin-bottom: 140px;
+  //закоментил маржин, пока не ясно зачем он тут, ломает геометрию.
+  @include breakpoint(tablet) {
+    // margin-bottom: 180px;
+    //закоментил маржин, пока не ясно зачем он тут, ломает геометрию.
   }
 
-.dates{
-display: none;
-    margin-top: 30px;
-    @include breakpoint(desktop) {
-            margin-top: 40px;
-        }
+  @include breakpoint(desktop) {
+    // margin-bottom: 210px;
+    //закоментил маржин, пока не ясно зачем он тут, ломает геометрию.
+  }
 }
-.show{
-    display: block;
-    @include breakpoint(tablet) {
-        display: flex;
-        }
+
+.date-card {
+  display: block;
 }
-.read-list-news{
-    padding-top: 40px;
-    margin-bottom: 0;
-        @include breakpoint(tablet) {
-            padding-top: 50px;
-        }
-    
-        @include breakpoint(desktop) {
-            padding-top: 60px;
-        }
+.date-btn {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  margin: 0;
+  padding-bottom: 12px;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: start;
+  border: none;
+  border-bottom: 1px solid #929292;
+  cursor: pointer;
+  color: var(--primary-text-color);
+  background-color: var(--primary-bg-color);
+}
+.date-btn__text {
+  font-family: $secondary-font;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--primary-text-color);
+}
+.read_icon {
+  width: 14px;
+  height: 9px;
+  margin-left: 10px;
+  align-items: center;
+  align-items: center;
+}
+.date-btn___arrow {
+  fill: currentColor;
+  transition: rotate $transition-duration $timing-function;
+}
+.arrow_rotate {
+  rotate: -180deg;
+}
+
+.dates {
+  display: none;
+  margin-top: 30px;
+  @include breakpoint(desktop) {
+    margin-top: 40px;
+  }
+}
+.show {
+  display: block;
+  @include breakpoint(tablet) {
+    display: flex;
+  }
+}
+.read-list-news {
+  padding-top: 40px;
+  margin-bottom: 0;
+  @include breakpoint(tablet) {
+    padding-top: 50px;
+  }
+
+  @include breakpoint(desktop) {
+    padding-top: 60px;
+  }
 }

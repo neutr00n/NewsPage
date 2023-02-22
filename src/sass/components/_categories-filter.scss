@@ -236,10 +236,9 @@ ul {
     font-weight: 700;
     font-size: 18px;
     line-height: 1.38;
-    color: var(--text-color);
+    color: var(--primary-text-color);
   }
 }
-
 
 //* ---------   INPUT   ---------
 
@@ -255,14 +254,12 @@ ul {
   fill: #4440f6;
   margin-left: 12px;
   transition: fill $transition-duration $timing-function;
-
 }
 
 .calendar__button.switchedColor {
   z-index: 2;
   fill: var(--white-color);
   transition: fill $transition-duration $timing-function;
-
 }
 
 // иконка стрелочки на инпуте
@@ -276,9 +273,10 @@ ul {
   right: 12px;
   cursor: pointer;
 
-  transition: rotate .6s cubic-bezier(.4, 0, .2, 1), fill .6s cubic-bezier(.4, 0, .2, 1);
+  transition: rotate 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-  &.switched{
+  &.switched {
     fill: var(--white-color);
     rotate: -180deg;
   }
@@ -313,9 +311,8 @@ ul {
   padding: 5px 12px;
   border: 1px solid var(--accent-color);
   border-radius: 20px;
-  
-  text-align: center;
 
+  text-align: center;
 
   font-weight: 400;
   font-size: 12px;
@@ -326,7 +323,6 @@ ul {
   background-color: transparent;
   cursor: pointer;
   transition: color $transition-duration $timing-function;
-
 
   @media screen and (min-width: $tablet) {
     width: 168px;
@@ -349,7 +345,7 @@ ul {
 
 .current-date-container {
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .icon-symbols {
@@ -359,7 +355,7 @@ ul {
 
 .icon-symbols__years {
   margin-left: 4px;
-margin-top: 3px;
+  margin-top: 3px;
 }
 
 .current-date {
@@ -416,7 +412,7 @@ margin-top: 3px;
   pointer-events: none;
 }
 
-.calendar-wrapper.hidden>.calendar-wrapper__container {
+.calendar-wrapper.hidden > .calendar-wrapper__container {
   transform: translateY(-104%);
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0);
 
@@ -424,9 +420,7 @@ margin-top: 3px;
   transition-duration: 250ms;
 }
 
-
 .current-date {
-
   font-weight: 500;
   font-size: 16px;
   line-height: 1.38;
@@ -487,7 +481,6 @@ margin-top: 3px;
 }
 
 .calendar .days li {
-
   font-weight: 500;
   font-size: 14px;
   line-height: 1.79;
