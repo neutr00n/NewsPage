@@ -22,6 +22,10 @@
     height: 31px;
     padding: 5px 0px 5px 48px;
 
+    font-size: 12px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+
     transform: translateX(121px);
 
     outline: none;
@@ -72,9 +76,14 @@
     left: 140px;
     top: 5px;
 
+    pointer-events: none;
     z-index: 2;
 
     transition: 250ms;
+
+    &.is-active {
+      pointer-events: all;
+    }
   }
 
   @media screen and (min-width: $tablet) {

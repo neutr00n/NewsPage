@@ -25,7 +25,7 @@
       </ul>
     </nav>
 
-    <form class="header-form">
+    <form class="header-form" autocomplete="off">
       <button type="submit" class="header-form__btn">
         <svg width="20" height="19" class="header-form__btn-icon">
           <use href="../src/images/symbol-defs.svg#icon-search"></use>
@@ -50,26 +50,12 @@
       </svg>
 
       <span class="switcher-indicator switcher-indicator--light is-light"
-        >Light</span
-      >
+        >Light
+      </span>
 
-      <fieldset class="switcher">
-        <legend class="switcher__legend">Them</legend>
-
-        <input
-          class="switcher__radio switcher__radio--lignt"
-          type="radio"
-          name="color-scheme"
-          value="light"
-        />
-        <input
-          class="switcher__radio switcher__radio--dark"
-          type="radio"
-          name="color-scheme"
-          value="dark"
-        />
-        <div class="switcher__status"></div>
-      </fieldset>
+      <div class="switcher">
+        <div class="switcher__status is-light"></div>
+      </div>
 
       <span class="switcher-indicator switcher-indicator--dark">Dark</span>
 
