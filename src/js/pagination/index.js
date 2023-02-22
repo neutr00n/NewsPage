@@ -151,13 +151,6 @@ export class Pagination {
   }
 }
 
-if (window.matchMedia('(max-width: 767px)').matches) {
-} else if (
-  window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
-) {
-} else {
-}
-
 export const pagination = new Pagination();
 export const paginationCategories = new Pagination();
 export const paginationSearch = new Pagination();

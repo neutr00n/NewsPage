@@ -102,5 +102,8 @@ async function searchNewsfromApi(value, date) {
 }
 
 function makeInfoMessage(message) {
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    return;
+  }
   Notify.info(message);
 }
