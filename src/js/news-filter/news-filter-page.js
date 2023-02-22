@@ -333,7 +333,7 @@ function addToFavorite(e) {
 }
 // ================================================================= Проверка есть ли в добавленых =================================
 
-function auditArrayNews() {
+export function auditArrayNews() {
   idArrayPars.map(el => {
     listNews.querySelectorAll('.set').forEach(element => {
       let id = element.dataset.id;
@@ -343,7 +343,7 @@ function auditArrayNews() {
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
-        element.querySelector('.icon').classList.add('add');
+        element.querySelector('.iconFavorite').classList.add('add');
 
         element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }
