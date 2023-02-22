@@ -15,8 +15,11 @@ import {
   jsCategoryBtn,
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
+// ---------------------------------------------------------------------------------------------
+import { makeOpacityReadedNews } from '../read/localStorage';
+// ___________________________________________________________________________
+// import{auditArrayNews} from '../favorites/localStorage'
 import {
-  makeOpacityReadedNews,
   markUpSearchNews,
 } from '../news-filter/news-filter-page';
 import { addWeather } from '../weather/index';
