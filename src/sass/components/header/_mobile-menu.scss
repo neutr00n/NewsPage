@@ -106,10 +106,15 @@
 
 .modal-list__icon-home {
   border-radius: 50%;
-  border: 1px solid white;
+  border: 1px solid #f4f4f4;
 }
 
 .modal-list__icon-way {
+  display: none;
+  margin-left: auto;
+}
+
+.modal-list__icon-way--current {
   display: block;
   margin-left: auto;
 }
