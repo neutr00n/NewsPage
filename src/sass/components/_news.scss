@@ -74,7 +74,7 @@
 }
 
 .already-read__icon {
-margin-bottom: -3px;
+  margin-bottom: -3px;
 }
 
 .noActive-rmBtn {
@@ -103,6 +103,7 @@ margin-bottom: -3px;
   color: var(--primary-text-color);
   text-align: center;
   padding: 6px 12px;
+}
 
 .js-button {
   display: none;
@@ -152,7 +153,6 @@ margin-bottom: -3px;
   line-height: 19px;
   color: var(--accent-color);
 }
-
 
 .date {
   font-style: normal;
