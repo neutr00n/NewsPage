@@ -43,7 +43,7 @@ function takeLightScheme() {
 
   switcherArea.classList.remove('is-dark');
 
-  setStorage((key = LOCAL_STORAGE_KEY), 'light');
+  setStorage(LOCAL_STORAGE_KEY, 'light');
 }
 
 function takeDarkScheme() {
@@ -61,7 +61,7 @@ function takeDarkScheme() {
 
   switcherArea.classList.add('is-dark');
 
-  setStorage((key = LOCAL_STORAGE_KEY), 'dark');
+  setStorage(LOCAL_STORAGE_KEY, 'dark');
 }
 
 function putCurrentScheme() {
