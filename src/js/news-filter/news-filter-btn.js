@@ -134,7 +134,7 @@ function handleKeyboardClick(event) {
 }
 
 function handleCategoriesFilterContainerClick(event) {
-  if (event.nodeName !== 'A') {
+  if (event.target.nodeName !== 'A') {
     return;
   }
 

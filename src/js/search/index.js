@@ -12,6 +12,7 @@ import {
   nextPage,
   previousPage,
   pagListBtn,
+  jsCategoryBtn,
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
 import {
@@ -32,6 +33,7 @@ function handleSubmitSearchForm(event) {
 
   notFound.classList.add('not-found-hidden');
   pagList.classList.remove('pagination-hidden');
+  removeClassFromCategoryBtn();
   const date = '2023-02-16';
 
   searchNewsfromApi(searchingNews, date);
@@ -87,8 +89,6 @@ async function searchNewsfromApi(value, date) {
 
         markUpSearchNews(paginationSearch.slicedResponse);
         addWeather();
-        // console.log(paginationSearch.slicedResponse);
-        // console.log(paginationSearch.currentPage);
       }
 
       markUpSearchNews(response);
@@ -99,6 +99,10 @@ async function searchNewsfromApi(value, date) {
   } finally {
     makeOpacityReadedNews();
   }
+}
+
+function removeClassFromCategoryBtn() {
+  jsCategoryBtn.forEach(btn => btn.classList.remove('active'));
 }
 
 function makeInfoMessage(message) {
