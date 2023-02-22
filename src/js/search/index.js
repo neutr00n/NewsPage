@@ -1,6 +1,18 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import {
+  paginationSearch,
+  appendPaginationBtnSearchMarkup,
+} from '../pagination/index';
 
-import { listNews, searchForm, notFound } from '../refs/index';
+import {
+  listNews,
+  searchForm,
+  notFound,
+  pagList,
+  nextPage,
+  previousPage,
+  pagListBtn,
+} from '../refs/index';
 import { fetchSearch } from '../api/index';
 import {
   makeOpacityReadedNews,
@@ -19,6 +31,7 @@ function handleSubmitSearchForm(event) {
   }
 
   notFound.classList.add('not-found-hidden');
+  pagList.classList.remove('pagination-hidden');
   const date = '2023-02-16';
 
   searchNewsfromApi(searchingNews, date);
@@ -32,9 +45,52 @@ async function searchNewsfromApi(value, date) {
 
     if (response.length === 0) {
       listNews.innerHTML = '';
-
+      pagList.classList.add('pagination-hidden');
       notFound.classList.remove('not-found-hidden');
     } else {
+      console.log(response);
+      paginationSearch.getTotalPages(response);
+      console.log(paginationSearch.totalPage);
+
+      appendPaginationBtnSearchMarkup();
+
+      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+      pagList.addEventListener('click', handlePaginationBtnClick);
+
+      function handlePaginationBtnClick(event) {
+        const target = event.target;
+
+        if (target === nextPage) {
+          paginationSearch.getNextPagination(response);
+          paginationSearch.slicingResponse(response);
+
+          markUpSearchNews(paginationSearch.slicedResponse);
+          addWeather();
+          console.log(paginationSearch.slicedResponse);
+        }
+
+        if (target === previousPage) {
+          paginationSearch.getPreviousPagination();
+          paginationSearch.slicingResponse(response);
+
+          markUpSearchNews(paginationSearch.slicedResponse);
+          addWeather();
+          console.log(paginationSearch.slicedResponse);
+        }
+      }
+
+      function handlePaginationBtnClickPages(event) {
+        const target = event.target.dataset.pages;
+
+        paginationSearch.setCurrentPage(target);
+        paginationSearch.getCurrentPage(response);
+
+        markUpSearchNews(paginationSearch.slicedResponse);
+        addWeather();
+        // console.log(paginationSearch.slicedResponse);
+        // console.log(paginationSearch.currentPage);
+      }
+
       markUpSearchNews(response);
       addWeather();
     }
