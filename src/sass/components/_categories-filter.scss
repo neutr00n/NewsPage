@@ -209,14 +209,8 @@
 // -------- СЕКЦИЯ КАЛЕНДАРЯ --------
 
 :root {
-  --text-color: #111321;
-  --white-color: #ffffff;
-  --accent-color: #4440f6;
-  --icon-up: #a2a2a2;
+  --transition: cubic-bezier(0.4, 0, 0.2, 1) 250ms;
 }
-
-$transition-duration: 250ms;
-$timing-function: linear;
 
 ul {
   list-style-type: none;
@@ -231,39 +225,42 @@ ul {
 
   @media screen and (min-width: $desktop) {
     display: inline;
-    margin-left: 111px;
-
+    margin-left: 238px;
     font-weight: 700;
     font-size: 18px;
     line-height: 1.38;
-    color: var(--text-color);
+    color: var(--primary-text-color);
   }
 }
 
-
 //* ---------   INPUT   ---------
 
-.calendar-input.isActive::placeholder {
-  transition: color $transition-duration $timing-function;
-  color: var(--white-color);
+.calendar-form {
+  position: relative;
 }
 
-// иконка календаря на инпуте
+.form-container {
+  position: relative;
 
-.calendar__button {
-  position: absolute;
-  fill: #4440f6;
-  margin-left: 12px;
-  transition: fill $transition-duration $timing-function;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
+  &__icon-calendar {
+    position: absolute;
+    fill: #4440f6;
+    margin-left: 12px;
+  
+    transition: var(--transition);
+  } 
+
+  &__icon-calendar.switchedColor {
+    z-index: 2;
+    fill: var(--white-color);
+    transition: var(--transition);
+  } 
 }
 
-.calendar__button.switchedColor {
-  z-index: 2;
-  fill: var(--white-color);
-  transition: fill $transition-duration $timing-function;
-
-}
 
 // иконка стрелочки на инпуте
 
@@ -282,23 +279,10 @@ ul {
     fill: var(--white-color);
     rotate: -180deg;
   }
-}
 
-.calendar-input.isActive {
-  background-color: var(--accent-color);
-  color: var(--white-color);
-  border-color: var(--accent-color);
-  border: 1px solid #4440f7;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
-}
-
-.calendar-form {
-  position: relative;
-
-  @media screen and (min-width: $desktop) {
-    margin-right: 52px;
-  }
+  &.dark-theme-btn {
+    fill: #f4f4f4;
+    }
 }
 
 .calendar-input {
@@ -311,22 +295,16 @@ ul {
   width: 152px;
   height: 31px;
   padding: 5px 12px;
-  border: 1px solid var(--accent-color);
+  border: 1px solid var(--switcher-color);
   border-radius: 20px;
   
   text-align: center;
 
-
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 1.75;
-  letter-spacing: 0.02em;
-
   color: var(--text-color);
   background-color: transparent;
   cursor: pointer;
-  transition: color $transition-duration $timing-function;
 
+  transition: var(--transition);
 
   @media screen and (min-width: $tablet) {
     width: 168px;
@@ -335,14 +313,23 @@ ul {
     line-height: 1.5;
     gap: 18px;
   }
+
+  &.isActive::placeholder {
+    transition: var(--transition);
+    color: var(--white-color);
+    }
+
+  &.isActive {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+    border-color: var(--accent-color);
+    border: 1px solid #4440f7;
+    transition: var(--transition);
+  } 
 }
 
-.input-form {
-  position: relative;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.dark-theme-border {
+  border: 1px solid #f4f4f4;
 }
 
 //  ---------   FORM-CALENDAR   ---------
@@ -393,14 +380,12 @@ margin-top: 3px;
   margin-left: 0;
   padding: 16px 16px 20px 16px;
   width: 250px;
-  // right: 0px;
 
   background: var(--white-color);
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
 
-  transition-duration: 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
 }
 
 .calendar-switcher {
@@ -414,19 +399,18 @@ margin-top: 3px;
 
 .calendar-wrapper.hidden {
   pointer-events: none;
+  transition: var(--transition);
 }
 
 .calendar-wrapper.hidden>.calendar-wrapper__container {
   transform: translateY(-104%);
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0);
 
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 250ms;
+  transition: var(--transition);
 }
 
 
 .current-date {
-
   font-weight: 500;
   font-size: 16px;
   line-height: 1.38;
@@ -437,18 +421,12 @@ margin-top: 3px;
 
 .calendar-icons {
   display: flex;
-  gap: 28px;
+  gap: 18px;
   color: var(--accent-color);
 }
 
-// .cer {
-
-//   width: 9px;
-//   height: 17px;
-// }
-
 .calendar-icons span {
-  // width: 38px;
+
   margin: 0 1px;
   text-align: center;
   line-height: 38px;
@@ -476,26 +454,25 @@ margin-top: 3px;
 
 .calendar li {
   width: calc(100% / 7);
-  font-size: 1.07rem;
   margin-bottom: 14px;
 
-  font-weight: 400;
   font-size: 12px;
   line-height: 1.5;
   letter-spacing: -0.078px;
   color: rgba(60, 60, 67, 0.3);
+  padding: 0;
 }
 
 .calendar .days li {
+  z-index: 1;
+  position: relative;
+  margin-bottom: 12px;
 
   font-weight: 500;
   font-size: 14px;
   line-height: 1.79;
   letter-spacing: 0.38px;
   color: #000000;
-  z-index: 1;
-  position: relative;
-  margin-bottom: 12px;
 }
 
 .calendar .days li:nth-last-child(-n + 7) {
@@ -514,6 +491,7 @@ margin-top: 3px;
   height: 28px;
   width: 28px;
   z-index: -1;
+  
   border-radius: 50%;
   transform: translate(-50%, -50%);
 }

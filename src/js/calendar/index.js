@@ -1,3 +1,6 @@
+import { setDateApi } from '../search/index';
+import Notiflix from 'notiflix';
+
 const daysTag = document.querySelector('.days'),
   currentDate = document.querySelector('.current-date'),
   switchesMonth = document.querySelectorAll('.calendar-icons span'),
@@ -28,7 +31,7 @@ const calendar = {
   modal: document.querySelector('[data-modal]'),
   inputField: document.querySelector('.calendar-input'),
   toggleBtn: document.querySelector('.calendar__button-down'),
-  calendarBtn: document.querySelector('.calendar__button'),
+  calendarBtn: document.querySelector('.form-container__icon-calendar'),
 };
 
 // обработчик события по клику на инпут
@@ -60,14 +63,14 @@ function hideModals(e) {
 }
 
 const renderCalendar = () => {
-  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay();
-  const lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const lastDayofMonth = new Date(
+  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay(),
+  lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate(),
+  lastDayofMonth = new Date(
     currentYear,
     currentMonth,
     lastDateofMonth
-  ).getDay();
-  const lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+  ).getDay(),
+  lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   let liTag = '';
   for (let j = firstDayofMonth - 1; j > 0; j--) {
@@ -75,14 +78,16 @@ const renderCalendar = () => {
   }
 
   for (let i = 1; i <= lastDateofMonth; i++) {
+    const currentDateObj = new Date(currentYear, currentMonth, i);
     const isToday =
       i === today.getDate() &&
       currentMonth === new Date().getMonth() &&
       currentYear === new Date().getFullYear();
-    liTag += `<li class="${isToday ? 'active' : ''}">${i}</li>`;
+    const isFuture = currentDateObj > today;
+    liTag += `<li class="${isToday ? 'active' : ''} ${isFuture ? 'future' : ''}">${i}</li>`;
   }
 
-  for (let i = lastDayofMonth; i < 6; i++) {
+  for (let i = lastDayofMonth; i < 7; i++) {
     liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
   }
 
@@ -91,6 +96,10 @@ const renderCalendar = () => {
 
   const dayChange = document.querySelector('.days');
   dayChange.addEventListener('click', e => {
+    if (e.target.classList.contains('inactive')) {
+      return;
+    }
+
     [...e.currentTarget.children].forEach(item => {
       item.classList.remove('active');
     });
@@ -108,16 +117,44 @@ const renderCalendar = () => {
       '0'
     )}/${selectedMonth.padStart(2, '0')}/${currentYear}`;
 
-    document.querySelector('[data-modal]').classList.add('hidden');
-    document.querySelector('.calendar-input').classList.remove('isActive');
-    document
-      .querySelector('.calendar__button-down')
-      .classList.remove('switched');
-    document
-      .querySelector('.calendar__button')
-      .classList.remove('switchedColor');
+    handleSelectedBeginDate();
+
   });
+
 };
+
+// функция для отправки даты в Api
+
+let errorDisplayed = false; // чтобы один раз выводилась ошибка на экран
+
+const handleSelectedBeginDate = async () => {
+  const selectedDay = document.querySelector('.days .active').textContent,
+  selectedMonth = (currentMonth + 1).toString(),
+  selectedYear = currentYear,
+  selectedDateStr = `${selectedYear}-${selectedMonth}-${selectedDay.padStart(2, '0')}`,
+  selectedDateObj = new Date(selectedDateStr);
+
+  try {
+    if (selectedDateObj > today) {
+      if (!errorDisplayed) {
+        Notiflix.Notify.failure(`Invalid date. Select an earlier date `);
+        errorDisplayed = true;
+      }
+      throw new Error(err);
+    } else {
+      setDateApi(`${selectedDateStr}`);
+      document.querySelector('[data-modal]').classList.add('hidden');
+      document.querySelector('.calendar-input').classList.remove('isActive');
+      document.querySelector('.calendar__button-down').classList.remove('switched');
+      document.querySelector('.form-container__icon-calendar').classList.remove('switchedColor');
+      errorDisplayed = false;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+renderCalendar();
 
 // переключатели месяцев
 
@@ -126,8 +163,8 @@ switchesMonth.forEach(switchMonth => {
 });
 
 function handleMonthSwitch() {
-  const isPrevious = this.id === 'prev';
-  const monthOffset = isPrevious ? -1 : 1;
+  const isPrevious = this.id === 'prev',
+  monthOffset = isPrevious ? -1 : 1;
 
   currentMonth += monthOffset;
 
