@@ -1,13 +1,25 @@
 import { getStorage } from "../local-storage";
 import { markUpPage } from '../markup/index';
-import { notFound } from '../refs/index';
-
+import { listNews, notFound } from '../refs/index';
+import { readNewsDateContainer } from '../refs/index';
+import {
+  newsId,
+  LOCALSTORAGE_KEY,
+  idArrayPars,
+    getNewsArray,
+    deletNews,
+    addToFavorite,
+    auditArrayNews,
+    idDone,
+} from '../favorites/localStorage'
+let newsList = null;
+// -----------------------------------------------------------------------------------
 const localStorageReadNews = getStorage('readNews');
 
-import { readNewsDateContainer } from '../refs/index';
 
 const sortedNews = sortByDate(localStorageReadNews);
 startPage();
+
 
 function startPage() {
     if (!sortedNews) {
@@ -15,6 +27,7 @@ function startPage() {
     } else {
         createContainerFromDate(sortedNews);
         renderByDate();
+        
     };
 };
 
@@ -50,7 +63,7 @@ function createContainerFromDate(obj) {
 </svg >
   </span>
   </button>
-   <div class='list-news dates'></div>
+   <div id='dateNowList' class='list-news dates'></div>
   </div>`;
         readNewsDateContainer.insertAdjacentHTML("beforeend", dateContainer)
     });
@@ -59,21 +72,24 @@ function createContainerFromDate(obj) {
 function renderByDate() {
 const dateButton = document.querySelectorAll('.date-btn');
     dateButton.forEach(button => {
-        const newsList = button.nextSibling.nextSibling;
+        newsList = button.nextSibling.nextSibling;
         const buttonText = button.firstElementChild.innerText;
         const arrDates = Object.keys(sortedNews);
         for (const dates of arrDates) {
             if (dates === buttonText) {
                 newsList.innerHTML = renderCardSet(sortedNews[dates]);
+               idDone()
+                 auditArrayNews(newsList)
             };
         };
         button.addEventListener('click', () => {
             console.log(button.lastElementChild.firstElementChild)
             button.lastElementChild.firstElementChild.classList.toggle('arrow_rotate');
             button.nextSibling.nextSibling.classList.toggle('show');
+           
+            const pageList= document.querySelector('#dateNowList')
+            pageList.addEventListener('click', getNewsArray)
         });
     });
 };
-
-
 
