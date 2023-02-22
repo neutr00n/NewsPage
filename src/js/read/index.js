@@ -69,6 +69,8 @@ function createContainerFromDate(obj) {
     });
 };   
 
+
+
 function renderByDate() {
 const dateButton = document.querySelectorAll('.date-btn');
     dateButton.forEach(button => {
@@ -78,18 +80,22 @@ const dateButton = document.querySelectorAll('.date-btn');
         for (const dates of arrDates) {
             if (dates === buttonText) {
                 newsList.innerHTML = renderCardSet(sortedNews[dates]);
-               idDone()
-                 auditArrayNews(newsList)
-            };
+                idDone();
+                const containersList = document.querySelectorAll('#dateNowList')
+                containersList.forEach(box => {
+                    auditArrayNews(box);
+                    box.addEventListener('click', getNewsArray);
+                });
+    };
         };
         button.addEventListener('click', () => {
             console.log(button.lastElementChild.firstElementChild)
             button.lastElementChild.firstElementChild.classList.toggle('arrow_rotate');
             button.nextSibling.nextSibling.classList.toggle('show');
            
-            const pageList= document.querySelector('#dateNowList')
+            const pageList = document.querySelector('#dateNowList')
+            console.log(pageList)
             pageList.addEventListener('click', getNewsArray)
         });
     });
 };
-
