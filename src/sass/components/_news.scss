@@ -44,7 +44,7 @@
   left: 0;
 
   height: 24px;
-  background: rgba(68, 64, 246, 1);
+  background: var(--accent-color);
   border-radius: 0px 4px 4px 0px;
 
   font-style: normal;
@@ -66,7 +66,15 @@
   font-size: 14px;
   line-height: 19px;
 
-  color: #00dd73;
+  color: var(--news-already-read-color);
+}
+
+.already-read__container {
+  margin-left: 4px;
+}
+
+.already-read__icon {
+margin-bottom: -3px;
 }
 
 .noActive-rmBtn {
@@ -95,7 +103,6 @@
   color: var(--primary-text-color);
   text-align: center;
   padding: 6px 12px;
-}
 
 .js-button {
   display: none;
@@ -137,12 +144,15 @@
 }
 
 .read {
+  display: flex;
+  align-items: end;
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 19px;
   color: var(--accent-color);
 }
+
 
 .date {
   font-style: normal;
