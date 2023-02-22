@@ -1,0 +1,118 @@
+// ==================================================
+.tui-ico-ellipsis,
+.tui-ico-first,
+.tui-ico-last,
+.tui-ico-next,
+.tui-ico-prev {
+  overflow: hidden;
+}
+
+.pagination-wrapper {
+  margin-bottom: 60px;
+  margin-top: 40px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tui-pagination {
+  height: 28px;
+  margin: 14px 0 12px;
+  line-height: normal;
+  text-align: center;
+  font-size: 0;
+}
+
+.tui-pagination .tui-page-btn {
+  display: inline-block;
+  width: 28px;
+  padding: 6px 0 6px;
+  margin: 0 2px 0 0;
+  color: var(--primary-text-color);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.333;
+  text-decoration: none;
+  vertical-align: middle;
+  transition: transform 250ms ease-in-out;
+  border-radius: 5px;
+  border: 1px solid var(--accent-color);
+}
+.tui-page-btn:hover {
+  background-color: var(--accent-color);
+  color: var(--white-color);
+}
+
+.tui-pagination .tui-is-selected,
+.tui-pagination strong {
+  color: var(--white-color);
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  cursor: default;
+}
+
+.tui-pagination .tui-first-child.tui-is-selected,
+.tui-pagination strong.tui-first-child {
+  margin-left: 0;
+}
+
+.tui-pagination .tui-first,
+.tui-pagination .tui-prev,
+.tui-pagination .tui-next,
+.tui-pagination .tui-last,
+.tui-pagination .tui-prev-is-ellip,
+.tui-pagination .tui-next-is-ellip {
+  overflow: hidden;
+  height: 26px;
+  padding: 0;
+  font-size: 0;
+  line-height: 26px;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+.tui-pagination .tui-prev-is-ellip,
+.tui-pagination .tui-next-is-ellip {
+  padding: 0;
+  line-height: 1;
+  @include breakpoint(mobile-max) {
+    display: none;
+  }
+}
+
+.tui-pagination .tui-prev {
+  margin-right: 10px;
+}
+
+.tui-pagination .tui-next {
+  margin-left: 10px;
+}
+
+.tui-pagination .tui-is-disabled:hover {
+  cursor: default;
+}
+
+.tui-icon-dots,
+.tui-icon-arrow {
+  fill: var(--primary-text-color);
+  transform: translate(0px, 4px);
+  @include breakpoint(mobile-max) {
+    transform: translate(0px, 1px);
+  }
+}
+.tui-is-disabled .tui-icon-arrow {
+  fill: var(--primary-text-color);
+}
+.tui-icon-arrow {
+  fill: var(--primary-text-color);
+}
+
+.tui-first:hover .tui-icon-arrow,
+.tui-prev:hover .tui-icon-arrow,
+.tui-prev-is-ellip:hover .tui-icon-dots,
+.tui-last:hover .tui-icon-arrow,
+.tui-next:hover .tui-icon-arrow,
+.tui-next-is-ellip:hover .tui-icon-dots {
+  fill: var(--white-color);
+}
