@@ -9,17 +9,11 @@ let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
 let idArrayPars = JSON.parse(idArray) || [];
 
 // ========================= readMore =========================
-let arrayOfReadNews = [];
-getStorage('readNews')
-  ? (arrayOfReadNews = [...getStorage('readNews')])
-  : (arrayOfReadNews = []);
 
 listNews.addEventListener('change', deletNewsFavorite);
-listNews.addEventListener('click', getNewsToLocalStorage);
 
 creatFavoritesList(idArrayPars);
 auditArrayNews();
-makeOpacityReadedNews();
 
 function creatFavoritesList(arr) {
   let array = arr
