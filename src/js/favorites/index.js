@@ -1,4 +1,8 @@
-import { checkStorageReadNews, getNewsToLocalStorage, makeOpacityReadedNews} from '../read/localStorage'
+import {
+  checkStorageReadNews,
+  getNewsToLocalStorage,
+  makeOpacityReadedNews,
+} from '../read/localStorage';
 import { getStorage } from '../local-storage';
 
 let arrayOfReadNews = [];
@@ -6,7 +10,7 @@ getStorage('readNews')
   ? (arrayOfReadNews = [...getStorage('readNews')])
   : (arrayOfReadNews = []);
 
- import { markUpPage } from '../markup/index';
+import { markUpPage } from '../markup/index';
 // const favoritesEL = document.querySelector('.favorits-list');
 const listNews = document.querySelector('.list-news');
 
@@ -15,43 +19,51 @@ let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
 let idArrayPars = JSON.parse(idArray) || [];
 
 // listNews.addEventListener('change', deletNewsFavorite);
-listNews.addEventListener('click', (e) => {
+listNews.addEventListener('click', e => {
   deletNewsFavorite(e);
   getNewsToLocalStorage(e, arrayOfReadNews);
 });
+
 creatFavoritesList(idArrayPars);
 
-makeOpacityReadedNews(auditArrayNews)
+makeOpacityReadedNews(auditArrayNews);
 
 function creatFavoritesList(arr) {
-  let array = arr
-    .map(
-      ({
-        url,
-        media,
-        title,
-        abstract,
-        date,
-        photo,
-        id,
-        idLenght,
-        category,
-      }) => {
-        // console.log(title);
-        return markUpPage(
-          photo,
+  console.log(idArray);
+  if (!idArrayPars.length) {
+    console.log('hello');
+    const notFound = document.querySelector('.not-found');
+    notFound.classList.remove('not-found-hidden');
+  } else {
+    let array = arr
+      .map(
+        ({
+          url,
+          media,
           title,
           abstract,
           date,
-          url,
-          category,
+          photo,
           id,
-          idLenght
-        );
-      }
-    )
-    .join('');
-  listNews.insertAdjacentHTML('beforeend', array);
+          idLenght,
+          category,
+        }) => {
+          // console.log(title);
+          return markUpPage(
+            photo,
+            title,
+            abstract,
+            date,
+            url,
+            category,
+            id,
+            idLenght
+          );
+        }
+      )
+      .join('');
+    listNews.insertAdjacentHTML('beforeend', array);
+  }
 }
 
 function deletNewsFavorite(e) {
@@ -81,7 +93,7 @@ export function auditArrayNews() {
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
-        element.querySelector('.button').classList.add('add');
+        element.querySelector('.icon').classList.add('add');
 
         element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }
