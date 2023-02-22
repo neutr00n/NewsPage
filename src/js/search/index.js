@@ -18,7 +18,8 @@ import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
 import { makeOpacityReadedNews } from '../read/localStorage';
 // ___________________________________________________________________________
-// import{auditArrayNews} from '../favorites/localStorage'
+import { auditArrayNews } from '../favorites/localStorage'
+import { listNews } from '../refs/index';
 import {
   markUpSearchNews,
 } from '../news-filter/news-filter-page';
@@ -99,9 +100,7 @@ async function searchNewsfromApi(value, date) {
     }
   } catch (err) {
     console.error(err);
-  } finally {
-    makeOpacityReadedNews();
-  }
+  } finally { () => makeOpacityReadedNews(() => auditArrayNews(listNews)) }
 }
 
 function removeClassFromCategoryBtn() {
