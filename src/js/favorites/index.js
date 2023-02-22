@@ -1,4 +1,6 @@
 import { markUpPage } from '../markup/index';
+import { setStorage, getStorage } from '../local-storage';
+
 // const favoritesEL = document.querySelector('.favorits-list');
 const listNews = document.querySelector('.list-news');
 
@@ -6,9 +8,18 @@ const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
 let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
 let idArrayPars = JSON.parse(idArray) || [];
 
+// ========================= readMore =========================
+let arrayOfReadNews = [];
+getStorage('readNews')
+  ? (arrayOfReadNews = [...getStorage('readNews')])
+  : (arrayOfReadNews = []);
+
 listNews.addEventListener('change', deletNewsFavorite);
+listNews.addEventListener('click', getNewsToLocalStorage);
+
 creatFavoritesList(idArrayPars);
 auditArrayNews();
+makeOpacityReadedNews();
 
 function creatFavoritesList(arr) {
   let array = arr
@@ -57,7 +68,7 @@ function deletNewsFavorite(e) {
   }
 }
 
-export function auditArrayNews() {
+function auditArrayNews() {
   idArrayPars.map(el => {
     listNews.querySelectorAll('.set').forEach(element => {
       let id = element.dataset.id;
@@ -67,7 +78,7 @@ export function auditArrayNews() {
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
         element.querySelector('.js-button_favorites').classList.add('add');
-        element.querySelector('.icon').classList.add('add');
+        element.querySelector('.iconFavorite').classList.add('add');
 
         element.querySelector('lable').innerHTML = 'Remove From Favorite';
       }
@@ -75,7 +86,7 @@ export function auditArrayNews() {
   });
 }
 
-export function buttonClass() {
+function buttonClass() {
   let but = document.querySelectorAll('.js-button_favorites');
   let label = document.querySelectorAll('lable');
 
