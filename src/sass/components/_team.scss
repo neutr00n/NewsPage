@@ -2,6 +2,7 @@
     background-color: rgba(68, 64, 247, 0.7);
     border: rgba(61, 58, 249, 0.7);
     border-radius: 20px;
+    padding: 5px 25px;
 }
 
 .team {
@@ -77,7 +78,7 @@
         padding: 3px;
         border-radius: 50%;
         border: solid 1px rgb(34, 36, 34);
-        background-color: rgba(255, 255, 255, 1);
+        // background-color: rgba(255, 255, 255, 1);
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.06);
     }
 
@@ -93,7 +94,6 @@
         @media screen and (max-width: 480px) {
             justify-content: center;
         }
-
 
     }
 
@@ -186,11 +186,10 @@
     }
 
     &__gh {
-        outline: solid red;
         position: absolute;
         bottom: 7px;
         right: 7px;
-        fill: white;
+        fill: black;
         width: 30px;
         height: 30px;
 
@@ -201,11 +200,13 @@
     }
 
     &__li {
-        outline: solid blue;
+
         position: absolute;
         bottom: 7px;
         right: 50px;
-        fill: white;
+        fill: #0A66C2;
+        border-radius: 6px;
+        background-color: #ffffff;
         transition: transform background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
         @media screen and (max-width: 399px) {
@@ -274,6 +275,7 @@
     text-align: center;
     background-color: #ffffff;
     z-index: 2;
+    border-radius: 10px;
 }
 
 
@@ -281,8 +283,9 @@
     padding: 20px;
     color: black;
     transform: rotateY(180deg);
-    background-color: #877fde;
+    // background-color: #69687a;
     z-index: 1;
+    border-radius: 10px;
 }
 
 .team-card:hover .team-card__side--front {
