@@ -8,11 +8,12 @@
 //     addToFavorite,
 //     auditArrayNews,
 //     idDone,
+// idArray,
 // } from '../favorites/localStorage'
 
 
 export const LOCALSTORAGE_KEY = 'ID-SAVE-FAVORITE';
- let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
+export let idArray = localStorage.getItem('ID-SAVE-FAVORITE');
 export let idArrayPars = JSON.parse(idArray) || [];
 export let newsId = 0;
 
