@@ -25,18 +25,21 @@ export const getNewsArray = function (e) {
   }
 };
 
-export const deletNews = function (e) {
-  const findIndex = +idArrayPars.findIndex(
-    el => el.idLenght === +e.target.attributes[2].value
-  );
-
-  idArrayPars.splice(findIndex, 1);
-
-  localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
-  e.target.parentNode.childNodes[1].innerHTML = 'Add To Favorite';
-  e.target.classList.remove('add');
-  e.target.parentNode.childNodes[3].classList.remove('add');
-};
+export function deletNews(e) {
+  let id = e.target.closest('.set').attributes[1].value;
+  idArrayPars.map(el => {
+    if (id === el.id) {
+      const index = idArrayPars.map(el => el.id).indexOf(id);
+      console.log(index);
+      idArrayPars.splice(index, 1);
+      localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
+      e.target.parentNode.childNodes[1].innerHTML = 'Add To Favorite';
+      e.target.classList.remove('add');
+      e.target.parentNode.childNodes[3].classList.remove('add');
+      return;
+    }
+  });
+}
 
 export const addToFavorite = function (e) {
   let arrayFavorites = {
