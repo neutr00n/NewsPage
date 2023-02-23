@@ -37,9 +37,6 @@ export function setDateApi(value) {
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
-  //-----
-  this.blur();
-  //----
   event.preventDefault();
   const searchingNews = event.target.search.value.trim().toLowerCase();
 
@@ -78,17 +75,13 @@ async function searchNewsfromApi(value, date) {
         if (target === nextPage) {
           paginationSearch.getNextPagination(response);
           paginationSearch.slicingResponse(response);
-          addClassPaginationCurrentPage(paginationSearch);
-          markUpSearchNews(paginationSearch.slicedResponse);
-          addWeather();
+          addPaginationArticlesMarkup(paginationSearch);
         }
 
         if (target === previousPage) {
           paginationSearch.getPreviousPagination();
           paginationSearch.slicingResponse(response);
-          addClassPaginationCurrentPage(paginationSearch);
-          markUpSearchNews(paginationSearch.slicedResponse);
-          addWeather();
+          addPaginationArticlesMarkup(paginationSearch);
         }
       }
 
@@ -97,9 +90,7 @@ async function searchNewsfromApi(value, date) {
 
         paginationSearch.setCurrentPage(target);
         paginationSearch.getCurrentPage(response);
-        addClassPaginationCurrentPage(paginationSearch);
-        markUpSearchNews(paginationSearch.slicedResponse);
-        addWeather();
+        addPaginationArticlesMarkup(paginationSearch);
       }
 
       markUpSearchNews(response);
@@ -121,4 +112,10 @@ function makeInfoMessage(message) {
     return;
   }
   Notify.info(message);
+}
+
+function addPaginationArticlesMarkup(cls) {
+  addClassPaginationCurrentPage(cls);
+  markUpSearchNews(cls.slicedResponse);
+  addWeather();
 }

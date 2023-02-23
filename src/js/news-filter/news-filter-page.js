@@ -62,17 +62,13 @@ popularNews()
       if (target === nextPage) {
         pagination.getNextPagination(response.data.results);
         pagination.slicingResponse(response.data.results);
-        addClassPaginationCurrentPage(pagination);
-        markUpNewsPopular(pagination.slicedResponse);
-        addWeather();
+        addPaginationArticlesMarkup(pagination);
       }
 
       if (target === previousPage) {
         pagination.getPreviousPagination();
         pagination.slicingResponse(response.data.results);
-        addClassPaginationCurrentPage(pagination);
-        markUpNewsPopular(pagination.slicedResponse);
-        addWeather();
+        addPaginationArticlesMarkup(pagination);
       }
     }
 
@@ -81,9 +77,7 @@ popularNews()
 
       pagination.setCurrentPage(target);
       pagination.getCurrentPage(response.data.results);
-      addClassPaginationCurrentPage(pagination);
-      markUpNewsPopular(pagination.slicedResponse);
-      addWeather();
+      addPaginationArticlesMarkup(pagination);
     }
 
     markUpNewsPopular(response.data.results);
@@ -226,4 +220,10 @@ function markUpSearch(arr) {
     )
     .join('');
   return array;
+}
+
+function addPaginationArticlesMarkup(cls) {
+  addClassPaginationCurrentPage(cls);
+  markUpNewsPopular(cls.slicedResponse);
+  addWeather();
 }
