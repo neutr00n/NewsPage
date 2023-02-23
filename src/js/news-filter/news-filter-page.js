@@ -27,7 +27,7 @@ import {
   addToFavorite,
   auditArrayNews,
   idDone,
-} from '../favorites/localStorage';
+} from '../favorites/features';
 import {
   getNewsToLocalStorage,
   makeOpacityReadedNews,
