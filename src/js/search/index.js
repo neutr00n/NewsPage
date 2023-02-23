@@ -37,6 +37,8 @@ export function setDateApi(value) {
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
+  searchForm.blur();
+
   event.preventDefault();
   const searchingNews = event.target.search.value.trim().toLowerCase();
 
