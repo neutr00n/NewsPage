@@ -42,17 +42,13 @@ export async function getFilterByCategory(category) {
       if (target === nextPage) {
         paginationCategories.getNextPagination(response);
         paginationCategories.slicingResponse(response);
-        addClassPaginationCurrentPage(paginationCategories);
-        markUpByCategory(paginationCategories.slicedResponse);
-        addWeather();
+        addPaginationArticlesMarkup(paginationCategories);
       }
 
       if (target === previousPage) {
         paginationCategories.getPreviousPagination();
         paginationCategories.slicingResponse(response);
-        addClassPaginationCurrentPage(paginationCategories);
-        markUpByCategory(paginationCategories.slicedResponse);
-        addWeather();
+        addPaginationArticlesMarkup(paginationCategories);
       }
     }
 
@@ -61,9 +57,7 @@ export async function getFilterByCategory(category) {
 
       paginationCategories.setCurrentPage(target);
       paginationCategories.getCurrentPage(response);
-      addClassPaginationCurrentPage(paginationCategories);
-      markUpByCategory(paginationCategories.slicedResponse);
-      addWeather();
+      addPaginationArticlesMarkup(paginationCategories);
     }
 
     markUpByCategory(response);
@@ -140,4 +134,10 @@ function markUp(arr) {
     )
     .join('');
   return array;
+}
+
+function addPaginationArticlesMarkup(cls) {
+  addClassPaginationCurrentPage(cls);
+  markUpByCategory(cls.slicedResponse);
+  addWeather();
 }
