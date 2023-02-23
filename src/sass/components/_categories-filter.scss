@@ -269,7 +269,7 @@ ul {
   display: flex;
   position: absolute;
   z-index: 1;
-  fill: var(--icon-up);
+  fill: var(--calendar-icon-up);
   right: 12px;
   cursor: pointer;
 
@@ -279,10 +279,6 @@ ul {
     fill: var(--white-color);
     rotate: -180deg;
   }
-
-  &.dark-theme-btn {
-    fill: #f4f4f4;
-    }
 }
 
 .calendar-input {
@@ -295,8 +291,10 @@ ul {
   width: 152px;
   height: 31px;
   padding: 5px 12px;
-  border: 1px solid var(--switcher-color);
+  border: 1px solid var(--calendar-accent-color);
   border-radius: 20px;
+  font-size: 12px;
+  line-height: 21px;
   
   text-align: center;
 
@@ -328,10 +326,6 @@ ul {
   } 
 }
 
-.dark-theme-border {
-  border: 1px solid #f4f4f4;
-}
-
 //  ---------   FORM-CALENDAR   ---------
 
 .current-date-container {
@@ -344,9 +338,10 @@ ul {
   color: var(--accent-color);
 }
 
-.icon-symbols__years {
-  margin-left: 4px;
-margin-top: 3px;
+.switches-years {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .current-date {
@@ -356,6 +351,10 @@ margin-top: 3px;
   letter-spacing: -0.408px;
   font-feature-settings: 'case' on;
   color: #000000;
+}
+
+.icon-symbols__years {
+color: var(--accent-color);
 }
 
 .calendar-wrapper {
@@ -392,7 +391,6 @@ margin-top: 3px;
   display: flex;
   justify-content: space-between;
   padding: 7px 0px;
-  height: 44px;
   margin-bottom: 2px;
   align-items: center;
 }
@@ -407,16 +405,6 @@ margin-top: 3px;
   box-shadow: 0px 10px 60px rgba(0, 0, 0, 0);
 
   transition: var(--transition);
-}
-
-
-.current-date {
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 1.38;
-  letter-spacing: -0.408px;
-  font-feature-settings: 'case' on;
-  color: #000000;
 }
 
 .calendar-icons {
@@ -463,6 +451,10 @@ margin-top: 3px;
   padding: 0;
 }
 
+// .inactive {
+//   display: none;
+// }
+
 .calendar .days li {
   z-index: 1;
   position: relative;
@@ -473,6 +465,7 @@ margin-top: 3px;
   line-height: 1.79;
   letter-spacing: 0.38px;
   color: #000000;
+  cursor: pointer;
 }
 
 .calendar .days li:nth-last-child(-n + 7) {
@@ -502,4 +495,5 @@ margin-top: 3px;
 
 .days li.inactive {
   color: #a2a2a2;
+  cursor: inherit;
 }

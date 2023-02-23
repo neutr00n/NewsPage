@@ -32,6 +32,7 @@ export function setDateApi(value) {
 }
 // export { endDateApi };
 
+
 // ______________________________________________________________________________
 
 searchForm.addEventListener('submit', handleSubmitSearchForm);
