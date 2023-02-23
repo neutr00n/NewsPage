@@ -27,6 +27,9 @@ $tablet-max: 1279.98px;
   --header-underline-color: rgba(0, 0, 0, 0.2);
   --gray-color: #a8a8a8;
 
+  --calendar-accent-color: #4440f6;
+  --calendar-icon-up: #A2A2A2;
+
   // статические цвета. Не менять!
   --black-color: #000000;
   --white-color: #ffffff;
@@ -42,6 +45,9 @@ $tablet-max: 1279.98px;
   --primary-text-color: #f4f4f4;
 
   --primary-bg-color: #2e2e2e;
+
+  --calendar-accent-color: #f4f4f4;
+  --calendar-icon-up: #f4f4f4;
 
   --header-underline-color: rgba(244, 244, 244, 0.2);
   --categories-filter-bnt-bg-color: #ffffff;

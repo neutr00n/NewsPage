@@ -48,9 +48,9 @@
   </div>
 
   
-<!-- инпут календаря -->
+  <!-- инпут календаря -->
   <p class="calendar-text">Search date news</p>
-  
+
   <div class="calendar-form">
     <div class="form-container" data-modal-open data-modal-close>
       <svg class="form-container__icon-calendar" width="14" height="14">
@@ -67,28 +67,33 @@
       </svg>
     </div>
 
-  <!-- Календарь -->
+    <!-- Календарь -->
 
     <div class="calendar-wrapper hidden" data-modal>
       <div class="calendar-wrapper__container">
         <div class="calendar-switcher">
-          <p class="current-date"></p>
+          <div class="switches-years">
+            <span id="prev-years" class="icon-symbols__years">
+              <svg width="16" height="12" transform="rotate(90)">
+                <use href="./images/symbol-defs.svg#icon-down"></use>
+              </svg>
+            </span>
+            <p class="current-date"></p>
+            <span id="next-years" class="icon-symbols__years">
+              <svg width="16" height="12" transform="rotate(270)">
+                <use href="./images/symbol-defs.svg#icon-down"></use>
+              </svg>
+            </span>
+          </div>
+
           <div class="calendar-icons">
             <span id="prev" class="icon-symbols">
-              <svg
-                width="16"
-                height="17"
-                transform="rotate(90)"
-              >
+              <svg width="16" height="17" transform="rotate(90)">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
             <span id="next" class="icon-symbols">
-              <svg
-                width="16"
-                height="17"
-                transform="rotate(270)"
-              >
+              <svg width="16" height="17" transform="rotate(270)">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
@@ -110,6 +115,5 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>

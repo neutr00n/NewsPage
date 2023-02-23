@@ -62,20 +62,29 @@ function hideModals(e) {
   }
 }
 
+// функция для рендеринга календаря
+
 const renderCalendar = () => {
-  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay(),
-  lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate(),
-  lastDayofMonth = new Date(
-    currentYear,
-    currentMonth,
-    lastDateofMonth
-  ).getDay(),
-  lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+  // получаем первый день месяца, последний день месяца, последний день предыдущего месяца
+
+  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay() - 1,
+    lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate(),
+    lastDayofMonth = new Date(
+      currentYear,
+      currentMonth,
+      lastDateofMonth
+    ).getDay(1),
+    lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   let liTag = '';
-  for (let j = firstDayofMonth - 1; j > 0; j--) {
+
+  // добавляем элементы для дней предыдущего месяца
+
+  for (let j = firstDayofMonth ; j > 0; j--) {
     liTag += `<li class="inactive">${lastDateofLastMonth - j + 1}</li>`;
   }
+
+  // добавляем элементы для дней текущего месяца
 
   for (let i = 1; i <= lastDateofMonth; i++) {
     const currentDateObj = new Date(currentYear, currentMonth, i);
@@ -84,29 +93,42 @@ const renderCalendar = () => {
       currentMonth === new Date().getMonth() &&
       currentYear === new Date().getFullYear();
     const isFuture = currentDateObj > today;
-    liTag += `<li class="${isToday ? 'active' : ''} ${isFuture ? 'future' : ''}">${i}</li>`;
+    liTag += `<li class="${isToday ? 'active' : ''} ${
+      isFuture ? 'future' : ''
+    }">${i}</li>`;
   }
+
+  // добавляем элементы для дней следующего месяца
 
   for (let i = lastDayofMonth; i < 7; i++) {
     liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
   }
 
+  // выводим текущую дату и элементы календаря в HTML
+
   currentDate.innerText = `${months[currentMonth]} ${currentYear}`;
   daysTag.innerHTML = liTag;
 
+  // обработчик события по клику на день
+
   const dayChange = document.querySelector('.days');
   dayChange.addEventListener('click', e => {
+    // проверяем, является ли элемент неактивным
+
     if (e.target.classList.contains('inactive')) {
       return;
     }
 
+    // удаляем класс "active" у всех дней и добавляем его только выбранному дню
+
     [...e.currentTarget.children].forEach(item => {
       item.classList.remove('active');
     });
-
     e.target.classList.add('active');
-    let selectedDay = e.target.textContent;
 
+    // получаем выбранную дату и выводим ее в инпут
+
+    let selectedDay = e.target.textContent;
     if (selectedDay.length > 10) {
       return;
     }
@@ -117,11 +139,11 @@ const renderCalendar = () => {
       '0'
     )}/${selectedMonth.padStart(2, '0')}/${currentYear}`;
 
+    // отправляем выбранную дату на сервер
     handleSelectedBeginDate();
-
   });
-
 };
+
 
 // функция для отправки даты в Api
 
@@ -129,10 +151,13 @@ let errorDisplayed = false; // чтобы один раз выводилась �
 
 const handleSelectedBeginDate = async () => {
   const selectedDay = document.querySelector('.days .active').textContent,
-  selectedMonth = (currentMonth + 1).toString(),
-  selectedYear = currentYear,
-  selectedDateStr = `${selectedYear}-${selectedMonth}-${selectedDay.padStart(2, '0')}`,
-  selectedDateObj = new Date(selectedDateStr);
+    selectedMonth = (currentMonth + 1).toString(),
+    selectedYear = currentYear,
+    selectedDateStr = `${selectedYear}-${selectedMonth}-${selectedDay.padStart(
+      2,
+      '0'
+    )}`,
+    selectedDateObj = new Date(selectedDateStr);
 
   try {
     if (selectedDateObj > today) {
@@ -145,8 +170,12 @@ const handleSelectedBeginDate = async () => {
       setDateApi(`${selectedDateStr}`);
       document.querySelector('[data-modal]').classList.add('hidden');
       document.querySelector('.calendar-input').classList.remove('isActive');
-      document.querySelector('.calendar__button-down').classList.remove('switched');
-      document.querySelector('.form-container__icon-calendar').classList.remove('switchedColor');
+      document
+        .querySelector('.calendar__button-down')
+        .classList.remove('switched');
+      document
+        .querySelector('.form-container__icon-calendar')
+        .classList.remove('switchedColor');
       errorDisplayed = false;
     }
   } catch (err) {
@@ -154,39 +183,66 @@ const handleSelectedBeginDate = async () => {
   }
 };
 
+// отправляем на сервер сегодняшнюю дату при загрузке страницы
+
+setDateApi(
+  `${today.getFullYear()}-${(today.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`
+);
+
 renderCalendar();
+
+// функции для переключения года
+const prevYearBtn = document.getElementById('prev-years');
+const nextYearBtn = document.getElementById('next-years');
+
+// обработчик события по клику на кнопку "предыдущий год"
+prevYearBtn.addEventListener('click', () => {
+  const prevYear = currentYear - 1;
+  if (prevYear < today.getFullYear()) {
+    currentYear = prevYear;
+    today = new Date(currentYear, currentMonth, today.getDate());
+    renderCalendar();
+  }
+});
+
+// обработчик события по клику на кнопку "следующий год"
+nextYearBtn.addEventListener('click', () => {
+  const nextYear = currentYear + 1;
+  if (nextYear <= new Date().getFullYear()) {
+    currentYear = nextYear;
+    today = new Date(currentYear, currentMonth, today.getDate());
+    renderCalendar();
+  } else {
+    Notiflix.Notify.failure(`Next year is beyond the current year`);
+  }
+});
 
 // переключатели месяцев
 
 switchesMonth.forEach(switchMonth => {
-  switchMonth.addEventListener('click', handleMonthSwitch);
-});
+  switchMonth.addEventListener('click', () => {
+    const nextMonth =
+      switchMonth.id === 'prev' ? currentMonth - 1 : currentMonth + 1;
 
-function handleMonthSwitch() {
-  const isPrevious = this.id === 'prev',
-  monthOffset = isPrevious ? -1 : 1;
-
-  currentMonth += monthOffset;
-
-  if (currentMonth < 0 || currentMonth > 11) {
-    const currentDate = new Date();
-    today = new Date(currentYear, currentMonth, currentDate.getDate());
-    currentYear = today.getFullYear();
-    currentMonth = today.getMonth();
-  } else {
-    today = new Date();
-  }
-
-  renderCalendar();
-
-  const dayCells = document.querySelectorAll('.calendar-day');
-  dayCells.forEach(dayCell => {
-    if (dayCell.textContent === today.getDate().toString()) {
-      dayCell.classList.add('active');
+    if (nextMonth < 0 || nextMonth > 11) {
+      const nextYear = nextMonth < 0 ? currentYear - 1 : currentYear + 1;
+      if (nextYear > new Date().getFullYear()) {
+        Notiflix.Notify.failure(`Next month is beyond the current month`);
+        return; // переключение запрещено
+      }
+      currentYear = nextYear;
+      currentMonth = nextMonth < 0 ? 11 : 0;
+    } else if (
+      currentYear === new Date().getFullYear() &&
+      nextMonth > new Date().getMonth()
+    ) {
+      Notiflix.Notify.failure(`Next month is beyond the current month`);
+      return; // переключение запрещено
     } else {
-      dayCell.classList.remove('active');
+      currentMonth = nextMonth;
     }
+    renderCalendar();
   });
-}
-
-renderCalendar();
+});
