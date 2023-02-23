@@ -4,7 +4,7 @@ import {
   appendPaginationBtnSearchMarkup,
   addClassPaginationCurrentPage,
 } from '../pagination/index';
-
+import { setStorage, getStorage } from '../local-storage';
 import {
   listNews,
   searchForm,
@@ -17,10 +17,11 @@ import {
   pagWrapper,
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
-// ---------------------------------------------------------------------------------------------
-import { makeOpacityReadedNews } from '../read/localStorage';
+// -------------------------------------------------------------------------------------------------------------------------------------------
+import {makeOpacityReadedNews} from '../read/localStorage.js'
 // ___________________________________________________________________________
-import { auditArrayNews } from '../favorites/feature';
+import {auditArrayNews,} from '../favorites/feature'
+// --------------------------------------------------------------------------------------------------------------------------------------------
 import { listNews } from '../refs/index';
 import { markUpSearchNews } from '../news-filter/news-filter-page';
 import { addWeather } from '../weather/index';
@@ -37,6 +38,8 @@ export function setDateApi(value) {
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
+
+  this.blur();
   event.preventDefault();
   const searchingNews = event.target.search.value.trim().toLowerCase();
 
@@ -75,13 +78,17 @@ async function searchNewsfromApi(value, date) {
         if (target === nextPage) {
           paginationSearch.getNextPagination(response);
           paginationSearch.slicingResponse(response);
-          addPaginationArticlesMarkup(paginationSearch);
+          addClassPaginationCurrentPage(paginationSearch);
+          markUpSearchNews(paginationSearch.slicedResponse);
+          addWeather();
         }
 
         if (target === previousPage) {
           paginationSearch.getPreviousPagination();
           paginationSearch.slicingResponse(response);
-          addPaginationArticlesMarkup(paginationSearch);
+          addClassPaginationCurrentPage(paginationSearch);
+          markUpSearchNews(paginationSearch.slicedResponse);
+          addWeather();
         }
       }
 
@@ -90,19 +97,20 @@ async function searchNewsfromApi(value, date) {
 
         paginationSearch.setCurrentPage(target);
         paginationSearch.getCurrentPage(response);
-        addPaginationArticlesMarkup(paginationSearch);
+        addClassPaginationCurrentPage(paginationSearch);
+        markUpSearchNews(paginationSearch.slicedResponse);
+        addWeather();
       }
-
       markUpSearchNews(response);
       addWeather();
     }
   } catch (err) {
     console.error(err);
   } finally {
-    () => makeOpacityReadedNews(() => auditArrayNews(listNews));
+    makeOpacityReadedNews(() => auditArrayNews(listNews))
   }
 }
-
+// --------------------------
 function removeClassFromCategoryBtn() {
   jsCategoryBtn.forEach(btn => btn.classList.remove('active'));
 }
@@ -112,10 +120,4 @@ function makeInfoMessage(message) {
     return;
   }
   Notify.info(message);
-}
-
-function addPaginationArticlesMarkup(cls) {
-  addClassPaginationCurrentPage(cls);
-  markUpSearchNews(cls.slicedResponse);
-  addWeather();
 }
