@@ -27,7 +27,9 @@ export async function getFilterByCategory(category) {
       notFound.classList.remove('not-found-hidden');
       return;
     }
+
     pagWrapper.classList.remove('pagination-hidden');
+    notFound.classList.add('not-found-hidden');
     paginationCategories.getTotalPages(response);
     appendPaginationBtnCategoriesMarkup();
 
@@ -72,15 +74,6 @@ export async function getFilterByCategory(category) {
 }
 
 function markUpByCategory(category) {
-  notFound.classList.add('not-found-hidden');
-  notFound.classList.add('not-found-hidden');
-  if (!category) {
-    listNews.innerHTML = '';
-    notFound.classList.remove('not-found-hidden');
-    notFound.classList.remove('not-found-hidden');
-    return;
-  }
-
   const markup = markupCategoriesNews(category);
 
   const weather = '<div class="weather"></div>';
