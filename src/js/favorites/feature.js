@@ -19,7 +19,7 @@ export const getNewsArray = function (e) {
   if (!e.target.classList.contains('button')) {
     return;
   } else if (e.target.classList.contains('add')) {
-    deletNews(e);
+    del(e);
   } else {
     addToFavorite(e);
   }
@@ -37,6 +37,30 @@ export const deletNews = function (e) {
   e.target.classList.remove('add');
   e.target.parentNode.childNodes[3].classList.remove('add');
 };
+
+export function del() {
+  idArrayPars.map(el => {
+    document.querySelectorAll('.set').forEach(element => {
+      let id = element.dataset.id;
+
+      if (id === el.id) {
+        const index = idArrayPars.map(el => el.id).indexOf(id);
+        console.log(index);
+        idArrayPars.splice(findIndex, 1);
+        // let index = idArrayPars.findIndex(id);
+        // console.log(index);
+        // console.log(element.dataset.id);
+        // element
+        //   .querySelector('.js-button_favorites')
+        //   .setAttribute('checked', 'true');
+        // element.querySelector('.js-button_favorites').classList.add('add');
+        // element.querySelector('.icon').classList.add('add');
+
+        // element.querySelector('lable').innerHTML = 'Remove From Favorite';
+      }
+    });
+  });
+}
 
 export const addToFavorite = function (e) {
   let arrayFavorites = {
