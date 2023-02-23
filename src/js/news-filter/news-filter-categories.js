@@ -27,7 +27,7 @@ export async function getFilterByCategory(category) {
       notFound.classList.remove('not-found-hidden');
       return;
     }
-    pagList.classList.remove('pagination-hidden');
+    pagWrapper.classList.remove('pagination-hidden');
     paginationCategories.getTotalPages(response);
     appendPaginationBtnCategoriesMarkup();
 
