@@ -15,7 +15,9 @@ import {
   pagWrapper,
 } from '../refs/index';
 import { markUpPage } from '../markup/index';
-
+import {makeOpacityReadedNews} from '../read/localStorage.js'
+// ___________________________________________________________________________
+import {auditArrayNews,} from '../favorites/feature'
 let newsId = 0;
 
 export async function getFilterByCategory(category) {
@@ -42,13 +44,17 @@ export async function getFilterByCategory(category) {
       if (target === nextPage) {
         paginationCategories.getNextPagination(response);
         paginationCategories.slicingResponse(response);
-        addPaginationArticlesMarkup(paginationCategories);
+        addClassPaginationCurrentPage(paginationCategories);
+        markUpByCategory(paginationCategories.slicedResponse);
+        addWeather();
       }
 
       if (target === previousPage) {
         paginationCategories.getPreviousPagination();
         paginationCategories.slicingResponse(response);
-        addPaginationArticlesMarkup(paginationCategories);
+        addClassPaginationCurrentPage(paginationCategories);
+        markUpByCategory(paginationCategories.slicedResponse);
+        addWeather();
       }
     }
 
@@ -57,11 +63,14 @@ export async function getFilterByCategory(category) {
 
       paginationCategories.setCurrentPage(target);
       paginationCategories.getCurrentPage(response);
-      addPaginationArticlesMarkup(paginationCategories);
+      addClassPaginationCurrentPage(paginationCategories);
+      markUpByCategory(paginationCategories.slicedResponse);
+      addWeather();
     }
 
     markUpByCategory(response);
     addWeather();
+    makeOpacityReadedNews(() => auditArrayNews(listNews))
   } catch (err) {
     console.error(err);
   }
@@ -134,10 +143,4 @@ function markUp(arr) {
     )
     .join('');
   return array;
-}
-
-function addPaginationArticlesMarkup(cls) {
-  addClassPaginationCurrentPage(cls);
-  markUpByCategory(cls.slicedResponse);
-  addWeather();
 }
