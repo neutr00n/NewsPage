@@ -10,10 +10,27 @@ import {
   previousPage,
   pagListBtn,
 } from '../refs/index';
-import { pagination, appendPaginationBtnMarkup } from '../pagination/index';
+import {
+  pagination,
+  appendPaginationBtnMarkup,
+  addClassPaginationCurrentPage,
+} from '../pagination/index';
 
-import {idArray,newsId,LOCALSTORAGE_KEY,idArrayPars,getNewsArray,deletNews,addToFavorite,auditArrayNews,idDone,} from '../favorites/localStorage'
-import { getNewsToLocalStorage, makeOpacityReadedNews} from '../read/localStorage.js'
+import {
+  idArray,
+  newsId,
+  LOCALSTORAGE_KEY,
+  idArrayPars,
+  getNewsArray,
+  deletNews,
+  addToFavorite,
+  auditArrayNews,
+  idDone,
+} from '../favorites/localStorage';
+import {
+  getNewsToLocalStorage,
+  makeOpacityReadedNews,
+} from '../read/localStorage.js';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 let arrayOfReadNews = [];
@@ -23,7 +40,10 @@ getStorage('readNews')
 // --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-listNews.addEventListener('click', (e) => { getNewsToLocalStorage(e,arrayOfReadNews); getNewsArray(e)});
+listNews.addEventListener('click', e => {
+  getNewsToLocalStorage(e, arrayOfReadNews);
+  getNewsArray(e);
+});
 popularNews();
 idDone();
 
@@ -33,7 +53,6 @@ function popularNews() {
       `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY_P}`
     )
     .then(response => {
- 
       pagination.getTotalPages(response.data.results);
       appendPaginationBtnMarkup();
 
@@ -46,18 +65,17 @@ function popularNews() {
         if (target === nextPage) {
           pagination.getNextPagination(response.data.results);
           pagination.slicingResponse(response.data.results);
-
+          addClassPaginationCurrentPage(pagination);
           markUpNewsPopular(pagination.slicedResponse);
           addWeather();
-          // console.log(pagination.slicedResponse);
         }
 
         if (target === previousPage) {
           pagination.getPreviousPagination();
           pagination.slicingResponse(response.data.results);
+          addClassPaginationCurrentPage(pagination);
           markUpNewsPopular(pagination.slicedResponse);
           addWeather();
-          // console.log(pagination.slicedResponse);
         }
       }
 
@@ -66,20 +84,17 @@ function popularNews() {
 
         pagination.setCurrentPage(target);
         pagination.getCurrentPage(response.data.results);
-
+        addClassPaginationCurrentPage(pagination);
         markUpNewsPopular(pagination.slicedResponse);
         addWeather();
-        // console.log(pagination.slicedResponse);
-        console.log(pagination.currentPage);
       }
 
       markUpNewsPopular(response.data.results);
       addWeather();
     })
-    // .then(() => readMore())
     .catch(error => console.log(error))
     // ------------------------------------------------------------------------------------------------------------------
-    .finally(()=> makeOpacityReadedNews(()=>auditArrayNews(listNews)));
+    .finally(() => makeOpacityReadedNews(() => auditArrayNews(listNews)));
   // -----------------------------------------------------------------------------------------------------------------------;;
 }
 
@@ -215,4 +230,3 @@ export function markUpSearchNews(arr) {
   listNews.innerHTML = `<div class="weather"></div>`;
   listNews.insertAdjacentHTML('beforeend', markUp());
 }
-
