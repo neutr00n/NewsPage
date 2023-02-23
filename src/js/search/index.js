@@ -31,7 +31,6 @@ let dateApi = '';
 export function setDateApi(value) {
   dateApi = value;
 }
-// export { endDateApi };
 
 // ______________________________________________________________________________
 
@@ -46,7 +45,7 @@ function handleSubmitSearchForm(event) {
   }
 
   notFound.classList.add('not-found-hidden');
-  pagList.classList.remove('pagination-hidden');
+  pagWrapper.classList.remove('pagination-hidden');
   removeClassFromCategoryBtn();
 
   searchNewsfromApi(searchingNews, dateApi);
