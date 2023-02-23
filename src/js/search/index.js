@@ -14,6 +14,7 @@ import {
   previousPage,
   pagListBtn,
   jsCategoryBtn,
+  pagWrapper,
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
@@ -31,7 +32,6 @@ export function setDateApi(value) {
   dateApi = value;
 }
 // export { endDateApi };
-
 
 // ______________________________________________________________________________
 
@@ -60,7 +60,7 @@ async function searchNewsfromApi(value, date) {
 
     if (response.length === 0) {
       listNews.innerHTML = '';
-      pagList.classList.add('pagination-hidden');
+      pagWrapper.classList.add('pagination-hidden');
       notFound.classList.remove('not-found-hidden');
     } else {
       paginationSearch.getTotalPages(response);
