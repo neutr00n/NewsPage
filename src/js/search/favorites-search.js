@@ -1,10 +1,10 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-import { searchForm, readNewsDateContainer, notFound } from '../refs/index';
+import { searchForm, notFound } from '../refs/index';
 import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
 import { auditArrayNews } from '../favorites/index'; //
-import {makeOpacityReadedNews} from '../read/localStorage.js'
+import { makeOpacityReadedNews } from '../read/localStorage.js';
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
@@ -51,7 +51,7 @@ function appendArticleMarkup(desiredNews, container) {
 function showNothingNotFound(arr) {
   notFound.classList.add('not-found-hidden');
 
-  if (arr.length === 0) {
+  if (arr.length) {
     notFound.classList.remove('not-found-hidden');
   }
 }
