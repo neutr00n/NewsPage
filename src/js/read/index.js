@@ -11,7 +11,7 @@ import {
     addToFavorite,
     auditArrayNews,
     idDone,
-} from '../favorites/localStorage'
+} from '../favorites/feature'
 let newsList = null;
 // -----------------------------------------------------------------------------------
 const localStorageReadNews = getStorage('readNews');

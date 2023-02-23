@@ -20,7 +20,7 @@ import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
 import { makeOpacityReadedNews } from '../read/localStorage';
 // ___________________________________________________________________________
-import { auditArrayNews } from '../favorites/localStorage';
+import { auditArrayNews } from '../favorites/feature';
 import { listNews } from '../refs/index';
 import { markUpSearchNews } from '../news-filter/news-filter-page';
 import { addWeather } from '../weather/index';
