@@ -182,6 +182,7 @@
   }
 
   &__preloader {
+    display: block;
     border-radius: 50%;
 
     z-index: 999;
@@ -355,6 +356,14 @@ ul {
 
 .icon-symbols__years {
   color: var(--accent-color);
+}
+
+.calendar__icon-right {
+  transform: rotate(90deg);
+}
+
+.calendar__icon-left {
+  transform: rotate(270deg);
 }
 
 .calendar-wrapper {

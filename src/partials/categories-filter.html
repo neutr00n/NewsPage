@@ -3,32 +3,32 @@
     <ul class="categories-filter__list list">
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
       <li class="categories-filter__item">
         <button class="categories-filter__btn js-category-btn">
-          <div class="categories-filter__preloader visible"></div>
+          <span class="categories-filter__preloader visible"></span>
         </button>
       </li>
     </ul>
@@ -47,7 +47,7 @@
     </div>
   </div>
 
-  
+
   <!-- инпут календаря -->
   <p class="calendar-text">Search date news</p>
 
@@ -56,12 +56,8 @@
       <svg class="form-container__icon-calendar" width="14" height="14">
         <use href="./images/symbol-defs.svg#icon-Frame"></use>
       </svg>
-      <input
-        readonly
-        id="input-picker"
-        class="calendar-input datepicker-here dark-theme-border"
-        placeholder="Виберіть дату..."
-      />
+      <input readonly id="input-picker" class="calendar-input datepicker-here dark-theme-border"
+        placeholder="Виберіть дату..." />
       <svg class="calendar__button-down dark-theme-btn" width="14" height="14">
         <use href="./images/symbol-defs.svg#icon-down"></use>
       </svg>
@@ -74,13 +70,13 @@
         <div class="calendar-switcher">
           <div class="switches-years">
             <span id="prev-years" class="icon-symbols__years">
-              <svg width="16" height="12" transform="rotate(90)">
+              <svg width="16" height="12" class="calendar__icon-right">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
             <p class="current-date"></p>
             <span id="next-years" class="icon-symbols__years">
-              <svg width="16" height="12" transform="rotate(270)">
+              <svg width="16" height="12" class="calendar__icon-left">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
@@ -88,12 +84,12 @@
 
           <div class="calendar-icons">
             <span id="prev" class="icon-symbols">
-              <svg width="16" height="17" transform="rotate(90)">
+              <svg width="16" height="17" class="calendar__icon-right">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
             <span id="next" class="icon-symbols">
-              <svg width="16" height="17" transform="rotate(270)">
+              <svg width="16" height="17" class="calendar__icon-left">
                 <use href="./images/symbol-defs.svg#icon-down"></use>
               </svg>
             </span>
