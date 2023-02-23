@@ -166,7 +166,7 @@
 
 
     &__title {
-        font-size: 18px;
+        font-size: 22px;
         line-height: 1.1;
         margin-top: 15px;
         color: black;
@@ -174,15 +174,15 @@
 
 
     &__name {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.1;
-        margin-top: 10px;
+        margin-top: 8px;
     }
 
 
     &__paragraph {
         margin-top: 20px;
-        font-size: 12px;
+        font-size: 15px;
         line-height: 1.1;
     }
 
@@ -284,7 +284,7 @@
     padding: 20px;
     color: black;
     transform: rotateY(180deg);
-    // background-color: #69687a;
+    background-color: #a9a8b8;
     z-index: 1;
     border-radius: 10px;
 }
