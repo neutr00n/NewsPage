@@ -1,11 +1,9 @@
+import { pagList, pagListBtn } from '../refs/index';
 import {
-  listNews,
-  notFound,
-  pagList,
-  nextPage,
-  previousPage,
-  pagListBtn,
-} from '../refs/index';
+  createPaginationFirstBtnMarkup,
+  createPaginationBtnMarkup,
+} from '../markup/index';
+
 export class Pagination {
   constructor() {
     this.mobileStaticLength = 4;
@@ -17,7 +15,6 @@ export class Pagination {
     this.DesktopLength = 8;
     this.totalPage = 1;
     this.currentPage = 1;
-    this.nextPage = 1;
     this.slicedResponse = [];
   }
 
@@ -60,6 +57,7 @@ export class Pagination {
       this.startLength += this.DesktopStaticLength;
       this.DesktopLength += this.DesktopStaticLength;
     }
+    this.getNextPage();
   }
 
   getPreviousPagination() {
@@ -79,10 +77,11 @@ export class Pagination {
       this.startLength -= this.DesktopStaticLength;
       this.DesktopLength -= this.DesktopStaticLength;
     }
+    this.getPreviousPage();
   }
 
   setCurrentPage(page) {
-    this.currentPage = page;
+    this.currentPage = Number(page);
   }
 
   getCurrentPage(response) {
@@ -131,11 +130,11 @@ export class Pagination {
   }
 
   getNextPage() {
-    this.nextPage += 1;
+    this.currentPage += 1;
   }
 
   getPreviousPage() {
-    this.nextPage -= 1;
+    this.currentPage -= 1;
   }
 
   getTotalPages(response) {
@@ -157,41 +156,71 @@ export const paginationSearch = new Pagination();
 
 export function appendPaginationBtnMarkup() {
   let pages = [];
+
   for (let i = 1; i <= pagination.totalPage; i += 1) {
     pages.push(i);
   }
 
-  const markup = pages.map(createPaginationBtnMarkup).join('');
+  const markup = pages
+    .map((btn, index) => {
+      if (index === 0) {
+        return createPaginationFirstBtnMarkup(btn);
+      }
+      return createPaginationBtnMarkup(btn);
+    })
+    .join('');
 
   pagListBtn.innerHTML = markup;
-
-  // pagListBtn.insertAdjacentHTML('beforeend', markup);
 }
 
 export function appendPaginationBtnCategoriesMarkup() {
   let pages = [];
+
   for (let i = 1; i <= paginationCategories.totalPage; i += 1) {
     pages.push(i);
   }
 
-  const markup = pages.map(createPaginationBtnMarkup).join('');
+  const markup = pages
+    .map((btn, index) => {
+      if (index === 0) {
+        return createPaginationFirstBtnMarkup(btn);
+      }
+      return createPaginationBtnMarkup(btn);
+    })
+    .join('');
 
   pagListBtn.innerHTML = markup;
 }
 
 export function appendPaginationBtnSearchMarkup() {
   let pages = [];
+
   for (let i = 1; i <= paginationSearch.totalPage; i += 1) {
     pages.push(i);
   }
 
-  const markup = pages.map(createPaginationBtnMarkup).join('');
+  const markup = pages
+    .map((btn, index) => {
+      if (index === 0) {
+        return createPaginationFirstBtnMarkup(btn);
+      }
+      return createPaginationBtnMarkup(btn);
+    })
+    .join('');
 
   pagListBtn.innerHTML = markup;
 }
 
-function createPaginationBtnMarkup(page) {
-  return `
-        <button class="pagination__btn pagination__btn-stat js-pagination__next-btn" data-pages='${page}'>${page}</button>
-  `;
+export function addClassPaginationCurrentPage({ currentPage }) {
+  const paginationPages = pagList.querySelectorAll('.js-pagination__page-btn');
+
+  paginationPages.forEach(btn => {
+    const numBtn = Number(btn.dataset.pages);
+
+    if (numBtn === currentPage) {
+      btn.classList.add('current-page');
+    } else {
+      btn.classList.remove('current-page');
+    }
+  });
 }

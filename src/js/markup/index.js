@@ -49,3 +49,15 @@ export function markUpPage(
       </div>
   </div>  `;
 }
+
+export function createPaginationFirstBtnMarkup(page) {
+  return `
+        <button class="pagination__btn pagination__btn-stat js-pagination__page-btn current-page " data-pages='${page}'>${page}</button>
+  `;
+}
+
+export function createPaginationBtnMarkup(page) {
+  return `
+        <button class="pagination__btn pagination__btn-stat js-pagination__page-btn " data-pages='${page}'>${page}</button>
+  `;
+}

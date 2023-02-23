@@ -2,6 +2,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import {
   paginationSearch,
   appendPaginationBtnSearchMarkup,
+  addClassPaginationCurrentPage,
 } from '../pagination/index';
 
 import {
@@ -18,11 +19,9 @@ import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
 import { makeOpacityReadedNews } from '../read/localStorage';
 // ___________________________________________________________________________
-import { auditArrayNews } from '../favorites/localStorage'
+import { auditArrayNews } from '../favorites/localStorage';
 import { listNews } from '../refs/index';
-import {
-  markUpSearchNews,
-} from '../news-filter/news-filter-page';
+import { markUpSearchNews } from '../news-filter/news-filter-page';
 import { addWeather } from '../weather/index';
 
 // ------------------- Для поиска новостей по выбранной дате-----------------------
@@ -63,9 +62,7 @@ async function searchNewsfromApi(value, date) {
       pagList.classList.add('pagination-hidden');
       notFound.classList.remove('not-found-hidden');
     } else {
-      console.log(response);
       paginationSearch.getTotalPages(response);
-      console.log(paginationSearch.totalPage);
 
       appendPaginationBtnSearchMarkup();
 
@@ -78,19 +75,17 @@ async function searchNewsfromApi(value, date) {
         if (target === nextPage) {
           paginationSearch.getNextPagination(response);
           paginationSearch.slicingResponse(response);
-
+          addClassPaginationCurrentPage(paginationSearch);
           markUpSearchNews(paginationSearch.slicedResponse);
           addWeather();
-          console.log(paginationSearch.slicedResponse);
         }
 
         if (target === previousPage) {
           paginationSearch.getPreviousPagination();
           paginationSearch.slicingResponse(response);
-
+          addClassPaginationCurrentPage(paginationSearch);
           markUpSearchNews(paginationSearch.slicedResponse);
           addWeather();
-          console.log(paginationSearch.slicedResponse);
         }
       }
 
@@ -99,7 +94,7 @@ async function searchNewsfromApi(value, date) {
 
         paginationSearch.setCurrentPage(target);
         paginationSearch.getCurrentPage(response);
-
+        addClassPaginationCurrentPage(paginationSearch);
         markUpSearchNews(paginationSearch.slicedResponse);
         addWeather();
       }
@@ -109,7 +104,9 @@ async function searchNewsfromApi(value, date) {
     }
   } catch (err) {
     console.error(err);
-  } finally { () => makeOpacityReadedNews(() => auditArrayNews(listNews)) }
+  } finally {
+    () => makeOpacityReadedNews(() => auditArrayNews(listNews));
+  }
 }
 
 function removeClassFromCategoryBtn() {

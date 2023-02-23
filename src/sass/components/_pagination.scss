@@ -64,6 +64,11 @@
   border-radius: 2px;
 
   cursor: pointer;
+
+  &.current-page {
+    background-color: var(--accent-color);
+    color: var(--white-color);
+  }
 }
 
 .pagination__btn:hover {

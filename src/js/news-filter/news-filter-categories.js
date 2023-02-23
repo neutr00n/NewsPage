@@ -3,6 +3,7 @@ import { filterByCategory } from '../api/index';
 import {
   paginationCategories,
   appendPaginationBtnCategoriesMarkup,
+  addClassPaginationCurrentPage,
 } from '../pagination/index';
 import {
   listNews,
@@ -19,7 +20,6 @@ let newsId = 0;
 export async function getFilterByCategory(category) {
   try {
     const response = await filterByCategory(category);
-    console.log(response);
     if (!response) {
       listNews.innerHTML = '';
       pagList.classList.add('pagination-hidden');
@@ -39,19 +39,17 @@ export async function getFilterByCategory(category) {
       if (target === nextPage) {
         paginationCategories.getNextPagination(response);
         paginationCategories.slicingResponse(response);
-
+        addClassPaginationCurrentPage(paginationCategories);
         markUpByCategory(paginationCategories.slicedResponse);
         addWeather();
-        console.log(paginationCategories.slicedResponse);
       }
 
       if (target === previousPage) {
         paginationCategories.getPreviousPagination();
         paginationCategories.slicingResponse(response);
-
+        addClassPaginationCurrentPage(paginationCategories);
         markUpByCategory(paginationCategories.slicedResponse);
         addWeather();
-        console.log(paginationCategories.slicedResponse);
       }
     }
 
@@ -60,11 +58,9 @@ export async function getFilterByCategory(category) {
 
       paginationCategories.setCurrentPage(target);
       paginationCategories.getCurrentPage(response);
-
+      addClassPaginationCurrentPage(paginationCategories);
       markUpByCategory(paginationCategories.slicedResponse);
       addWeather();
-      // console.log(paginationCategories.slicedResponse);
-      // console.log(paginationCategories.currentPage);
     }
 
     markUpByCategory(response);
