@@ -1,32 +1,8 @@
-const API_URL = 'https://api.openweathermap.org';
-const API_KEY = 'e4c4a816105585e0decb59b122fb2e21';
-import axios from 'axios';
 import Notiflix from 'notiflix';
 import { format } from 'date-fns';
-// const test = document.querySelector(".container")
-async function getWeatherStandart(){
-    try{
-        const response = await axios.get(`${API_URL}/data/2.5/weather?q=Toronto&units=metric&appid=${API_KEY}`);
-        return response.data;
-    }
-        catch(err){
-            // Notiflix.Notify.failure("Something went wrong");
-            console.log(err)
-        }
-    }
-    
-async function getWeatherGeo(position){
-    try{
-        const response = await axios.get(`${API_URL}/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=metric&appid=${API_KEY}`);
-        return response.data;
-        }
-        catch(err){
-            Notiflix.Notify.failure(err);
-        }
-    }
+import { getWeatherGeo,getWeatherStandart } from './api';
 
 async function createMarkup(promise){
-    // console.log(`LOOK HERE${promise}`)
         try{
             const {main, weather, dt, name} = await promise;
             const date = dt*1000;
@@ -45,7 +21,6 @@ async function createMarkup(promise){
     <p class="weather-card__date">${format(new Date(date), 'dd LLL y')}</p>
     <a  href="https://sinoptik.ua" class="weather-card__link weather-card__text--block" target="_blank" rel="noreferrer noopener">weather for week</a></div>`;
     const element = document.querySelector(".weather");
-    // element.insertAdjacentHTML('beforeend',markUp);
     element.innerHTML = markUp;
     }
     catch(err){
