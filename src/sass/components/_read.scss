@@ -1,27 +1,43 @@
-.read-date-news{
+.read-section {
+    padding-bottom: 140;
+
+    @include breakpoint(tablet) {
+        padding-bottom: 180px;
+    }
+
+    @include breakpoint(desktop) {
+        padding-bottom: 210px;
+    }
+}
+
+.read-date-news {
     display: flex;
     flex-direction: column-reverse;
-// }
-// .read-date-news:first-child{
-    margin-bottom:140px ;
-    @include breakpoint(tablet) {
-            margin-bottom:180px ;
-        }
-    
-        @include breakpoint(desktop) {
-            margin-bottom:210px ;
-        }
 }
 
+.read-list-news {
+    margin-bottom: 0;
+}
 
-.date-card{
+.date-card {
     display: block;
+    margin-top: 40px;
+
+    @include breakpoint(tablet) {
+        margin-top: 50px;
+    }
+
+    @include breakpoint(desktop) {
+        margin-top: 60px;
+    }
+
 }
-.date-btn{
+
+.date-btn {
     display: inline-flex;
     align-items: center;
     width: 100%;
-    margin: 0;
+    margin-bottom: 0;
     padding-bottom: 12px;
     padding-left: 0;
     padding-right: 0;
@@ -32,7 +48,9 @@
     color: var(--primary-text-color);
     background-color: var(--primary-bg-color);
 }
-.date-btn__text{
+
+
+.date-btn__text {
     font-family: $secondary-font;
     font-style: normal;
     font-weight: 400;
@@ -40,44 +58,38 @@
     line-height: 1.7;
     color: var(--primary-text-color);
 }
-.read_icon{
-    width:14px;
+
+.read_icon {
+    width: 14px;
     height: 9px;
     margin-left: 10px;
     align-items: center;
     align-items: center;
 }
-.date-btn___arrow{
+
+.date-btn___arrow {
     fill: currentColor;
     transition: rotate $transition-duration $timing-function,
-        
-   
 }
-.arrow_rotate{
-    rotate: -180deg;
-  }
 
-.dates{
-display: none;
-    margin-top: 30px;
-    @include breakpoint(desktop) {
-            margin-top: 40px;
-        }
+.arrow_rotate {
+    rotate: -180deg;
 }
-.show{
+
+.dates {
+    display: none;
+    margin-top: 30px;
+    margin-bottom: 0;
+
+    @include breakpoint(desktop) {
+        margin-top: 40px;
+    }
+}
+
+.show {
     display: block;
+
     @include breakpoint(tablet) {
         display: flex;
-        }
-}
-.read-list-news{
-    padding-top: 40px;
-    margin-bottom: 0;
-        @include breakpoint(tablet) {
-            padding-top: 50px;
-        }
-    
-        @include breakpoint(desktop) {
-            padding-top: 60px;
-        }
+    }
 }
