@@ -30,3 +30,12 @@ export async function filterByCategory(category) {
 
   return response.data.results;
 }
+
+export async function popularNews() {
+  const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
+  const response = await axios
+    .get(
+      `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY_P}`
+    );
+      return response
+}

@@ -1,5 +1,5 @@
 import { setStorage, getStorage } from '../local-storage';
-import axios from 'axios';
+import { popularNews } from '../api/index';
 import { addWeather } from '../weather/index';
 import { markUpPage } from '../markup/index';
 import {
@@ -38,21 +38,16 @@ let arrayOfReadNews = [];
 getStorage('readNews')
   ? (arrayOfReadNews = [...getStorage('readNews')])
   : (arrayOfReadNews = []);
-// --------------------------------------------------------------------------------------------------------------------------------------------------------------------
-const API_KEY_P = 'VYHuklirnHOoGLBMe1pMZhn6akzpgva6';
+
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 listNews.addEventListener('click', e => {
   getNewsToLocalStorage(e, arrayOfReadNews);
   getNewsArray(e);
 });
-popularNews();
+
 idDone();
 
-function popularNews() {
-  axios
-    .get(
-      `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${API_KEY_P}`
-    )
+    popularNews()
     .then(response => {
       pagination.getTotalPages(response.data.results);
       appendPaginationBtnMarkup();
@@ -98,24 +93,27 @@ function popularNews() {
     // ------------------------------------------------------------------------------------------------------------------
     .finally(() => makeOpacityReadedNews(() => auditArrayNews(listNews)));
   // -----------------------------------------------------------------------------------------------------------------------;;
-}
+
 
 function markUpNewsPopular(arr) {
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
-
-    markUp();
+    markUpPopular(arr);
   } else if (
     window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
   ) {
     arr = arr.slice(0, 7);
-    markUp();
+    markUpPopular(arr);
   } else {
     arr = arr.slice(0, 8);
-    markUp();
+    markUpPopular(arr);
   }
 
-  function markUp() {
+  listNews.innerHTML = `<div class="weather"></div>`;
+  listNews.insertAdjacentHTML('beforeend', markUpPopular(arr));
+}
+
+ function markUpPopular(arr) {
     const array = arr
       .map(
         (
@@ -157,25 +155,27 @@ function markUpNewsPopular(arr) {
       .join('');
     return array;
   }
-  listNews.innerHTML = `<div class="weather"></div>`;
-  listNews.insertAdjacentHTML('beforeend', markUp());
-}
+
 
 export function markUpSearchNews(arr) {
   if (window.matchMedia('(max-width: 767px)').matches) {
     arr = arr.slice(0, 4);
-    markUp();
+    markUpSearch(arr);
   } else if (
     window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
   ) {
     arr = arr.slice(0, 7);
-    markUp();
+    markUpSearch(arr);
   } else {
     arr = arr.slice(0, 8);
-    markUp();
+    markUpSearch(arr);
   }
 
-  function markUp() {
+  listNews.innerHTML = `<div class="weather"></div>`;
+  listNews.insertAdjacentHTML('beforeend', markUpSearch(arr));
+}
+
+  function markUpSearch(arr) {
     // console.log(arr);
     const array = arr
       .map(
@@ -229,6 +229,3 @@ export function markUpSearchNews(arr) {
       .join('');
     return array;
   }
-  listNews.innerHTML = `<div class="weather"></div>`;
-  listNews.insertAdjacentHTML('beforeend', markUp());
-}
