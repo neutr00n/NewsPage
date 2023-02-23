@@ -4,7 +4,7 @@ import { searchForm, readNewsDateContainer, notFound } from '../refs/index';
 import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
 import { auditArrayNews } from '../favorites/index'; //
-
+import {makeOpacityReadedNews} from '../read/localStorage.js'
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
@@ -35,7 +35,7 @@ function searchFromCurrentPage(searchingNews) {
 
   showNothingNotFound(desiredNews);
   appendArticleMarkup(desiredNews, listNews);
-  auditArrayNews();
+  makeOpacityReadedNews(() => auditArrayNews(listNews));
 }
 
 function appendArticleMarkup(desiredNews, container) {

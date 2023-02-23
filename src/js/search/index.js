@@ -99,7 +99,7 @@ async function searchNewsfromApi(value, date) {
   } catch (err) {
     console.error(err);
   } finally {
-    () => makeOpacityReadedNews(() => auditArrayNews(listNews));
+    makeOpacityReadedNews(() => auditArrayNews(listNews))
   }
 }
 
