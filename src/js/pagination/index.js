@@ -1,4 +1,4 @@
-import { pagList, pagListBtn } from '../refs/index';
+import { pagList, pagListBtn, pagWrapper } from '../refs/index';
 import {
   createPaginationFirstBtnMarkup,
   createPaginationBtnMarkup,
@@ -223,4 +223,8 @@ export function addClassPaginationCurrentPage({ currentPage }) {
       btn.classList.remove('current-page');
     }
   });
+}
+
+export function showPagination() {
+  pagWrapper.classList.remove('pagination-hidden');
 }

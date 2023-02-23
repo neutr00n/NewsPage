@@ -4,14 +4,8 @@
   justify-content: center;
   margin-bottom: 60px;
   margin-top: 40px;
-  font-family: Manrope;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 19px;
-  text-align: left;
-  background-color: var(--primary-bg-color);
+
   @include breakpoint(tablet) {
-    height: 31px;
     margin-bottom: 100px;
     margin-top: 48px;
   }
@@ -19,9 +13,10 @@
     margin-bottom: 150px;
     margin-top: 60px;
   }
-}
-.current-page {
-  background-color: var(--accent-color);
+
+  &.pagination-hidden {
+    display: none;
+  }
 }
 
 .pagination {
@@ -29,20 +24,17 @@
   justify-content: center;
   gap: 8px;
 
-  width: 288px;
-  @include breakpoint(tablet) {
-    width: 415px;
+  @include breakpoint(mobile) {
+    gap: 5px;
   }
-}
-
-.pagination.pagination-hidden {
-  display: none;
 }
 
 .pagination_list-btn {
   display: flex;
   gap: 8px;
+
   @include breakpoint(mobile) {
+    gap: 5px;
   }
 }
 
@@ -55,10 +47,10 @@
 
   font-weight: 500;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 1.38;
 
-  color: var(--primary-text-color);
-  background-color: transparent;
+  color: var(--article-btn-color);
+  background-color: var(--categories-filter-bnt--bgcolor);
 
   border: 1px solid var(--accent-color);
   border-radius: 2px;
@@ -67,13 +59,18 @@
 
   &.current-page {
     background-color: var(--accent-color);
-    color: var(--white-color);
+    color: var(--categories-filter-bnt--bgcolor);
   }
-}
 
-.pagination__btn:hover {
-  background-color: var(--accent-color);
-  color: var(--white-color);
+  &:hover {
+    background-color: var(--accent-color);
+    color: var(--categories-filter-bnt--bgcolor);
+  }
+
+  @include breakpoint(mobile) {
+    font-size: 14px;
+    line-height: 1.36;
+  }
 }
 
 .pagination__btn-stat {
@@ -86,19 +83,13 @@
 }
 
 .pagination_list-icon-left {
-  fill: (--primary-text-color);
+  fill: (--article-btn-color);
   rotate: 90deg;
   margin-right: 5px;
 }
 
 .pagination_list-icon-right {
-  fill: (--primary-text-color);
+  fill: (--article-btn-color);
   rotate: -90deg;
   margin-left: 5px;
-}
-
-.pagination_list {
-  @include breakpoint(mobile) {
-    gap: 5px;
-  }
 }
