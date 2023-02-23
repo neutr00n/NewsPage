@@ -99,7 +99,7 @@ async function searchNewsfromApi(value, date) {
   } catch (err) {
     console.error(err);
   } finally {
-    makeOpacityReadedNews(() => auditArrayNews(listNews))
+    makeOpacityReadedNews(() => auditArrayNews(listNews));
   }
 }
 
@@ -108,9 +108,6 @@ function removeClassFromCategoryBtn() {
 }
 
 function makeInfoMessage(message) {
-  if (window.matchMedia('(max-width: 767px)').matches) {
-    return;
-  }
   Notify.info(message);
 }
 

@@ -3,20 +3,10 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { searchForm, readNewsDateContainer, notFound } from '../refs/index';
 import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
-import {
-  newsId,
-  LOCALSTORAGE_KEY,
-  idArrayPars,
-    getNewsArray,
-    deletNews,
-    addToFavorite,
-    auditArrayNews,
-    idDone,
-idArray,
-} from '../favorites/feature'
+import { getNewsArray, auditArrayNews, idDone } from '../favorites/feature';
 
 searchForm.addEventListener('submit', handleSubmitSearchForm);
-idDone()
+idDone();
 function handleSubmitSearchForm(event) {
   event.preventDefault();
 
@@ -46,7 +36,7 @@ function searchFromCurrentPage(searchingNews) {
 
   showNothingNotFound(desiredNews);
   appendArticleMarkup(desiredNews, listNews);
-  auditArrayNews(listNews)
+  auditArrayNews(listNews);
   listNews.addEventListener('click', getNewsArray);
 }
 
