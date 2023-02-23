@@ -15,7 +15,8 @@ import {
   pagWrapper,
 } from '../refs/index';
 import { markUpPage } from '../markup/index';
-
+import {makeOpacityReadedNews} from '../read/localStorage.js'
+import {auditArrayNews,} from '../favorites/feature'
 let newsId = 0;
 
 export async function getFilterByCategory(category) {
@@ -62,6 +63,7 @@ export async function getFilterByCategory(category) {
 
     markUpByCategory(response);
     addWeather();
+    makeOpacityReadedNews(() => auditArrayNews(listNews))
   } catch (err) {
     console.error(err);
   }
