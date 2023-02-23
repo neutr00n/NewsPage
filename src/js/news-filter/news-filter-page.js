@@ -14,6 +14,7 @@ import {
   pagination,
   appendPaginationBtnMarkup,
   addClassPaginationCurrentPage,
+  showPagination,
 } from '../pagination/index';
 
 import {
@@ -55,6 +56,7 @@ function popularNews() {
     .then(response => {
       pagination.getTotalPages(response.data.results);
       appendPaginationBtnMarkup();
+      showPagination();
 
       pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
       pagList.addEventListener('click', handlePaginationBtnClick);

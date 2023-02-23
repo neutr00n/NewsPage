@@ -23,3 +23,4 @@ export const previousPage = document.querySelector(
   '.js-pagination__previous-btn'
 );
 export const pagListBtn = document.querySelector('.js-pagination__pages-list');
+export const pagWrapper = document.querySelector('.pagination__wrapper');
