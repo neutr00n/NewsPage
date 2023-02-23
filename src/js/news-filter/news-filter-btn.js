@@ -99,9 +99,12 @@ function addCategoriesBtnName(categories, currentCountBtn) {
 }
 
 function openCategoriesList() {
-  categoriesFilterBtn.classList.add('active');
-  categoriesFilterIcon.classList.add('rotate');
-  categoriesFilterContainer.classList.add('show-categories');
+  addClassElement(
+    'active',
+    categoriesFilterBtn,
+    categoriesFilterIcon,
+    categoriesFilterContainer
+  );
   categoriesFilterBtn.setAttribute('data-categories', 'open');
 
   document.addEventListener('keydown', handleKeyboardClick);
@@ -113,9 +116,13 @@ function openCategoriesList() {
 }
 
 function closeCategoriesList() {
-  categoriesFilterBtn.classList.remove('active');
-  categoriesFilterIcon.classList.remove('rotate');
-  categoriesFilterContainer.classList.remove('show-categories');
+  removeClassElement(
+    'active',
+    categoriesFilterBtn,
+    categoriesFilterIcon,
+    categoriesFilterContainer
+  );
+
   categoriesFilterBtn.removeAttribute('data-categories');
 
   document.removeEventListener('keydown', handleKeyboardClick);
@@ -159,4 +166,12 @@ function checkMatchMediaSize() {
     currentCountBtn = 6;
     getFetchCategoriesData();
   }
+}
+
+function addClassElement(cls, ...elements) {
+  elements.forEach(element => element.classList.add(cls));
+}
+
+function removeClassElement(cls, ...elements) {
+  elements.forEach(element => element.classList.remove(cls));
 }
