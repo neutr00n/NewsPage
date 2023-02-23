@@ -1,89 +1,49 @@
 import { setStorage } from '../local-storage/index';
 import { getStorage } from '../local-storage/index';
 
-const switcherArea = document.querySelector('.switcher');
-const lightRadioIcon = document.querySelector('.switcher-icon--light');
-const darkRadioIcon = document.querySelector('.switcher-icon--dark');
-const lightIndicator = document.querySelector('.switcher-indicator--light');
-const darkIndicator = document.querySelector('.switcher-indicator--dark');
-const switcheStatus = document.querySelector('.switcher__status');
 const bodyTheme = document.querySelector('body');
+const switcherArea = document.querySelector('.switcher');
+const elsOfSwitcher = document.querySelectorAll('.js-switcher');
 const pageByBody = document.body.dataset.set;
 
-// для календаря
-// const calendar = document.querySelector('.calendar-input'),
-//   inputBtnDown = document.querySelector('.calendar__button-down');
-//________________________________________________________________
+const darkClass = 'is-dark';
+const lightClass = 'is-light';
 
 const LOCAL_STORAGE_KEY = 'color-scheme';
 
 switcherArea.addEventListener('click', onSwitcherAreaClick);
 
 function onSwitcherAreaClick() {
-  changeStyle();
+  handleNeededStyle();
 }
 
-function changeStyle() {
-  let isScheme = bodyTheme.getAttribute('light');
+function handleNeededStyle() {
+  let currentTheme = bodyTheme.dataset.theme;
 
-  if (isScheme === 'light') {
-    takeDarkScheme();
-  } else if (isScheme !== 'light') {
-    takeLightScheme();
+  if (currentTheme === lightClass) {
+    changeColorScheme(currentTheme, darkClass);
+  } else if (currentTheme === darkClass) {
+    changeColorScheme(currentTheme, lightClass);
   }
 }
 
-function takeLightScheme() {
-  document.body.removeAttribute('dark');
-  document.body.setAttribute('light', 'light');
+function changeColorScheme(currentTheme, neededTheme) {
+  bodyTheme.setAttribute('data-theme', neededTheme);
 
-  lightRadioIcon.classList.add('is-light');
-  darkRadioIcon.classList.remove('is-dark');
+  elsOfSwitcher.forEach(el => {
+    el.classList.replace(currentTheme, neededTheme);
+  });
 
-  lightIndicator.classList.add('is-light');
-  darkIndicator.classList.remove('is-dark');
-
-  switcheStatus.classList.add('is-light');
-  switcheStatus.classList.remove('is-dark');
-
-  switcherArea.classList.remove('is-dark');
-
-  // для календаря
-  // calendar.classList.remove('dark-theme-border');
-  // inputBtnDown.classList.remove('dark-theme-btn');
-
-  setStorage(LOCAL_STORAGE_KEY, 'light');
-}
-
-function takeDarkScheme() {
-  document.body.removeAttribute('light');
-  document.body.setAttribute('dark', 'dark');
-
-  lightRadioIcon.classList.remove('is-light');
-  darkRadioIcon.classList.add('is-dark');
-
-  lightIndicator.classList.remove('is-light');
-  darkIndicator.classList.add('is-dark');
-
-  switcheStatus.classList.remove('is-light');
-  switcheStatus.classList.add('is-dark');
-
-  switcherArea.classList.add('is-dark');
-
-  // для календаря
-  // calendar.classList.add('dark-theme-border');
-  // inputBtnDown.classList.add('dark-theme-btn');
-
-  setStorage(LOCAL_STORAGE_KEY, 'dark');
+  setStorage(LOCAL_STORAGE_KEY, neededTheme);
 }
 
 function putCurrentScheme() {
   const savedScheme = getStorage(LOCAL_STORAGE_KEY);
 
   if (savedScheme !== null) {
-    if (savedScheme === 'dark') {
-      takeDarkScheme();
-    } else takeLightScheme();
+    if (savedScheme === darkClass) {
+      changeColorScheme(lightClass, darkClass);
+    } else changeColorScheme(darkClass, lightClass);
   }
 
   return;
