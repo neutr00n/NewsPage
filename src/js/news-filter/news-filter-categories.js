@@ -12,6 +12,7 @@ import {
   nextPage,
   previousPage,
   pagListBtn,
+  pagWrapper,
 } from '../refs/index';
 import { markUpPage } from '../markup/index';
 
@@ -22,7 +23,7 @@ export async function getFilterByCategory(category) {
     const response = await filterByCategory(category);
     if (!response) {
       listNews.innerHTML = '';
-      pagList.classList.add('pagination-hidden');
+      pagWrapper.classList.add('pagination-hidden');
       notFound.classList.remove('not-found-hidden');
       return;
     }
