@@ -113,6 +113,8 @@ function openCategoriesList() {
     'click',
     handleCategoriesFilterContainerClick
   );
+
+  document.addEventListener('click', handleBodyClickToCloseListCategories);
 }
 
 function closeCategoriesList() {
@@ -130,6 +132,7 @@ function closeCategoriesList() {
     'click',
     handleCategoriesFilterContainerClick
   );
+  document.removeEventListener('click', handleBodyClickToCloseListCategories);
 }
 
 function handleKeyboardClick(event) {
@@ -149,6 +152,13 @@ function handleCategoriesFilterContainerClick(event) {
   document.querySelector(
     '.js-categories-filter__btn span'
   ).textContent = `${category}`;
+}
+
+function handleBodyClickToCloseListCategories(event) {
+  if (event.target.closest('.categories-filter__wrap')) {
+    return;
+  }
+  closeCategoriesList();
 }
 
 function checkMatchMediaSize() {
