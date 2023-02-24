@@ -91,7 +91,8 @@
       background-color: var(--accent-color);
     }
 
-    &.active {
+    &.active,
+    &.show {
       color: var(--white-color);
       background-color: var(--accent-color);
     }
@@ -113,6 +114,10 @@
     &.active {
       fill: var(--white-color);
       rotate: -180deg;
+    }
+
+    &.show {
+      fill: var(--white-color);
     }
   }
 
