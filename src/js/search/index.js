@@ -33,7 +33,7 @@ export function setDateApi(value) {
 }
 
 // ______________________________________________________________________________
-
+let isListening = false;
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {
@@ -70,8 +70,11 @@ async function searchNewsfromApi(value, date) {
 
     appendPaginationBtnSearchMarkup();
 
-    pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
-    pagList.addEventListener('click', handlePaginationBtnClick);
+    if (!isListening) {
+      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+      pagList.addEventListener('click', handlePaginationBtnClick);
+      isListening = true;
+    }
 
     function handlePaginationBtnClick(event) {
       const target = event.target;

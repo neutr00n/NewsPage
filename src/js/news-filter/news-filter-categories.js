@@ -19,6 +19,7 @@ import { makeOpacityReadedNews } from '../read/localStorage.js';
 // ___________________________________________________________________________
 import { auditArrayNews } from '../favorites/feature';
 let newsId = 0;
+let isListening = false;
 
 export async function getFilterByCategory(category) {
   try {
@@ -29,6 +30,13 @@ export async function getFilterByCategory(category) {
       notFound.classList.remove('not-found-hidden');
       return;
     }
+
+    if (!isListening) {
+      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+      pagList.addEventListener('click', handlePaginationBtnClick);
+      isListening = true;
+    }
+
     pagWrapper.classList.remove('pagination-hidden');
     notFound.classList.add('not-found-hidden');
 
@@ -36,9 +44,6 @@ export async function getFilterByCategory(category) {
     paginationCategories.response = response;
     paginationCategories.getTotalPages();
     appendPaginationBtnCategoriesMarkup();
-
-    pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
-    pagList.addEventListener('click', handlePaginationBtnClick);
 
     function handlePaginationBtnClick(event) {
       const target = event.target;

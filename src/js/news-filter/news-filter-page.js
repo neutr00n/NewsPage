@@ -40,6 +40,8 @@ getStorage('readNews')
   : (arrayOfReadNews = []);
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------------------
+let isListening = false;
+
 listNews.addEventListener('click', e => {
   getNewsToLocalStorage(e, arrayOfReadNews);
   getNewsArray(e);
@@ -54,8 +56,11 @@ popularNews()
     appendPaginationBtnMarkup();
     showPagination();
 
-    pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
-    pagList.addEventListener('click', handlePaginationBtnClick);
+    if (!isListening) {
+      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+      pagList.addEventListener('click', handlePaginationBtnClick);
+      isListening = true;
+    }
 
     function handlePaginationBtnClick(event) {
       const target = event.target;
