@@ -4,7 +4,7 @@ import { searchForm, notFound } from '../refs/index';
 import { getStorage } from '../local-storage/index';
 import { markUpPage } from '../markup/index';
 import { auditArrayNews } from '../favorites/index'; //
-import { makeOpacityReadedNews } from '../read/localStorage.js';
+import { makeOpacityReadedNews } from '../read/feature';
 searchForm.addEventListener('submit', handleSubmitSearchForm);
 
 function handleSubmitSearchForm(event) {

@@ -28,10 +28,7 @@ import {
   auditArrayNews,
   idDone,
 } from '../favorites/feature';
-import {
-  getNewsToLocalStorage,
-  makeOpacityReadedNews,
-} from '../read/localStorage.js';
+import { getNewsToLocalStorage, makeOpacityReadedNews } from '../read/feature';
 
 // -----------------------------------------------------------------------------------------------------------------------------------------------------------
 let arrayOfReadNews = [];
