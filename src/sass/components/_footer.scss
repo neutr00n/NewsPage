@@ -165,6 +165,10 @@
 .footer-form-thumb {
   margin-bottom: 60px;
   text-align: center;
+
+  @media screen and (min-width: $desktop) {
+    margin-left: 70px;
+  }
 }
 
 .footer-form-thumb__text {
@@ -187,10 +191,6 @@
 .footer-form {
   @media screen and (min-width: $tablet) {
     display: flex;
-  }
-
-  @media screen and (min-width: $desktop) {
-    margin-left: 70px;
   }
 }
 
