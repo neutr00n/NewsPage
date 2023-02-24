@@ -61,41 +61,44 @@ async function searchNewsfromApi(value, date) {
       listNews.innerHTML = '';
       pagWrapper.classList.add('pagination-hidden');
       notFound.classList.remove('not-found-hidden');
-    } else {
-      paginationSearch.getTotalPages(response);
+      return;
+    }
 
-      appendPaginationBtnSearchMarkup();
+    paginationSearch.resetSlicedLength();
+    paginationSearch.response = response;
+    paginationSearch.getTotalPages();
 
-      pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
-      pagList.addEventListener('click', handlePaginationBtnClick);
+    appendPaginationBtnSearchMarkup();
 
-      function handlePaginationBtnClick(event) {
-        const target = event.target;
+    pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
+    pagList.addEventListener('click', handlePaginationBtnClick);
 
-        if (target === nextPage) {
-          paginationSearch.getNextPagination(response);
-          paginationSearch.slicingResponse(response);
-          addPaginationArticlesMarkup(paginationSearch);
-        }
+    function handlePaginationBtnClick(event) {
+      const target = event.target;
 
-        if (target === previousPage) {
-          paginationSearch.getPreviousPagination();
-          paginationSearch.slicingResponse(response);
-          addPaginationArticlesMarkup(paginationSearch);
-        }
-      }
-
-      function handlePaginationBtnClickPages(event) {
-        const target = event.target.dataset.pages;
-
-        paginationSearch.setCurrentPage(target);
-        paginationSearch.getCurrentPage(response);
+      if (target === nextPage) {
+        paginationSearch.getNextPagination();
+        paginationSearch.slicingResponse();
         addPaginationArticlesMarkup(paginationSearch);
       }
 
-      markUpSearchNews(response);
-      addWeather();
+      if (target === previousPage) {
+        paginationSearch.getPreviousPagination();
+        paginationSearch.slicingResponse();
+        addPaginationArticlesMarkup(paginationSearch);
+      }
     }
+
+    function handlePaginationBtnClickPages(event) {
+      const target = event.target.dataset.pages;
+
+      paginationSearch.setCurrentPage(target);
+      paginationSearch.getCurrentPage();
+      addPaginationArticlesMarkup(paginationSearch);
+    }
+
+    markUpSearchNews(response);
+    addWeather();
   } catch (err) {
     console.error(err);
   } finally {

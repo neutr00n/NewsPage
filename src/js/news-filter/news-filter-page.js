@@ -49,7 +49,8 @@ idDone();
 
 popularNews()
   .then(response => {
-    pagination.getTotalPages(response.data.results);
+    pagination.response = response.data.results;
+    pagination.getTotalPages();
     appendPaginationBtnMarkup();
     showPagination();
 
@@ -60,14 +61,14 @@ popularNews()
       const target = event.target;
 
       if (target === nextPage) {
-        pagination.getNextPagination(response.data.results);
-        pagination.slicingResponse(response.data.results);
+        pagination.getNextPagination();
+        pagination.slicingResponse();
         addPaginationArticlesMarkup(pagination);
       }
 
       if (target === previousPage) {
         pagination.getPreviousPagination();
-        pagination.slicingResponse(response.data.results);
+        pagination.slicingResponse();
         addPaginationArticlesMarkup(pagination);
       }
     }
@@ -76,7 +77,7 @@ popularNews()
       const target = event.target.dataset.pages;
 
       pagination.setCurrentPage(target);
-      pagination.getCurrentPage(response.data.results);
+      pagination.getCurrentPage();
       addPaginationArticlesMarkup(pagination);
     }
 

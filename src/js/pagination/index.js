@@ -6,6 +6,8 @@ import {
 
 export class Pagination {
   constructor() {
+    this.response = [];
+    this.slicedResponse = [];
     this.mobileStaticLength = 4;
     this.TabletStaticLength = 7;
     this.DesktopStaticLength = 8;
@@ -15,27 +17,32 @@ export class Pagination {
     this.DesktopLength = 8;
     this.totalPage = 1;
     this.currentPage = 1;
-    this.slicedResponse = [];
   }
 
-  slicingResponse(response) {
+  slicingResponse() {
     if (window.matchMedia('(max-width: 767px)').matches) {
-      this.slicedResponse = response.slice(this.startLength, this.mobileLength);
+      this.slicedResponse = this.response.slice(
+        this.startLength,
+        this.mobileLength
+      );
     } else if (
       window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
     ) {
-      this.slicedResponse = response.slice(this.startLength, this.TabletLength);
+      this.slicedResponse = this.response.slice(
+        this.startLength,
+        this.TabletLength
+      );
     } else {
-      this.slicedResponse = response.slice(
+      this.slicedResponse = this.response.slice(
         this.startLength,
         this.DesktopLength
       );
     }
   }
 
-  getNextPagination(response) {
+  getNextPagination() {
     if (window.matchMedia('(max-width: 767px)').matches) {
-      if (this.mobileLength >= response.length) {
+      if (this.mobileLength >= this.response.length) {
         return;
       }
 
@@ -44,14 +51,14 @@ export class Pagination {
     } else if (
       window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
     ) {
-      if (this.TabletLength >= response.length) {
+      if (this.TabletLength >= this.response.length) {
         return;
       }
 
       this.startLength += this.TabletStaticLength;
       this.TabletLength += this.TabletStaticLength;
     } else {
-      if (this.DesktopLength >= response.length) {
+      if (this.DesktopLength >= this.response.length) {
         return;
       }
       this.startLength += this.DesktopStaticLength;
@@ -84,16 +91,16 @@ export class Pagination {
     this.currentPage = Number(page);
   }
 
-  getCurrentPage(response) {
+  getCurrentPage() {
     if (window.matchMedia('(max-width: 767px)').matches) {
       if (this.currentPage === 1) {
         this.startLength = 0;
         this.mobileLength = this.mobileStaticLength;
-        this.slicedResponse = response.slice(0, this.mobileStaticLength);
+        this.slicedResponse = this.response.slice(0, this.mobileStaticLength);
       } else {
         this.startLength = this.mobileStaticLength * (this.currentPage - 1);
         this.mobileLength = this.mobileStaticLength * this.currentPage;
-        this.slicedResponse = response.slice(
+        this.slicedResponse = this.response.slice(
           this.startLength,
           this.mobileLength
         );
@@ -104,11 +111,11 @@ export class Pagination {
       if (this.currentPage === 1) {
         this.startLength = 0;
         this.TabletLength = this.TabletStaticLength;
-        this.slicedResponse = response.slice(0, this.TabletStaticLength);
+        this.slicedResponse = this.response.slice(0, this.TabletStaticLength);
       } else {
         this.startLength = this.TabletStaticLength * (this.currentPage - 1);
         this.TabletLength = this.TabletStaticLength * this.currentPage;
-        this.slicedResponse = response.slice(
+        this.slicedResponse = this.response.slice(
           this.startLength,
           this.TabletLength
         );
@@ -117,11 +124,11 @@ export class Pagination {
       if (this.currentPage === 1) {
         this.startLength = 0;
         this.DesktopLength = this.DesktopStaticLength;
-        this.slicedResponse = response.slice(0, this.DesktopStaticLength);
+        this.slicedResponse = this.response.slice(0, this.DesktopStaticLength);
       } else {
         this.startLength = this.DesktopStaticLength * (this.currentPage - 1);
         this.DesktopLength = this.DesktopStaticLength * this.currentPage;
-        this.slicedResponse = response.slice(
+        this.slicedResponse = this.response.slice(
           this.startLength,
           this.DesktopLength
         );
@@ -137,15 +144,31 @@ export class Pagination {
     this.currentPage -= 1;
   }
 
-  getTotalPages(response) {
+  resetSlicedLength() {
+    this.startLength = 0;
+    this.currentPage = 1;
+    this.slicedResponse = [];
+    this.response = [];
     if (window.matchMedia('(max-width: 767px)').matches) {
-      this.totalPage = Math.ceil(response.length / 4);
+      this.mobileLength = this.mobileStaticLength;
     } else if (
       window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
     ) {
-      this.totalPage = Math.ceil(response.length / 7);
+      this.TabletLength = this.TabletStaticLength;
     } else {
-      this.totalPage = Math.ceil(response.length / 8);
+      this.DesktopLength = this.DesktopStaticLength;
+    }
+  }
+
+  getTotalPages() {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      this.totalPage = Math.ceil(this.response.length / 4);
+    } else if (
+      window.matchMedia('(min-width: 768px) and (max-width: 1279px)').matches
+    ) {
+      this.totalPage = Math.ceil(this.response.length / 7);
+    } else {
+      this.totalPage = Math.ceil(this.response.length / 8);
     }
   }
 }

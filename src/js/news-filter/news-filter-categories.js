@@ -15,9 +15,9 @@ import {
   pagWrapper,
 } from '../refs/index';
 import { markUpPage } from '../markup/index';
-import {makeOpacityReadedNews} from '../read/localStorage.js'
+import { makeOpacityReadedNews } from '../read/localStorage.js';
 // ___________________________________________________________________________
-import {auditArrayNews,} from '../favorites/feature'
+import { auditArrayNews } from '../favorites/feature';
 let newsId = 0;
 
 export async function getFilterByCategory(category) {
@@ -29,10 +29,12 @@ export async function getFilterByCategory(category) {
       notFound.classList.remove('not-found-hidden');
       return;
     }
-
     pagWrapper.classList.remove('pagination-hidden');
     notFound.classList.add('not-found-hidden');
-    paginationCategories.getTotalPages(response);
+
+    paginationCategories.resetSlicedLength();
+    paginationCategories.response = response;
+    paginationCategories.getTotalPages();
     appendPaginationBtnCategoriesMarkup();
 
     pagListBtn.addEventListener('click', handlePaginationBtnClickPages);
@@ -42,14 +44,14 @@ export async function getFilterByCategory(category) {
       const target = event.target;
 
       if (target === nextPage) {
-        paginationCategories.getNextPagination(response);
-        paginationCategories.slicingResponse(response);
+        paginationCategories.getNextPagination();
+        paginationCategories.slicingResponse();
         addPaginationArticlesMarkup(paginationCategories);
       }
 
       if (target === previousPage) {
         paginationCategories.getPreviousPagination();
-        paginationCategories.slicingResponse(response);
+        paginationCategories.slicingResponse();
         addPaginationArticlesMarkup(paginationCategories);
       }
     }
@@ -58,13 +60,13 @@ export async function getFilterByCategory(category) {
       const target = event.target.dataset.pages;
 
       paginationCategories.setCurrentPage(target);
-      paginationCategories.getCurrentPage(response);
+      paginationCategories.getCurrentPage();
       addPaginationArticlesMarkup(paginationCategories);
     }
 
     markUpByCategory(response);
     addWeather();
-    makeOpacityReadedNews(() => auditArrayNews(listNews))
+    makeOpacityReadedNews(() => auditArrayNews(listNews));
   } catch (err) {
     console.error(err);
   }
