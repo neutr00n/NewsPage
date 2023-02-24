@@ -14,3 +14,5 @@ import './js/calendar';
 import './js/weather';
 import './js/pagination';
 import './js/team';
+
+import './js/footer-modal';
