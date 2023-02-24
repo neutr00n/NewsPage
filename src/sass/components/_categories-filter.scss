@@ -1,13 +1,16 @@
 .news {
-  padding: 24px 0 60px 0;
+  padding-top: 24px;
 
-  @include breakpoint(tablet) {
-    padding: 28px 0 100px 0;
-  }
+  // padding: 24px 0 60px 0;
 
-  @include breakpoint(desktop) {
-    padding: 28px 0 150px 0;
-  }
+  // @include breakpoint(tablet) {
+  //   padding: 28px 0 100px 0;
+  // }
+
+  // @include breakpoint(desktop) {
+  //   padding: 28px 0 150px 0;
+  // }
+  //закоменчено 12-27
 }
 
 .filter-elements {
