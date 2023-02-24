@@ -30,6 +30,9 @@ function handleCategoriesContainerClick(event) {
   }
 
   const currentActiveBtn = event.currentTarget.querySelector('.active');
+  if (event.target.classList.contains('js-category-btn')) {
+    removeClassElement('show', categoriesFilterBtn, categoriesFilterIcon);
+  }
   currentActiveBtn?.classList.remove('active');
 
   const nextActiveBtn = event.target;
@@ -146,7 +149,7 @@ function handleCategoriesFilterContainerClick(event) {
   if (event.target.nodeName !== 'A') {
     return;
   }
-
+  addClassElement('show', categoriesFilterBtn, categoriesFilterIcon);
   const category = event.target.textContent;
 
   document.querySelector(
