@@ -1,97 +1,88 @@
 import { setDateApi } from '../search/index';
 import Notiflix from 'notiflix';
 
-const daysTag = document.querySelector('.days'),
-  currentDate = document.querySelector('.current-date'),
-  switchesMonth = document.querySelectorAll('.calendar-icons span'),
-  selectedDate = document.getElementById('input-picker');
+
+import { daysTag, currentDate, switchesMonth, selectedDate, calendar, calendarForm } from '../refs/index';
 
 let today = new Date(),
   currentMonth = today.getMonth(),
   currentYear = today.getFullYear();
 
-const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+   const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
-const calendar = {
-  openModalBtn: document.querySelector('[data-modal-open]'),
-  closeModalBtn: document.querySelector('body'),
-  modal: document.querySelector('[data-modal]'),
-  inputField: document.querySelector('.calendar-input'),
-  toggleBtn: document.querySelector('.calendar__button-down'),
-  calendarBtn: document.querySelector('.form-container__icon-calendar'),
+
+// при закрытии календаря изменяем разметку
+const closeModalAndResetCalendar = () => {
+  calendarForm.querySelector('[data-modal]').classList.add('hidden');
+  calendarForm.querySelector('.calendar-input').classList.remove('isActive');
+  calendarForm.querySelector('.calendar__button-down').classList.remove('switched');
+  calendarForm.querySelector('.form-container__icon-calendar').classList.remove('switchedColor');
 };
 
-// обработчик события по клику на инпут
-
-calendar.openModalBtn.addEventListener('click', toggleCalendar);
-
-function toggleCalendar() {
+function calendarEl(e) {
   const { modal, inputField, toggleBtn, calendarBtn } = calendar;
-
   modal.classList.toggle('hidden');
   inputField.classList.toggle('isActive');
   toggleBtn.classList.toggle('switched');
   calendarBtn.classList.toggle('switchedColor');
-}
+};
+
+// обработчик события по клику на инпут
+calendar.openModalBtn.addEventListener('click', function() {
+  calendarEl();
+});
 
 // обработчик события по клику вне календаря
-
 document.addEventListener('click', hideModals);
 
 function hideModals(e) {
-  const { modal, inputField, toggleBtn, calendarBtn } = calendar;
   if (e.target.closest('.calendar-form')) return;
-  if (inputField.classList.contains('isActive')) {
-    modal.classList.add('hidden');
-    inputField.classList.remove('isActive');
-    toggleBtn.classList.remove('switched');
-    calendarBtn.classList.remove('switchedColor');
+  if (calendar.inputField.classList.contains('isActive')) {
+    calendarEl();
   }
 }
 
-// функция для рендеринга календаря
+// ---------  ФУНКЦИЯ ДЛЯ РЕНДЕРИНГА КАЛЕНДАРЯ  ---------
 
-const renderCalendar = () => {
+const render = () => {
+
   // получаем первый день месяца, последний день месяца, последний день предыдущего месяца
-
-  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay() - 1,
-    lastDateofMonth = new Date(currentYear, currentMonth + 1, 0).getDate(),
+  const firstDayofMonth = new Date(currentYear, currentMonth, 1).getDay() - 1, // меняю тут для отображения понедельника, просто убираю - 1
+    lastDateofMonth = new Date(currentYear, currentMonth, 0).getDate(),
     lastDayofMonth = new Date(
       currentYear,
       currentMonth,
       lastDateofMonth
-    ).getDay(1),
+    ).getDay(),
     lastDateofLastMonth = new Date(currentYear, currentMonth, 0).getDate();
 
   let liTag = '';
 
   // добавляем элементы для дней предыдущего месяца
-
   for (let j = firstDayofMonth ; j > 0; j--) {
     liTag += `<li class="inactive">${lastDateofLastMonth - j + 1}</li>`;
   }
 
   // добавляем элементы для дней текущего месяца
-
   for (let i = 1; i <= lastDateofMonth; i++) {
     const currentDateObj = new Date(currentYear, currentMonth, i);
     const isToday =
       i === today.getDate() &&
-      currentMonth === new Date().getMonth() &&
-      currentYear === new Date().getFullYear();
+      currentMonth === today.getMonth() &&
+      currentYear === today.getFullYear();
     const isFuture = currentDateObj > today;
     liTag += `<li class="${isToday ? 'active' : ''} ${
       isFuture ? 'future' : ''
@@ -99,35 +90,30 @@ const renderCalendar = () => {
   }
 
   // добавляем элементы для дней следующего месяца
-
-  for (let i = lastDayofMonth; i < 7; i++) {
+  for (let i = lastDayofMonth; i < 7; i++) { // меняю тут для отображения понедельника на i < 6
     liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`;
   }
 
   // выводим текущую дату и элементы календаря в HTML
-
   currentDate.innerText = `${months[currentMonth]} ${currentYear}`;
   daysTag.innerHTML = liTag;
 
   // обработчик события по клику на день
-
   const dayChange = document.querySelector('.days');
   dayChange.addEventListener('click', e => {
-    // проверяем, является ли элемент неактивным
 
+    // проверяем, является ли элемент неактивным
     if (e.target.classList.contains('inactive')) {
       return;
     }
 
     // удаляем класс "active" у всех дней и добавляем его только выбранному дню
-
     [...e.currentTarget.children].forEach(item => {
       item.classList.remove('active');
     });
     e.target.classList.add('active');
 
     // получаем выбранную дату и выводим ее в инпут
-
     let selectedDay = e.target.textContent;
     if (selectedDay.length > 10) {
       return;
@@ -145,10 +131,8 @@ const renderCalendar = () => {
 };
 
 
-// функция для отправки даты в Api
-
+// --------  ФУНКЦИЯ ДЛЯ ОТПРАВКИ ДАТЫ НА API  --------
 let errorDisplayed = false; // чтобы один раз выводилась ошибка на экран
-
 const handleSelectedBeginDate = async () => {
   const selectedDay = document.querySelector('.days .active').textContent,
     selectedMonth = (currentMonth + 1).toString(),
@@ -167,15 +151,8 @@ const handleSelectedBeginDate = async () => {
       }
       throw new Error(err);
     } else {
-      setDateApi(`${selectedDateStr}`);
-      document.querySelector('[data-modal]').classList.add('hidden');
-      document.querySelector('.calendar-input').classList.remove('isActive');
-      document
-        .querySelector('.calendar__button-down')
-        .classList.remove('switched');
-      document
-        .querySelector('.form-container__icon-calendar')
-        .classList.remove('switchedColor');
+      setDateApi(`${selectedDateStr}`); 
+      closeModalAndResetCalendar();
       errorDisplayed = false;
     }
   } catch (err) {
@@ -183,17 +160,16 @@ const handleSelectedBeginDate = async () => {
   }
 };
 
-// отправляем на сервер сегодняшнюю дату при загрузке страницы
 
+// отправляем на сервер сегодняшнюю дату при загрузке страницы
 setDateApi(
   `${today.getFullYear()}-${(today.getMonth() + 1)
     .toString()
     .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`
 );
 
-renderCalendar();
 
-// функции для переключения года
+// --------  ПЕРЕКЛЮЧАТЕЛИ ГОДОВ  --------
 const prevYearBtn = document.getElementById('prev-years');
 const nextYearBtn = document.getElementById('next-years');
 
@@ -203,7 +179,7 @@ prevYearBtn.addEventListener('click', () => {
   if (prevYear < today.getFullYear()) {
     currentYear = prevYear;
     today = new Date(currentYear, currentMonth, today.getDate());
-    renderCalendar();
+    render();
   }
 });
 
@@ -213,14 +189,14 @@ nextYearBtn.addEventListener('click', () => {
   if (nextYear <= new Date().getFullYear()) {
     currentYear = nextYear;
     today = new Date(currentYear, currentMonth, today.getDate());
-    renderCalendar();
+    render();
   } else {
     Notiflix.Notify.failure(`Next year is beyond the current year`);
   }
 });
 
-// переключатели месяцев
 
+// --------  ПЕРЕКЛЮЧАТЕЛИ МЕСЯЦЕВ  --------
 switchesMonth.forEach(switchMonth => {
   switchMonth.addEventListener('click', () => {
     const nextMonth =
@@ -243,6 +219,8 @@ switchesMonth.forEach(switchMonth => {
     } else {
       currentMonth = nextMonth;
     }
-    renderCalendar();
+    render();
   });
 });
+
+render();
