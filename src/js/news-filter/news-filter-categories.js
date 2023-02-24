@@ -15,7 +15,7 @@ import {
   pagWrapper,
 } from '../refs/index';
 import { markUpPage } from '../markup/index';
-import { makeOpacityReadedNews } from '../read/localStorage.js';
+import { makeOpacityReadedNews } from '../read/feature';
 // ___________________________________________________________________________
 import { auditArrayNews } from '../favorites/feature';
 let newsId = 0;

@@ -2,7 +2,7 @@ import {
   checkStorageReadNews,
   getNewsToLocalStorage,
   makeOpacityReadedNews,
-} from '../read/localStorage';
+} from '../read/feature';
 import { getStorage } from '../local-storage';
 
 let arrayOfReadNews = [];

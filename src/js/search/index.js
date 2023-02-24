@@ -18,7 +18,7 @@ import {
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
-import { makeOpacityReadedNews } from '../read/localStorage';
+import { makeOpacityReadedNews } from '../read/feature';
 // ___________________________________________________________________________
 import { auditArrayNews } from '../favorites/feature';
 import { listNews } from '../refs/index';
