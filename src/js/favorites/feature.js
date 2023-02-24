@@ -30,7 +30,6 @@ export function deletNews(e) {
   idArrayPars.map(el => {
     if (id === el.id) {
       const index = idArrayPars.map(el => el.id).indexOf(id);
-      console.log(index);
       idArrayPars.splice(index, 1);
       localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
       e.target.parentNode.childNodes[1].innerHTML = 'Add To Favorite';

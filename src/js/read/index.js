@@ -89,12 +89,10 @@ const dateButton = document.querySelectorAll('.date-btn');
     };
         };
         button.addEventListener('click', () => {
-            console.log(button.lastElementChild.firstElementChild)
             button.lastElementChild.firstElementChild.classList.toggle('arrow_rotate');
             button.nextSibling.nextSibling.classList.toggle('show');
            
             const pageList = document.querySelector('#dateNowList')
-            console.log(pageList)
             pageList.addEventListener('click', getNewsArray)
         });
     });

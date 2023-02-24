@@ -171,7 +171,6 @@ export function markUpSearchNews(arr) {
 }
 
 function markUpSearch(arr) {
-  // console.log(arr);
   const array = arr
     .map(
       (
