@@ -51,7 +51,7 @@ function appendArticleMarkup(desiredNews, container) {
 function showNothingNotFound(arr) {
   notFound.classList.add('not-found-hidden');
 
-  if (arr.length) {
+  if (!arr.length) {
     notFound.classList.remove('not-found-hidden');
   }
 }
