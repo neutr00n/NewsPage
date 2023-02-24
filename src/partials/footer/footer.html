@@ -1,4 +1,4 @@
-<footer class="footer">
+<footer class="footer footer-page">
   <div class="container footer-container">
     <div class="footer-lbsf-wrapper">
       <div class="footer-lbs-wrapper">
@@ -139,10 +139,9 @@
     <p class="policy-text policy-text--hidden">
       2023 News. All right reserved.
     </p>
-    <!-- <button class="team__btn">Team</button> -->
   </div>
 
-  <div class="footer-mobile-modal mobile-modal-backdrop is-hidden">
+  <div class="footer-mobile-modal mobile-modal-backdrop">
     <div class="footer-mobile-modal-reg">
       <button class="modal-btn-close" type="button" data-modal-close>
         <svg class="modal-btn-close__icon" width="11" height="11">
@@ -151,32 +150,47 @@
       </button>
 
       <form class="modal-form">
-        <label for="name" class="form-field form-label">Name</label>
-        <div class="input-thumb">
-          <input type="text" name="name" id="name" class="form-input" />
-          <svg class="form-icon" width="18" height="18">
-            <use href="./images/symbol.svg#iconname"></use>
-          </svg>
-        </div>
-
-        <label for="phone" class="form-field form-label">Phone</label>
-        <div class="input-thumb">
-          <input type="tel" name="phone" id="phone" class="form-input" />
-          <svg class="form-icon" width="18" height="18">
-            <use href="./images/symbol.svg#icontruba"></use>
-          </svg>
-        </div>
-
-        <label for="email" class="form-field form-label">Mail</label>
+        <label for="name" class="form-field form-label">Mail</label>
         <div class="input-thumb">
           <input
             type="email"
             name="email"
             id="email"
             class="form-input form-input__mail"
+            placeholder="Enter your email"
           />
           <svg class="form-icon" width="18" height="18">
             <use href="./images/symbol.svg#iconmail"></use>
+          </svg>
+        </div>
+
+        <label for="password" class="form-field form-label">Password</label>
+        <div class="input-thumb">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-input form-input__password"
+            placeholder="Enter Password"
+          />
+          <svg class="form-icon" width="18" height="18">
+            <use href="./images/symbol.svg#iconname"></use>
+          </svg>
+        </div>
+
+        <label for="repeat password" class="form-field form-label"
+          >Repeat Password</label
+        >
+        <div class="input-thumb">
+          <input
+            type="repeat password"
+            name="repeat password"
+            id="repeat password"
+            class="form-input form-input__password form-input__repeat-password"
+            placeholder="Repeat Password"
+          />
+          <svg class="form-icon" width="18" height="18">
+            <use href="./images/symbol.svg#iconname"></use>
           </svg>
         </div>
 
@@ -187,7 +201,7 @@
               <use href="./images/symbol.svg#fullcheck"></use>
             </svg>
           </span>
-          Accept
+          By creating an account you agree to our
           <a
             class="check-link-treaty"
             href="https://dotcomcanvas.de/en/policies/privacy-policy?utm_source=google&utm_medium=paid&utm_campaign=18032491326&utm_content=&utm_term=&gadid=&gclid=Cj0KCQjwwfiaBhC7ARIsAGvcPe68nWrmMfnjrjWL0agrH0YxT8sBAmS4i-G_ADvE3O3vOiyUsGVu_6MaArtqEALw_wcB"

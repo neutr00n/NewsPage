@@ -1,8 +1,12 @@
+.footer-page {
+  border-top: 1px solid var(--header-underline-color);
+}
+
 .footer {
   padding-top: 60px;
   padding-bottom: 60px;
 
-  background-color: #7a7a7a;
+  background-color: var(--footer-bg-color);
 }
 
 .footer-container {
@@ -448,6 +452,19 @@
   border: 1px solid rgba(33, 33, 33, 0.2);
   border-radius: 4px;
 
+  &::placeholder {
+    font-size: 12px;
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+    opacity: 0.4;
+    color: rgba(33, 33, 33, 0.9);
+
+    @media screen and (min-width: $tablet) {
+      font-size: 14px;
+      line-height: 1.71;
+    }
+  }
+
   &:focus {
     outline: 0;
     outline-offset: 0;
@@ -456,7 +473,11 @@
 }
 
 .form-input__mail {
-  margin-bottom: 100px;
+  margin-bottom: 40px;
+}
+
+.form-input__repeat-password {
+  margin-bottom: 60px;
 }
 
 .input-thumb {
@@ -535,6 +556,9 @@
 }
 
 .form-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   padding: 10px;
 
   min-width: 200px;
