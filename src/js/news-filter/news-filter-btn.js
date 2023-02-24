@@ -133,7 +133,6 @@ function closeCategoriesList() {
 }
 
 function handleKeyboardClick(event) {
-  console.log(event.code);
   if (event.code !== 'Escape') {
     return;
   }

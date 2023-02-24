@@ -29,9 +29,7 @@ creatFavoritesList(idArrayPars);
 makeOpacityReadedNews(auditArrayNews);
 
 function creatFavoritesList(arr) {
-  console.log(idArray);
   if (!idArrayPars.length) {
-    console.log('hello');
     const notFound = document.querySelector('.not-found');
     notFound.classList.remove('not-found-hidden');
   } else {
@@ -48,7 +46,6 @@ function creatFavoritesList(arr) {
           idLenght,
           category,
         }) => {
-          // console.log(title);
           return markUpPage(
             photo,
             title,
@@ -73,7 +70,7 @@ function deletNewsFavorite(e) {
     const findIndex = +idArrayPars.findIndex(
       el => el.idLenght === +e.target.attributes[2].value
     );
-    // console.log(e.target.attributes[2].value);
+
     idArrayPars.splice(findIndex, 1);
 
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
@@ -88,7 +85,6 @@ export function auditArrayNews() {
       let id = element.dataset.id;
 
       if (id === el.id) {
-        // console.log(element)
         element
           .querySelector('.js-button_favorites')
           .setAttribute('checked', 'true');
