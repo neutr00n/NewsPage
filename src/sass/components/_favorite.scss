@@ -48,3 +48,17 @@ lable {
   margin: 0;
   padding: 0;
 }
+
+.favorites ~ .not-found {
+  @media screen and (min-width: $mobile) {
+    margin-top: -60px;
+  }
+
+  @media screen and (min-width: $tablet) {
+    margin-top: -100px;
+  }
+
+  @media screen and (min-width: $desktop) {
+    margin-top: -300px;
+  }
+}
