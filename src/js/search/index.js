@@ -15,6 +15,7 @@ import {
   pagListBtn,
   jsCategoryBtn,
   pagWrapper,
+  categoriesFilter,
 } from '../refs/index';
 import { fetchSearch } from '../api/index';
 // ---------------------------------------------------------------------------------------------
@@ -111,6 +112,9 @@ async function searchNewsfromApi(value, date) {
 
 function removeClassFromCategoryBtn() {
   jsCategoryBtn.forEach(btn => btn.classList.remove('active'));
+  categoriesFilter
+    .querySelectorAll('.js-show-cat')
+    .forEach(btn => btn.classList.remove('show'));
 }
 
 function makeInfoMessage(message) {
