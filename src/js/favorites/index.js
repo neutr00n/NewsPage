@@ -11,6 +11,7 @@ getStorage('readNews')
   : (arrayOfReadNews = []);
 
 import { markUpPage } from '../markup/index';
+import { notFound } from '../refs/index';
 // const favoritesEL = document.querySelector('.favorits-list');
 const listNews = document.querySelector('.list-news');
 
@@ -30,7 +31,6 @@ makeOpacityReadedNews(auditArrayNews);
 
 function creatFavoritesList(arr) {
   if (!idArrayPars.length) {
-    const notFound = document.querySelector('.not-found');
     notFound.classList.remove('not-found-hidden');
   } else {
     let array = arr
@@ -76,6 +76,8 @@ function deletNewsFavorite(e) {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(idArrayPars));
 
     e.target.parentNode.parentNode.parentNode.remove();
+
+    showNothingNotFound(idArrayPars);
   }
 }
 
@@ -108,4 +110,12 @@ export function buttonClass() {
   label.forEach(el => {
     el.innerHTML = 'Remove from favorite';
   });
+}
+function showNothingNotFound(arr) {
+  console.log(arr);
+  notFound.classList.add('not-found-hidden');
+
+  if (!arr.length) {
+    notFound.classList.remove('not-found-hidden');
+  }
 }
