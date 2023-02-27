@@ -79,6 +79,9 @@ function deletNewsFavorite(e) {
 
     showNothingNotFound(idArrayPars);
   }
+  if (listNews.children.length===0) {
+       notFound.classList.remove('not-found-hidden');
+     }
 }
 
 export function auditArrayNews() {
